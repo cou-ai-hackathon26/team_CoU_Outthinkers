@@ -1,0 +1,10 @@
+# Root .gitignore contains shared rules. Keep server-specific rules here too
+# so this folder remains safe if it is copied independently.
+node_modules/
+dist/
+generated/
+tmp/
+.env
+.env.*
+!.env.example
+*.log

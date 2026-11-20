@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  PATIENT
+  NURSE
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING
+}
+
+enum OtpPurpose {
+  PATIENT_LOGIN
+}
+
+enum AuditActorType {
+  USER
+  SYSTEM
+}
+
+model User {
+  id               String       @id @default(cuid())
+  role             UserRole
+  status           UserStatus   @default(ACTIVE)
+  publicId         String?      @unique @map("public_id")
+  email            String?      @unique
+  phone            String?      @unique
+  passwordHash     String?      @map("password_hash")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+
+  patientProfile   PatientProfile?
+  staffProfile     StaffProfile?
+  requestedOtps    OtpChallenge[] @relation("OtpRequestedBy")
+  createdAuditLogs AuditLog[]   @relation("AuditActor")
+  passwordResets   PasswordResetToken[]
+
+  @@index([role, status])
+  @@map("users")
+}
+
+model PatientProfile {
+  userId                 String   @id @map("user_id")
+  name                   String
+  contactNumber          String?  @map("contact_number")
+  dateOfBirth            DateTime @map("date_of_birth") @db.Date
+  emergencyContactNumber String   @map("emergency_contact_number")
+  address                String
+  divisionId             String   @map("division_id")
+  districtId             String   @map("district_id")
+  upazilaId              String   @map("upazila_id")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  division Division @relation(fields: [divisionId], references: [id])
+  district District @relation(fields: [districtId], references: [id])
+  upazila  Upazila  @relation(fields: [upazilaId], references: [id])
+
+  @@index([divisionId, districtId, upazilaId])
+  @@map("patient_profiles")
+}
+
+model StaffProfile {
+  userId     String   @id @map("user_id")
+  employeeId String   @unique @map("employee_id")
+  name       String
+  address    String
+  divisionId String   @map("division_id")
+  districtId String   @map("district_id")
+  upazilaId  String   @map("upazila_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  division Division @relation(fields: [divisionId], references: [id])
+  district District @relation(fields: [districtId], references: [id])
+  upazila  Upazila  @relation(fields: [upazilaId], references: [id])
+
+  @@index([divisionId, districtId, upazilaId])
+  @@map("staff_profiles")
+}
+
+model Division {
+  id             String           @id
+  nameBn         String           @map("name_bn")
+  nameEn         String           @map("name_en")
+  sortName       String           @map("sort_name")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  districts      District[]
+  patientProfiles PatientProfile[]
+  staffProfiles   StaffProfile[]
+
+  @@unique([nameBn])
+  @@unique([nameEn])
+  @@index([sortName])
+  @@map("divisions")
+}
+
+model District {
+  id              String           @id
+  divisionId      String           @map("division_id")
+  nameBn          String           @map("name_bn")
+  nameEn          String           @map("name_en")
+  sortName        String           @map("sort_name")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  division        Division         @relation(fields: [divisionId], references: [id], onDelete: Restrict)
+  upazilas        Upazila[]
+  patientProfiles PatientProfile[]
+  staffProfiles   StaffProfile[]
+
+  @@unique([divisionId, nameBn])
+  @@unique([divisionId, nameEn])
+  @@index([divisionId, sortName])
+  @@map("districts")
+}
+
+model Upazila {
+  id              String           @id
+  districtId      String           @map("district_id")
+  nameBn          String           @map("name_bn")
+  nameEn          String           @map("name_en")
+  sortName        String           @map("sort_name")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  district        District         @relation(fields: [districtId], references: [id], onDelete: Restrict)
+  patientProfiles PatientProfile[]
+  staffProfiles   StaffProfile[]
+
+  @@unique([districtId, nameBn])
+  @@unique([districtId, nameEn])
+  @@index([districtId, sortName])
+  @@map("upazilas")
+}
+
+model PublicIdCounter {
+  key       String   @id
+  nextValue Int      @map("next_value")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("public_id_counters")
+}
+
+model OtpChallenge {
+  id          String      @id @default(cuid())
+  userId      String?     @map("user_id")
+  purpose     OtpPurpose
+  destination String
+  codeHash    String      @map("code_hash")
+  expiresAt   DateTime    @map("expires_at")
+  attempts    Int         @default(0)
+  consumedAt  DateTime?   @map("consumed_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  requestedBy User?       @relation("OtpRequestedBy", fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([destination, purpose, expiresAt])
+  @@index([userId, purpose, createdAt])
+  @@map("otp_challenges")
+}
+
+model PasswordResetToken {
+  id         String    @id @default(cuid())
+  userId     String    @map("user_id")
+  tokenHash  String    @map("token_hash")
+  expiresAt  DateTime  @map("expires_at")
+  consumedAt DateTime? @map("consumed_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@map("password_reset_tokens")
+}
+
+model AuditLog {
+  id          String         @id @default(cuid())
+  actorType   AuditActorType @map("actor_type")
+  actorUserId String?        @map("actor_user_id")
+  action      String
+  targetType  String         @map("target_type")
+  targetId    String?        @map("target_id")
+  metadata    Json?
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  actorUser   User?          @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([actorUserId, createdAt])
+  @@index([targetType, targetId, createdAt])
+  @@map("audit_logs")
+}

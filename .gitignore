@@ -1,0 +1,39 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies and generated/build output
+**/node_modules/
+**/dist/
+**/build/
+**/.vite/
+server/generated/
+ai-service/.venv/
+ai-service/__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Local temporary files, test output, and runtime logs
+tmp/
+**/tmp/
+*.log
+
+# Coverage and tooling caches
+coverage/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
