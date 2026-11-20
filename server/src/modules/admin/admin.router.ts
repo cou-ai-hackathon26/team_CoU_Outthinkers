@@ -3,8 +3,10 @@ import { Request, Response, Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { allocatePublicId } from "../auth/id-counter";
+import adminOverviewRouter from "./admin-overview";
 
 const router = Router();
+router.use(adminOverviewRouter);
 router.use(requireAuth, requireRole("ADMIN"));
 
 function clean(value: unknown) {
