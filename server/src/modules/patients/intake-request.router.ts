@@ -1,4 +1,5 @@
 import { Router } from "express";
+import axios from "axios";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 
@@ -7,6 +8,23 @@ router.use(requireAuth, requireRole("PATIENT"));
 
 function clean(value: unknown) {
   return String(value || "").trim();
+}
+
+async function enrichIntake(intakeId: string, transcriptText: string) {
+  try {
+    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const result = await axios.post(`${aiUrl}/extract`, { transcript: transcriptText }, { timeout: 120000 });
+    await prisma.$transaction(async (transaction) => {
+      await transaction.patientIntakeRequest.update({ where: { id: intakeId }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data } });
+      await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: "PATIENT_INTAKE_AI_SUMMARY_CREATED", targetType: "PatientIntakeRequest", targetId: intakeId } });
+    });
+  } catch (error) {
+    console.error("AI intake extraction failed", error);
+    await prisma.$transaction(async (transaction) => {
+      await transaction.patientIntakeRequest.update({ where: { id: intakeId }, data: { status: "READY_FOR_REVIEW", aiSummary: { extractionStatus: "FAILED", uncertain_fields: ["AI summary তৈরি করা যায়নি; transcript নিজে যাচাই করুন"] } } });
+      await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: "PATIENT_INTAKE_AI_SUMMARY_FAILED", targetType: "PatientIntakeRequest", targetId: intakeId } });
+    }).catch((updateError) => console.error("Failed to save AI extraction status", updateError));
+  }
 }
 
 router.post("/intake-requests", async (request, response) => {
@@ -23,13 +41,14 @@ router.post("/intake-requests", async (request, response) => {
 
   const requestRecord = await prisma.$transaction(async (transaction) => {
     const intake = await transaction.patientIntakeRequest.create({
-      data: { patientUserId: auth.userId, transcriptText, audioStorageKey, originalFilename, mimeType, status: "SUBMITTED", transcriptionStatus: "COMPLETED" },
+      data: { patientUserId: auth.userId, transcriptText, audioStorageKey, originalFilename, mimeType, status: "PROCESSING", transcriptionStatus: "COMPLETED" },
       select: { id: true, status: true, submittedAt: true },
     });
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PATIENT_INTAKE_REQUEST_SUBMITTED", targetType: "PatientIntakeRequest", targetId: intake.id } });
     return intake;
   });
 
+  void enrichIntake(requestRecord.id, transcriptText);
   response.status(201).json({ message: "আপনার care request স্বাস্থ্যকর্মীর কাছে পাঠানো হয়েছে।", data: requestRecord });
 });
 
