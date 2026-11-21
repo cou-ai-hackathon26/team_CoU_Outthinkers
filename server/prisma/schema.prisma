@@ -28,22 +28,97 @@ enum AuditActorType {
   SYSTEM
 }
 
-model User {
-  id               String       @id @default(cuid())
-  role             UserRole
-  status           UserStatus   @default(ACTIVE)
-  publicId         String?      @unique @map("public_id")
-  email            String?      @unique
-  phone            String?      @unique
-  passwordHash     String?      @map("password_hash")
-  createdAt        DateTime     @default(now()) @map("created_at")
-  updatedAt        DateTime     @updatedAt @map("updated_at")
+enum PregnancyCaseStatus {
+  ACTIVE
+  COMPLETED
+  CLOSED
+}
 
-  patientProfile   PatientProfile?
-  staffProfile     StaffProfile?
-  requestedOtps    OtpChallenge[] @relation("OtpRequestedBy")
-  createdAuditLogs AuditLog[]   @relation("AuditActor")
-  passwordResets   PasswordResetToken[]
+enum CareEventType {
+  INITIAL_INTAKE
+  ANTENATAL_VISIT
+  POSTNATAL_VISIT
+  HOME_VISIT
+  PHONE_FOLLOW_UP
+  MANUAL_OBSERVATION
+  REFERRAL_DISCUSSION
+}
+
+enum CareSourceType {
+  MANUAL
+  VOICE
+  IMPORTED
+}
+
+enum VerificationStatus {
+  DRAFT
+  REVIEWED
+  CONFIRMED
+}
+
+enum TranscriptionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum ExtractedFieldStatus {
+  UNCONFIRMED
+  CONFIRMED
+  REJECTED
+}
+
+enum TaskPriority {
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum TaskStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum AlertSeverity {
+  INFORMATIONAL
+  HIGH
+  EMERGENCY
+}
+
+enum AlertStatus {
+  OPEN
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  role         UserRole
+  status       UserStatus @default(ACTIVE)
+  publicId     String?    @unique @map("public_id")
+  email        String?    @unique
+  phone        String?    @unique
+  passwordHash String?    @map("password_hash")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  patientProfile     PatientProfile?
+  staffProfile       StaffProfile?
+  requestedOtps      OtpChallenge[]       @relation("OtpRequestedBy")
+  createdAuditLogs   AuditLog[]           @relation("AuditActor")
+  passwordResets     PasswordResetToken[]
+  pregnancyCases     PregnancyCase[]      @relation("PatientPregnancyCases")
+  assignedCases      PregnancyCase[]      @relation("AssignedPregnancyCases")
+  createdCases       PregnancyCase[]      @relation("CreatedPregnancyCases")
+  createdEvents      CareEvent[]          @relation("CreatedCareEvents")
+  assignedTasks      FollowUpTask[]       @relation("AssignedFollowUpTasks")
+  completedTasks     FollowUpTask[]       @relation("CompletedFollowUpTasks")
+  patientTasks       FollowUpTask[]       @relation("PatientFollowUpTasks")
+  confirmedFields    ExtractedField[]     @relation("ConfirmedExtractedFields")
+  acknowledgedAlerts SafetyAlert[]        @relation("AcknowledgedSafetyAlerts")
 
   @@index([role, status])
   @@map("users")
@@ -92,14 +167,14 @@ model StaffProfile {
 }
 
 model Division {
-  id             String           @id
-  nameBn         String           @map("name_bn")
-  nameEn         String           @map("name_en")
-  sortName       String           @map("sort_name")
-  createdAt      DateTime         @default(now()) @map("created_at")
-  updatedAt      DateTime         @updatedAt @map("updated_at")
+  id        String   @id
+  nameBn    String   @map("name_bn")
+  nameEn    String   @map("name_en")
+  sortName  String   @map("sort_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  districts      District[]
+  districts       District[]
   patientProfiles PatientProfile[]
   staffProfiles   StaffProfile[]
 
@@ -110,13 +185,13 @@ model Division {
 }
 
 model District {
-  id              String           @id
-  divisionId      String           @map("division_id")
-  nameBn          String           @map("name_bn")
-  nameEn          String           @map("name_en")
-  sortName        String           @map("sort_name")
-  createdAt       DateTime         @default(now()) @map("created_at")
-  updatedAt       DateTime         @updatedAt @map("updated_at")
+  id         String   @id
+  divisionId String   @map("division_id")
+  nameBn     String   @map("name_bn")
+  nameEn     String   @map("name_en")
+  sortName   String   @map("sort_name")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   division        Division         @relation(fields: [divisionId], references: [id], onDelete: Restrict)
   upazilas        Upazila[]
@@ -130,13 +205,13 @@ model District {
 }
 
 model Upazila {
-  id              String           @id
-  districtId      String           @map("district_id")
-  nameBn          String           @map("name_bn")
-  nameEn          String           @map("name_en")
-  sortName        String           @map("sort_name")
-  createdAt       DateTime         @default(now()) @map("created_at")
-  updatedAt       DateTime         @updatedAt @map("updated_at")
+  id         String   @id
+  districtId String   @map("district_id")
+  nameBn     String   @map("name_bn")
+  nameEn     String   @map("name_en")
+  sortName   String   @map("sort_name")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   district        District         @relation(fields: [districtId], references: [id], onDelete: Restrict)
   patientProfiles PatientProfile[]
@@ -157,17 +232,17 @@ model PublicIdCounter {
 }
 
 model OtpChallenge {
-  id          String      @id @default(cuid())
-  userId      String?     @map("user_id")
+  id          String     @id @default(cuid())
+  userId      String?    @map("user_id")
   purpose     OtpPurpose
   destination String
-  codeHash    String      @map("code_hash")
-  expiresAt   DateTime    @map("expires_at")
-  attempts    Int         @default(0)
-  consumedAt  DateTime?   @map("consumed_at")
-  createdAt   DateTime    @default(now()) @map("created_at")
+  codeHash    String     @map("code_hash")
+  expiresAt   DateTime   @map("expires_at")
+  attempts    Int        @default(0)
+  consumedAt  DateTime?  @map("consumed_at")
+  createdAt   DateTime   @default(now()) @map("created_at")
 
-  requestedBy User?       @relation("OtpRequestedBy", fields: [userId], references: [id], onDelete: SetNull)
+  requestedBy User? @relation("OtpRequestedBy", fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([destination, purpose, expiresAt])
   @@index([userId, purpose, createdAt])
@@ -182,7 +257,7 @@ model PasswordResetToken {
   consumedAt DateTime? @map("consumed_at")
   createdAt  DateTime  @default(now()) @map("created_at")
 
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, expiresAt])
   @@map("password_reset_tokens")
@@ -198,9 +273,148 @@ model AuditLog {
   metadata    Json?
   createdAt   DateTime       @default(now()) @map("created_at")
 
-  actorUser   User?          @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+  actorUser User? @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
 
   @@index([actorUserId, createdAt])
   @@index([targetType, targetId, createdAt])
   @@map("audit_logs")
+}
+
+model PregnancyCase {
+  id                   String              @id @default(cuid())
+  patientUserId        String              @map("patient_user_id")
+  caseCode             String              @unique @map("case_code")
+  status               PregnancyCaseStatus @default(ACTIVE)
+  assignedStaffId      String?             @map("assigned_staff_id")
+  createdByUserId      String              @map("created_by_user_id")
+  lastMenstrualPeriod  DateTime?           @map("last_menstrual_period") @db.Date
+  expectedDeliveryDate DateTime?           @map("expected_delivery_date") @db.Date
+  gravida              Int?
+  para                 Int?
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @updatedAt @map("updated_at")
+
+  patientUser   User           @relation("PatientPregnancyCases", fields: [patientUserId], references: [id], onDelete: Restrict)
+  assignedStaff User?          @relation("AssignedPregnancyCases", fields: [assignedStaffId], references: [id], onDelete: SetNull)
+  createdBy     User           @relation("CreatedPregnancyCases", fields: [createdByUserId], references: [id], onDelete: Restrict)
+  careEvents    CareEvent[]
+  followUpTasks FollowUpTask[]
+  safetyAlerts  SafetyAlert[]
+
+  @@index([patientUserId, status])
+  @@index([assignedStaffId, status])
+  @@map("pregnancy_cases")
+}
+
+model CareEvent {
+  id                 String             @id @default(cuid())
+  pregnancyCaseId    String             @map("pregnancy_case_id")
+  eventType          CareEventType      @map("event_type")
+  sourceType         CareSourceType     @map("source_type")
+  verificationStatus VerificationStatus @default(DRAFT) @map("verification_status")
+  summary            String?
+  occurredAt         DateTime           @default(now()) @map("occurred_at")
+  createdByUserId    String             @map("created_by_user_id")
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+
+  pregnancyCase   PregnancyCase    @relation(fields: [pregnancyCaseId], references: [id], onDelete: Cascade)
+  createdBy       User             @relation("CreatedCareEvents", fields: [createdByUserId], references: [id], onDelete: Restrict)
+  voiceNote       VoiceNote?
+  extractedFields ExtractedField[]
+  followUpTasks   FollowUpTask[]
+  safetyAlerts    SafetyAlert[]
+
+  @@index([pregnancyCaseId, occurredAt])
+  @@map("care_events")
+}
+
+model VoiceNote {
+  id                  String              @id @default(cuid())
+  careEventId         String              @unique @map("care_event_id")
+  storageKey          String              @map("storage_key")
+  originalFilename    String?             @map("original_filename")
+  mimeType            String?             @map("mime_type")
+  durationSeconds     Int?                @map("duration_seconds")
+  language            String              @default("bn-BD")
+  transcriptionStatus TranscriptionStatus @default(PENDING) @map("transcription_status")
+  transcriptText      String?             @map("transcript_text")
+  transcriptionModel  String?             @map("transcription_model")
+  createdAt           DateTime            @default(now()) @map("created_at")
+  updatedAt           DateTime            @updatedAt @map("updated_at")
+
+  careEvent       CareEvent        @relation(fields: [careEventId], references: [id], onDelete: Cascade)
+  extractedFields ExtractedField[]
+
+  @@map("voice_notes")
+}
+
+model ExtractedField {
+  id            String               @id @default(cuid())
+  careEventId   String               @map("care_event_id")
+  voiceNoteId   String?              @map("voice_note_id")
+  fieldKey      String               @map("field_key")
+  value         Json
+  confidence    Float?
+  sourceText    String?              @map("source_text")
+  status        ExtractedFieldStatus @default(UNCONFIRMED)
+  confirmedById String?              @map("confirmed_by_id")
+  confirmedAt   DateTime?            @map("confirmed_at")
+  createdAt     DateTime             @default(now()) @map("created_at")
+
+  careEvent   CareEvent  @relation(fields: [careEventId], references: [id], onDelete: Cascade)
+  voiceNote   VoiceNote? @relation(fields: [voiceNoteId], references: [id], onDelete: SetNull)
+  confirmedBy User?      @relation("ConfirmedExtractedFields", fields: [confirmedById], references: [id], onDelete: SetNull)
+
+  @@index([careEventId, status])
+  @@map("extracted_fields")
+}
+
+model FollowUpTask {
+  id              String       @id @default(cuid())
+  patientUserId   String       @map("patient_user_id")
+  pregnancyCaseId String?      @map("pregnancy_case_id")
+  sourceEventId   String?      @map("source_event_id")
+  assignedStaffId String?      @map("assigned_staff_id")
+  title           String
+  reason          String
+  priority        TaskPriority @default(NORMAL)
+  dueAt           DateTime?    @map("due_at")
+  status          TaskStatus   @default(OPEN)
+  completedAt     DateTime?    @map("completed_at")
+  completedById   String?      @map("completed_by_id")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  patientUser   User           @relation("PatientFollowUpTasks", fields: [patientUserId], references: [id], onDelete: Restrict)
+  pregnancyCase PregnancyCase? @relation(fields: [pregnancyCaseId], references: [id], onDelete: SetNull)
+  sourceEvent   CareEvent?     @relation(fields: [sourceEventId], references: [id], onDelete: SetNull)
+  assignedStaff User?          @relation("AssignedFollowUpTasks", fields: [assignedStaffId], references: [id], onDelete: SetNull)
+  completedBy   User?          @relation("CompletedFollowUpTasks", fields: [completedById], references: [id], onDelete: SetNull)
+
+  @@index([assignedStaffId, status, dueAt])
+  @@index([patientUserId, status])
+  @@map("follow_up_tasks")
+}
+
+model SafetyAlert {
+  id               String        @id @default(cuid())
+  pregnancyCaseId  String        @map("pregnancy_case_id")
+  careEventId      String?       @map("care_event_id")
+  severity         AlertSeverity
+  title            String
+  reason           String
+  sourceFacts      Json          @map("source_facts")
+  status           AlertStatus   @default(OPEN)
+  acknowledgedById String?       @map("acknowledged_by_id")
+  acknowledgedAt   DateTime?     @map("acknowledged_at")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+
+  pregnancyCase  PregnancyCase @relation(fields: [pregnancyCaseId], references: [id], onDelete: Cascade)
+  careEvent      CareEvent?    @relation(fields: [careEventId], references: [id], onDelete: SetNull)
+  acknowledgedBy User?         @relation("AcknowledgedSafetyAlerts", fields: [acknowledgedById], references: [id], onDelete: SetNull)
+
+  @@index([pregnancyCaseId, status])
+  @@map("safety_alerts")
 }
