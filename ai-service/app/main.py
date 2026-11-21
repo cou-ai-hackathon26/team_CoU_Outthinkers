@@ -1,14 +1,29 @@
 import os
 import json
 import tempfile
+from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
 import httpx
+import av
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from pydantic import BaseModel, Field
 from faster_whisper import WhisperModel
+
+
+# PyAV 19 removed the metadata_errors argument that Faster-Whisper still
+# passes to av.open. Strip it for compatibility with the current environment.
+_original_av_open = av.open
+
+
+def _compatible_av_open(*args, **kwargs):
+    kwargs.pop("metadata_errors", None)
+    return _original_av_open(*args, **kwargs)
+
+
+av.open = _compatible_av_open
 
 
 # ==========================================
@@ -141,26 +156,31 @@ async def transcribe(
 
     try:
         # Save audio temporarily
+        temp_path: str | None = None
         with tempfile.NamedTemporaryFile(
             suffix=".audio",
-            delete=True
+            delete=False
         ) as temp:
-
             temp.write(audio)
             temp.flush()
+            temp_path = temp.name
 
-            # Run Whisper transcription
+        try:
+            # Run Whisper transcription after closing the file. This is
+            # required on Windows because PyAV cannot reopen an open temp file.
             segments, info = whisper.transcribe(
-                temp.name,
+                temp_path,
                 beam_size=1,
                 vad_filter=True
             )
 
-            # Convert segments into transcript
             transcript = " ".join(
                 segment.text.strip()
                 for segment in segments
             )
+        finally:
+            if temp_path:
+                Path(temp_path).unlink(missing_ok=True)
 
         return {
             "transcript": transcript,

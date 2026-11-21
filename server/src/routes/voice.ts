@@ -42,7 +42,8 @@ router.post("/", upload.single("audio"), async (req, res) => {
     );
 
     return res.json(response.data);
-  } catch {
+  } catch (error) {
+    console.error("AI transcription proxy failed", error);
     return res.status(502).json({
       error: "AI transcription service unavailable",
     });
