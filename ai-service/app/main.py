@@ -170,11 +170,15 @@ async def transcribe(
             # required on Windows because PyAV cannot reopen an open temp file.
             segments, info = whisper.transcribe(
                 temp_path,
-                beam_size=1,
+                beam_size=5,
                 vad_filter=True,
                 language="bn",
                 task="transcribe",
-                initial_prompt="এটি বাংলাদেশের বাংলায় বলা একটি মাতৃস্বাস্থ্য সম্পর্কিত কথা।",
+                condition_on_previous_text=False,
+                temperature=0.0,
+                no_speech_threshold=0.6,
+                log_prob_threshold=-1.0,
+                compression_ratio_threshold=2.4,
             )
 
             transcript = " ".join(
