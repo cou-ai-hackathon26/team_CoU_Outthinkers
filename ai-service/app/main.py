@@ -7,10 +7,12 @@ from typing import AsyncIterator
 
 import httpx
 import av
+import torch
+from faster_whisper.audio import decode_audio
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from pydantic import BaseModel, Field
-from faster_whisper import WhisperModel
 
 
 # PyAV 19 removed the metadata_errors argument that Faster-Whisper still
@@ -40,9 +42,11 @@ OLLAMA_MODEL = os.getenv(
     "qwen2.5:1.5b"
 )
 
-WHISPER_MODEL = os.getenv(
-    "WHISPER_MODEL",
-    "small"
+ASR_MODEL = os.getenv(
+    "BENGALI_ASR_MODEL",
+    # Bengali regional Whisper fine-tune covering multiple Bangladesh dialects.
+    # Override with BENGALI_ASR_MODEL for another compatible Bengali checkpoint.
+    "bengaliAI/tugstugi_bengaliai-regional-asr_whisper-medium"
 )
 
 
@@ -53,19 +57,22 @@ WHISPER_MODEL = os.getenv(
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
-    # Initialize Whisper model
-    app.state.whisper = WhisperModel(
-        WHISPER_MODEL,
-        device="cpu",
-        compute_type="int8"
+    app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
+    app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
+        ASR_MODEL,
+        torch_dtype=torch.float32,
+        low_cpu_mem_usage=True,
     )
+    app.state.asr_model.to("cpu")
+    app.state.asr_model.eval()
 
-    print("Whisper model initialized successfully.")
+    print(f"Bengali ASR model initialized: {ASR_MODEL}")
 
     yield
 
     # Cleanup
-    app.state.whisper = None
+    app.state.processor = None
+    app.state.asr_model = None
 
     print("Whisper model shutdown complete.")
 
@@ -114,14 +121,10 @@ async def transcribe(
     file: UploadFile = File(...)
 ):
 
-    # Check Whisper model initialization
-    whisper: WhisperModel | None = getattr(
-        request.app.state,
-        "whisper",
-        None
-    )
+    processor = getattr(request.app.state, "processor", None)
+    asr_model = getattr(request.app.state, "asr_model", None)
 
-    if whisper is None:
+    if processor is None or asr_model is None:
         raise HTTPException(
             status_code=503,
             detail="Whisper model is not initialized"
@@ -166,33 +169,37 @@ async def transcribe(
             temp_path = temp.name
 
         try:
-            # Run Whisper transcription after closing the file. This is
-            # required on Windows because PyAV cannot reopen an open temp file.
-            segments, info = whisper.transcribe(
-                temp_path,
-                beam_size=5,
-                vad_filter=True,
+            # Decode after closing the file. This is required on Windows
+            # because PyAV cannot reopen an open temporary file.
+            waveform = decode_audio(temp_path, sampling_rate=16000)
+            inputs = processor(
+                waveform,
+                sampling_rate=16000,
+                return_tensors="pt",
+            )
+            forced_decoder_ids = processor.get_decoder_prompt_ids(
                 language="bn",
                 task="transcribe",
-                condition_on_previous_text=False,
-                temperature=0.0,
-                no_speech_threshold=0.6,
-                log_prob_threshold=-1.0,
-                compression_ratio_threshold=2.4,
             )
-
-            transcript = " ".join(
-                segment.text.strip()
-                for segment in segments
-            )
+            with torch.inference_mode():
+                predicted_ids = asr_model.generate(
+                    inputs["input_features"],
+                    forced_decoder_ids=forced_decoder_ids,
+                    num_beams=5,
+                    do_sample=False,
+                )
+            transcript = processor.batch_decode(
+                predicted_ids,
+                skip_special_tokens=True,
+            )[0].strip()
         finally:
             if temp_path:
                 Path(temp_path).unlink(missing_ok=True)
 
         return {
             "transcript": transcript,
-            "language": info.language,
-            "language_probability": info.language_probability
+            "language": "bn",
+            "language_probability": 1.0
         }
 
     except Exception as exc:
