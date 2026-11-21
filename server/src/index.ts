@@ -6,6 +6,7 @@ import voiceRouter from "./routes/voice";
 import locationsRouter from "./modules/locations/locations.router";
 import authRouter from "./modules/auth/auth.router";
 import adminRouter from "./modules/admin/admin.router";
+import staffRouter from "./modules/staff/staff.router";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json({ limit: "2mb" }));
 app.use("/api/locations", locationsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/staff", staffRouter);
 
 app.use(
   cors({

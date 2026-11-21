@@ -4,7 +4,7 @@ import { ArrowLeft, CalendarDays, CheckCircle2, Eye, EyeOff, HeartPulse, LockKey
 import api from "./lib/api";
 
 type Role = "patient" | "staff";
-type Screen = "login" | "otp" | "forgot" | "reset" | "register" | "admin";
+type Screen = "login" | "otp" | "forgot" | "reset" | "register" | "admin" | "nurse";
 type LocationOption = { id: string; nameBn: string; nameEn: string };
 
   const roleCopy = {
@@ -35,6 +35,7 @@ function App() {
   const [districts, setDistricts] = useState<LocationOption[]>([]);
   const [upazilas, setUpazilas] = useState<LocationOption[]>([]);
   const [overview, setOverview] = useState<{ counts: { patients: number; nurses: number; admins: number }; recentPatients: Array<{ id: string; name: string; createdAt: string }>; recentStaff: Array<{ id: string; name: string; email: string | null; createdAt: string }> } | null>(null);
+  const [staffProfile, setStaffProfile] = useState<{ email: string | null; phone: string | null; staffProfile: { name: string; employeeId: string; division: { nameBn: string }; district: { nameBn: string }; upazila: { nameBn: string } } | null } | null>(null);
 
   const clearFeedback = () => { setMessage(""); setError(""); };
   const clearForms = () => {
@@ -70,6 +71,11 @@ function App() {
     api.get("/admin/overview", { headers: { Authorization: `Bearer ${localStorage.getItem("maternacare_token")}` } }).then((result) => setOverview(result.data.data)).catch((requestError) => setError(requestError.response?.data?.error || "ড্যাশবোর্ডের তথ্য আনা যায়নি।"));
   }, [screen]);
 
+  useEffect(() => {
+    if (screen !== "nurse") return;
+    api.get("/staff/me", { headers: { Authorization: `Bearer ${localStorage.getItem("maternacare_token")}` } }).then((result) => setStaffProfile(result.data.data)).catch((requestError) => setError(requestError.response?.data?.error || "প্রোফাইলের তথ্য আনা যায়নি।"));
+  }, [screen]);
+
   async function submitLogin(event: FormEvent) {
     event.preventDefault(); clearFeedback(); setBusy(true);
     try {
@@ -80,7 +86,7 @@ function App() {
       } else {
         const result = await api.post("/auth/staff/login", { identifier, password });
         localStorage.setItem("maternacare_token", result.data.token);
-        if (result.data.role === "ADMIN") setScreen("admin"); else setMessage("লগইন সফল হয়েছে।");
+        if (result.data.role === "ADMIN") setScreen("admin"); else setScreen("nurse");
       }
     } catch (requestError: any) { setError(requestError.response?.data?.error || "দুঃখিত, অনুরোধটি সম্পন্ন করা যায়নি।"); }
     finally { setBusy(false); }
@@ -129,8 +135,8 @@ function App() {
     finally { setBusy(false); }
   }
 
-  const title = screen === "otp" ? "আপনার OTP দিন" : screen === "forgot" ? "পাসওয়ার্ড ফিরে পান" : screen === "reset" ? "নতুন পাসওয়ার্ড দিন" : screen === "register" ? "নতুন patient account" : screen === "admin" ? "অ্যাডমিন কন্ট্রোল সেন্টার" : "আপনার যত্ন, আরও সহজে";
-  const intro = screen === "login" ? "আপনার পরিচয় নির্বাচন করে শুরু করুন" : screen === "otp" ? "আপনার ফোন বা ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন" : screen === "forgot" ? "আপনার ইমেইল বা কর্মী আইডি দিন" : screen === "register" ? "কয়েকটি সহজ তথ্য দিয়ে নিবন্ধন সম্পন্ন করুন" : screen === "admin" ? "নিরাপদভাবে নতুন team member তৈরি করুন" : "নিরাপদ একটি নতুন পাসওয়ার্ড তৈরি করুন";
+  const title = screen === "otp" ? "আপনার OTP দিন" : screen === "forgot" ? "পাসওয়ার্ড ফিরে পান" : screen === "reset" ? "নতুন পাসওয়ার্ড দিন" : screen === "register" ? "নতুন patient account" : screen === "admin" ? "অ্যাডমিন কন্ট্রোল সেন্টার" : screen === "nurse" ? "আপনার কাজের জায়গা" : "আপনার যত্ন, আরও সহজে";
+  const intro = screen === "login" ? "আপনার পরিচয় নির্বাচন করে শুরু করুন" : screen === "otp" ? "আপনার ফোন বা ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন" : screen === "forgot" ? "আপনার ইমেইল বা কর্মী আইডি দিন" : screen === "register" ? "কয়েকটি সহজ তথ্য দিয়ে নিবন্ধন সম্পন্ন করুন" : screen === "admin" ? "নিরাপদভাবে নতুন team member তৈরি করুন" : screen === "nurse" ? "আপনার assigned এলাকার care workflow এখান থেকে শুরু হবে" : "নিরাপদ একটি নতুন পাসওয়ার্ড তৈরি করুন";
 
   return <main className="app-shell">
     <section className="brand-panel"><div className="brand-mark"><HeartPulse size={25} strokeWidth={2.5} /></div><p className="eyebrow">মাতৃ ও নবজাতকের যত্ন</p><h1>আপনার পাশে,<br /><span>প্রতিটি ধাপে।</span></h1><p className="brand-description">সহজে তথ্য দিন, প্রয়োজনীয় সহায়তা পান এবং আপনার যত্নের যাত্রা এক জায়গায় রাখুন।</p><div className="trust-row"><ShieldCheck size={18} /><span>নিরাপদ ও গোপনীয়</span><span className="dot">•</span><span>বাংলাদেশের জন্য তৈরি</span></div><div className="soft-orb orb-one" /><div className="soft-orb orb-two" /></section>
@@ -138,6 +144,13 @@ function App() {
       {screen !== "login" && <button className="back-button" onClick={goLogin}><ArrowLeft size={18} /> ফিরে যান</button>}
       <div className="mobile-brand"><div className="brand-mark"><HeartPulse size={22} /></div><span>MaternaCare</span></div>
       <p className="eyebrow teal">MaternaCare AI</p><h2>{title}</h2><p className="form-intro">{intro}</p>
+      {screen === "nurse" && <>
+        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> কর্মী মোড</span><button type="button" className="logout-button" onClick={() => { localStorage.removeItem("maternacare_token"); clearForms(); setStaffProfile(null); setScreen("login"); }}><LogOut size={15} /> লগআউট</button></div>
+        <div className="worker-hero"><div className="worker-avatar">{staffProfile?.staffProfile?.name?.slice(0, 1) || "ক"}</div><div><small>স্বাগতম</small><h3>{staffProfile?.staffProfile?.name || "তথ্য আনা হচ্ছে…"}</h3><span>{staffProfile?.staffProfile?.employeeId ? `Employee ID: ${staffProfile.staffProfile.employeeId}` : ""}</span></div></div>
+        <div className="assignment-card"><div className="assignment-icon"><MapPin size={20} /></div><div><small>আপনার assigned এলাকা</small><strong>{staffProfile?.staffProfile ? `${staffProfile.staffProfile.upazila.nameBn}, ${staffProfile.staffProfile.district.nameBn}` : "তথ্য আনা হচ্ছে…"}</strong><span>{staffProfile?.staffProfile?.division.nameBn || ""}</span></div></div>
+        <div className="worker-actions"><button type="button" className="worker-action primary"><UserPlus size={20} /><span><strong>নতুন care intake</strong><small>মায়ের তথ্য সংগ্রহ শুরু করুন</small></span><b>→</b></button><button type="button" className="worker-action"><UsersRound size={20} /><span><strong>আমার patient list</strong><small>assigned patient দেখুন</small></span><b>→</b></button></div>
+        <div className="coming-soon"><MessageCircle size={19} /><div><strong>আপনার কাজের তালিকা শিগগিরই এখানে</strong><span>care intake, follow-up এবং referral এক জায়গা থেকে পরিচালনা করুন।</span></div></div>
+      </>}
       {screen === "login" && <form onSubmit={submitLogin} autoComplete="off">
         <label className="field-label" htmlFor="role">আপনি কে?</label><div className="role-switch" id="role">{(Object.keys(roleCopy) as Role[]).map((item) => <button type="button" key={item} className={role === item ? "role-option selected" : "role-option"} onClick={() => { setRole(item); clearFeedback(); }}><span className="role-icon">{item === "patient" ? <UserRound size={19} /> : <ShieldCheck size={19} />}</span><span><strong>{roleCopy[item].label}</strong><small>{roleCopy[item].hint}</small></span></button>)}</div>
         <label className="field-label" htmlFor="identifier">{role === "patient" ? "Patient ID অথবা ইমেইল" : "কর্মী ID বা ইমেইল"}</label><div className="input-wrap"><UserRound size={19} /><input id="identifier" value={identifier} onChange={(event) => setIdentifier(event.target.value)} placeholder={role === "patient" ? "যেমন: 00000001 বা email@example.com" : "আপনার ID বা ইমেইল লিখুন"} autoComplete="off" required /></div>
