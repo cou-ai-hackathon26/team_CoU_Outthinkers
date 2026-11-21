@@ -42,7 +42,7 @@ OLLAMA_MODEL = os.getenv(
 
 WHISPER_MODEL = os.getenv(
     "WHISPER_MODEL",
-    "base"
+    "small"
 )
 
 
