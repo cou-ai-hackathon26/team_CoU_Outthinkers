@@ -4,8 +4,9 @@ import { ArrowLeft, CalendarDays, CalendarHeart, CheckCircle2, Eye, EyeOff, Hear
 import api from "./lib/api";
 
 type Role = "patient" | "staff";
-type Screen = "login" | "otp" | "forgot" | "reset" | "register" | "admin" | "nurse" | "patient";
+type Screen = "login" | "otp" | "forgot" | "reset" | "register" | "admin" | "nurse" | "patient" | "intake";
 type LocationOption = { id: string; nameBn: string; nameEn: string };
+type PatientSearchResult = { patientId: string; name: string; contactNumber: string | null; email: string | null; location: string | null };
 
   const roleCopy = {
   patient: { label: "রোগী", hint: "Patient ID, মোবাইল বা ইমেইল দিয়ে প্রবেশ করুন" },
@@ -14,6 +15,7 @@ type LocationOption = { id: string; nameBn: string; nameEn: string };
 
 const emptyRegistration = { name: "", email: "", dateOfBirth: "", phone: "", emergencyContactNumber: "", divisionId: "", districtId: "", upazilaId: "", address: "" };
 const emptyManagedAccount = { name: "", email: "", phone: "", password: "", address: "", divisionId: "", districtId: "", upazilaId: "" };
+const emptyIntake = { patientId: "", lastMenstrualPeriod: "", expectedDeliveryDate: "", gravida: "", para: "", summary: "" };
 
 function tokenIsExpired(token: string | null) {
   if (!token) return false;
@@ -45,10 +47,13 @@ function App() {
   const [overview, setOverview] = useState<{ counts: { patients: number; nurses: number; admins: number }; recentPatients: Array<{ id: string; name: string; createdAt: string }>; recentStaff: Array<{ id: string; name: string; email: string | null; createdAt: string }> } | null>(null);
   const [staffProfile, setStaffProfile] = useState<{ email: string | null; phone: string | null; staffProfile: { name: string; employeeId: string; division: { nameBn: string }; district: { nameBn: string }; upazila: { nameBn: string } } | null } | null>(null);
   const [patientProfile, setPatientProfile] = useState<{ publicId: string | null; email: string | null; phone: string | null; patientProfile: { name: string; contactNumber: string | null; dateOfBirth: string; emergencyContactNumber: string; address: string; division: { nameBn: string }; district: { nameBn: string }; upazila: { nameBn: string } } | null } | null>(null);
+  const [patientSearchQuery, setPatientSearchQuery] = useState("");
+  const [patientSearchResults, setPatientSearchResults] = useState<PatientSearchResult[]>([]);
+  const [intake, setIntake] = useState(emptyIntake);
 
   const clearFeedback = () => { setMessage(""); setError(""); };
   const clearForms = () => {
-    setIdentifier(""); setPassword(""); setOtp("");
+    setIdentifier(""); setPassword(""); setOtp(""); setPatientSearchQuery(""); setPatientSearchResults([]); setIntake(emptyIntake);
     setRegistration(emptyRegistration); setManagedAccount(emptyManagedAccount);
   };
   const goLogin = () => { clearFeedback(); clearForms(); setScreen("login"); };
@@ -175,8 +180,22 @@ function App() {
     finally { setBusy(false); }
   }
 
-  const title = screen === "otp" ? "আপনার OTP দিন" : screen === "forgot" ? "পাসওয়ার্ড ফিরে পান" : screen === "reset" ? "নতুন পাসওয়ার্ড দিন" : screen === "register" ? "নতুন patient account" : screen === "admin" ? "অ্যাডমিন কন্ট্রোল সেন্টার" : screen === "nurse" ? "আপনার কাজের জায়গা" : screen === "patient" ? "আপনার care space" : "আপনার যত্ন, আরও সহজে";
-  const intro = screen === "login" ? "আপনার পরিচয় নির্বাচন করে শুরু করুন" : screen === "otp" ? "আপনার ফোন বা ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন" : screen === "forgot" ? "আপনার ইমেইল বা কর্মী আইডি দিন" : screen === "register" ? "কয়েকটি সহজ তথ্য দিয়ে নিবন্ধন সম্পন্ন করুন" : screen === "admin" ? "নিরাপদভাবে নতুন team member তৈরি করুন" : screen === "nurse" ? "আপনার assigned এলাকার care workflow এখান থেকে শুরু হবে" : screen === "patient" ? "আপনার account-এর প্রয়োজনীয় তথ্য এক জায়গায়" : "নিরাপদ একটি নতুন পাসওয়ার্ড তৈরি করুন";
+  async function searchPatients(event: FormEvent) {
+    event.preventDefault(); clearFeedback(); setBusy(true);
+    try { const result = await api.get("/staff/patients/search", { params: { query: patientSearchQuery } }); setPatientSearchResults(result.data.data); }
+    catch (requestError: any) { setError(requestError.response?.data?.error || "Patient খোঁজা যায়নি।"); }
+    finally { setBusy(false); }
+  }
+
+  async function submitIntake(event: FormEvent) {
+    event.preventDefault(); clearFeedback(); setBusy(true);
+    try { const result = await api.post("/staff/care-intakes", intake); setMessage(`${result.data.message} Case ID: ${result.data.data.caseCode}`); setIntake(emptyIntake); setPatientSearchResults([]); }
+    catch (requestError: any) { setError(requestError.response?.data?.error || "Care intake সংরক্ষণ করা যায়নি।"); }
+    finally { setBusy(false); }
+  }
+
+  const title = screen === "otp" ? "আপনার OTP দিন" : screen === "forgot" ? "পাসওয়ার্ড ফিরে পান" : screen === "reset" ? "নতুন পাসওয়ার্ড দিন" : screen === "register" ? "নতুন patient account" : screen === "admin" ? "অ্যাডমিন কন্ট্রোল সেন্টার" : screen === "nurse" ? "আপনার কাজের জায়গা" : screen === "patient" ? "আপনার care space" : screen === "intake" ? "নতুন care intake" : "আপনার যত্ন, আরও সহজে";
+  const intro = screen === "login" ? "আপনার পরিচয় নির্বাচন করে শুরু করুন" : screen === "otp" ? "আপনার ফোন বা ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন" : screen === "forgot" ? "আপনার ইমেইল বা কর্মী আইডি দিন" : screen === "register" ? "কয়েকটি সহজ তথ্য দিয়ে নিবন্ধন সম্পন্ন করুন" : screen === "admin" ? "নিরাপদভাবে নতুন team member তৈরি করুন" : screen === "nurse" ? "আপনার assigned এলাকার care workflow এখান থেকে শুরু হবে" : screen === "patient" ? "আপনার account-এর প্রয়োজনীয় তথ্য এক জায়গায়" : screen === "intake" ? "Patient নির্বাচন করে প্রাথমিক তথ্য সংরক্ষণ করুন" : "নিরাপদ একটি নতুন পাসওয়ার্ড তৈরি করুন";
 
   return <main className="app-shell">
     <section className="brand-panel"><div className="brand-mark"><HeartPulse size={25} strokeWidth={2.5} /></div><p className="eyebrow">মাতৃ ও নবজাতকের যত্ন</p><h1>আপনার পাশে,<br /><span>প্রতিটি ধাপে।</span></h1><p className="brand-description">সহজে তথ্য দিন, প্রয়োজনীয় সহায়তা পান এবং আপনার যত্নের যাত্রা এক জায়গায় রাখুন।</p><div className="trust-row"><ShieldCheck size={18} /><span>নিরাপদ ও গোপনীয়</span><span className="dot">•</span><span>বাংলাদেশের জন্য তৈরি</span></div><div className="soft-orb orb-one" /><div className="soft-orb orb-two" /></section>
@@ -184,11 +203,17 @@ function App() {
       {screen !== "login" && <button className="back-button" onClick={goLogin}><ArrowLeft size={18} /> ফিরে যান</button>}
       <div className="mobile-brand"><div className="brand-mark"><HeartPulse size={22} /></div><span>MaternaCare</span></div>
       <p className="eyebrow teal">MaternaCare AI</p><h2>{title}</h2><p className="form-intro">{intro}</p>
+      {screen === "intake" && <>
+        <div className="intake-step"><span>১</span><div><strong>Patient নির্বাচন</strong><small>Patient ID বা নাম দিয়ে খুঁজুন</small></div></div>
+        <form onSubmit={searchPatients} className="search-form" autoComplete="off"><div className="input-wrap"><UserRound size={18} /><input value={patientSearchQuery} onChange={(event) => setPatientSearchQuery(event.target.value)} placeholder="যেমন: 00000001 বা নাম" required /><button className="search-button" disabled={busy}>খুঁজুন</button></div></form>
+        {patientSearchResults.length > 0 && <div className="search-results">{patientSearchResults.map((patient) => <button type="button" className={intake.patientId === patient.patientId ? "patient-result selected" : "patient-result"} key={patient.patientId} onClick={() => setIntake({ ...intake, patientId: patient.patientId })}><span className="recent-avatar">{patient.name.slice(0, 1)}</span><span><strong>{patient.name}</strong><small>ID: {patient.patientId} · {patient.location || "এলাকা নেই"}</small></span><b>{intake.patientId === patient.patientId ? "✓" : "→"}</b></button>)}</div>}
+        <form onSubmit={submitIntake} className="registration-form" autoComplete="off"><div className="selected-patient">{intake.patientId ? `নির্বাচিত Patient ID: ${intake.patientId}` : "Patient নির্বাচন না করা পর্যন্ত form সম্পূর্ণ হবে না"}</div><div className="form-grid"><div><label className="field-label" htmlFor="lmp">শেষ মাসিকের তারিখ</label><div className="input-wrap"><CalendarDays size={18} /><input id="lmp" type="date" value={intake.lastMenstrualPeriod} onChange={(event) => setIntake({ ...intake, lastMenstrualPeriod: event.target.value })} /></div></div><div><label className="field-label" htmlFor="edd">সম্ভাব্য প্রসবের তারিখ</label><div className="input-wrap"><CalendarDays size={18} /><input id="edd" type="date" value={intake.expectedDeliveryDate} onChange={(event) => setIntake({ ...intake, expectedDeliveryDate: event.target.value })} /></div></div></div><div className="form-grid"><div><label className="field-label" htmlFor="gravida">মোট গর্ভধারণ</label><input className="plain-input" id="gravida" type="number" min="0" value={intake.gravida} onChange={(event) => setIntake({ ...intake, gravida: event.target.value })} placeholder="যেমন: ১" /></div><div><label className="field-label" htmlFor="para">পূর্বের প্রসব</label><input className="plain-input" id="para" type="number" min="0" value={intake.para} onChange={(event) => setIntake({ ...intake, para: event.target.value })} placeholder="যেমন: ০" /></div></div><label className="field-label" htmlFor="summary">প্রাথমিক পর্যবেক্ষণ / concern</label><textarea id="summary" value={intake.summary} onChange={(event) => setIntake({ ...intake, summary: event.target.value })} placeholder="রোগী কী জানিয়েছেন বা আপনি কী লক্ষ্য করেছেন লিখুন" rows={4} required /><button className="primary-button" disabled={busy || !intake.patientId}>{busy ? "সংরক্ষণ হচ্ছে…" : "Care intake সংরক্ষণ করুন"}<span>→</span></button></form>
+      </>}
       {screen === "nurse" && <>
         <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> কর্মী মোড</span><button type="button" className="logout-button" onClick={logout}><LogOut size={15} /> লগআউট</button></div>
         <div className="worker-hero"><div className="worker-avatar">{staffProfile?.staffProfile?.name?.slice(0, 1) || "ক"}</div><div><small>স্বাগতম</small><h3>{staffProfile?.staffProfile?.name || "তথ্য আনা হচ্ছে…"}</h3><span>{staffProfile?.staffProfile?.employeeId ? `Employee ID: ${staffProfile.staffProfile.employeeId}` : ""}</span></div></div>
         <div className="assignment-card"><div className="assignment-icon"><MapPin size={20} /></div><div><small>আপনার assigned এলাকা</small><strong>{staffProfile?.staffProfile ? `${staffProfile.staffProfile.upazila.nameBn}, ${staffProfile.staffProfile.district.nameBn}` : "তথ্য আনা হচ্ছে…"}</strong><span>{staffProfile?.staffProfile?.division.nameBn || ""}</span></div></div>
-        <div className="worker-actions"><button type="button" className="worker-action primary"><UserPlus size={20} /><span><strong>নতুন care intake</strong><small>মায়ের তথ্য সংগ্রহ শুরু করুন</small></span><b>→</b></button><button type="button" className="worker-action"><UsersRound size={20} /><span><strong>আমার patient list</strong><small>assigned patient দেখুন</small></span><b>→</b></button></div>
+        <div className="worker-actions"><button type="button" className="worker-action primary" onClick={() => { clearFeedback(); setScreen("intake"); }}><UserPlus size={20} /><span><strong>নতুন care intake</strong><small>মায়ের তথ্য সংগ্রহ শুরু করুন</small></span><b>→</b></button><button type="button" className="worker-action"><UsersRound size={20} /><span><strong>আমার patient list</strong><small>assigned patient দেখুন</small></span><b>→</b></button></div>
         <div className="coming-soon"><MessageCircle size={19} /><div><strong>আপনার কাজের তালিকা শিগগিরই এখানে</strong><span>care intake, follow-up এবং referral এক জায়গা থেকে পরিচালনা করুন।</span></div></div>
       </>}
       {screen === "patient" && <>
