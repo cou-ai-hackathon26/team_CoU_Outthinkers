@@ -5,6 +5,19 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
+# Keep model downloads out of the system drive. This is set before importing
+# Transformers/Hugging Face so every model lookup uses the project cache.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+MODEL_CACHE = Path(
+    os.getenv(
+        "BENGALI_HF_HOME",
+        str(PROJECT_ROOT / ".cache" / "huggingface"),
+    )
+)
+MODEL_CACHE.mkdir(parents=True, exist_ok=True)
+os.environ["HF_HOME"] = str(MODEL_CACHE)
+os.environ["TRANSFORMERS_CACHE"] = str(MODEL_CACHE)
+
 import httpx
 import av
 import torch
@@ -60,7 +73,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
     app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
         ASR_MODEL,
-        torch_dtype=torch.float32,
+        dtype=torch.float32,
         low_cpu_mem_usage=True,
     )
     app.state.asr_model.to("cpu")
