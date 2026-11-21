@@ -171,7 +171,10 @@ async def transcribe(
             segments, info = whisper.transcribe(
                 temp_path,
                 beam_size=1,
-                vad_filter=True
+                vad_filter=True,
+                language="bn",
+                task="transcribe",
+                initial_prompt="এটি বাংলাদেশের বাংলায় বলা একটি মাতৃস্বাস্থ্য সম্পর্কিত কথা।",
             )
 
             transcript = " ".join(
