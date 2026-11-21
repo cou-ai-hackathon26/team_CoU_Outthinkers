@@ -7,6 +7,7 @@ import locationsRouter from "./modules/locations/locations.router";
 import authRouter from "./modules/auth/auth.router";
 import adminRouter from "./modules/admin/admin.router";
 import staffRouter from "./modules/staff/staff.router";
+import patientRouter from "./modules/patients/patient.router";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use("/api/locations", locationsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/staff", staffRouter);
+app.use("/api/patient", patientRouter);
 
 app.use(
   cors({
