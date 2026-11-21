@@ -15,6 +15,14 @@ type LocationOption = { id: string; nameBn: string; nameEn: string };
 const emptyRegistration = { name: "", email: "", dateOfBirth: "", phone: "", emergencyContactNumber: "", divisionId: "", districtId: "", upazilaId: "", address: "" };
 const emptyManagedAccount = { name: "", email: "", phone: "", password: "", address: "", divisionId: "", districtId: "", upazilaId: "" };
 
+function tokenIsExpired(token: string | null) {
+  if (!token) return false;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[0].replace(/-/g, "+").replace(/_/g, "/")));
+    return Number(payload.expiresAt) <= Math.floor(Date.now() / 1000);
+  } catch { return true; }
+}
+
 function App() {
   const tokenFromUrl = new URLSearchParams(window.location.search).get("token") || "";
   const [screen, setScreen] = useState<Screen>(tokenFromUrl ? "reset" : "login");
@@ -45,9 +53,35 @@ function App() {
   };
   const goLogin = () => { clearFeedback(); clearForms(); setScreen("login"); };
 
+  function logout() {
+    localStorage.removeItem("maternacare_token");
+    clearForms(); setOverview(null); setStaffProfile(null); setPatientProfile(null); setScreen("login");
+    setMessage("আপনি নিরাপদে লগআউট করেছেন।");
+  }
+
   useEffect(() => {
     // Do not keep sensitive form values after a browser refresh.
     clearForms();
+  }, []);
+
+  useEffect(() => {
+    const checkSession = () => {
+      if (tokenIsExpired(localStorage.getItem("maternacare_token"))) {
+        localStorage.removeItem("maternacare_token");
+        window.dispatchEvent(new Event("maternacare-auth-expired"));
+      }
+    };
+    checkSession();
+    const timer = window.setInterval(checkSession, 30_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleExpiredSession = () => {
+      clearForms(); setOverview(null); setStaffProfile(null); setPatientProfile(null); setScreen("login"); setError("আপনার session শেষ হয়েছে। আবার লগইন করুন।");
+    };
+    window.addEventListener("maternacare-auth-expired", handleExpiredSession);
+    return () => window.removeEventListener("maternacare-auth-expired", handleExpiredSession);
   }, []);
 
   useEffect(() => {
@@ -151,14 +185,14 @@ function App() {
       <div className="mobile-brand"><div className="brand-mark"><HeartPulse size={22} /></div><span>MaternaCare</span></div>
       <p className="eyebrow teal">MaternaCare AI</p><h2>{title}</h2><p className="form-intro">{intro}</p>
       {screen === "nurse" && <>
-        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> কর্মী মোড</span><button type="button" className="logout-button" onClick={() => { localStorage.removeItem("maternacare_token"); clearForms(); setStaffProfile(null); setScreen("login"); }}><LogOut size={15} /> লগআউট</button></div>
+        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> কর্মী মোড</span><button type="button" className="logout-button" onClick={logout}><LogOut size={15} /> লগআউট</button></div>
         <div className="worker-hero"><div className="worker-avatar">{staffProfile?.staffProfile?.name?.slice(0, 1) || "ক"}</div><div><small>স্বাগতম</small><h3>{staffProfile?.staffProfile?.name || "তথ্য আনা হচ্ছে…"}</h3><span>{staffProfile?.staffProfile?.employeeId ? `Employee ID: ${staffProfile.staffProfile.employeeId}` : ""}</span></div></div>
         <div className="assignment-card"><div className="assignment-icon"><MapPin size={20} /></div><div><small>আপনার assigned এলাকা</small><strong>{staffProfile?.staffProfile ? `${staffProfile.staffProfile.upazila.nameBn}, ${staffProfile.staffProfile.district.nameBn}` : "তথ্য আনা হচ্ছে…"}</strong><span>{staffProfile?.staffProfile?.division.nameBn || ""}</span></div></div>
         <div className="worker-actions"><button type="button" className="worker-action primary"><UserPlus size={20} /><span><strong>নতুন care intake</strong><small>মায়ের তথ্য সংগ্রহ শুরু করুন</small></span><b>→</b></button><button type="button" className="worker-action"><UsersRound size={20} /><span><strong>আমার patient list</strong><small>assigned patient দেখুন</small></span><b>→</b></button></div>
         <div className="coming-soon"><MessageCircle size={19} /><div><strong>আপনার কাজের তালিকা শিগগিরই এখানে</strong><span>care intake, follow-up এবং referral এক জায়গা থেকে পরিচালনা করুন।</span></div></div>
       </>}
       {screen === "patient" && <>
-        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> patient space</span><button type="button" className="logout-button" onClick={() => { localStorage.removeItem("maternacare_token"); clearForms(); setPatientProfile(null); setScreen("login"); }}><LogOut size={15} /> লগআউট</button></div>
+        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> patient space</span><button type="button" className="logout-button" onClick={logout}><LogOut size={15} /> লগআউট</button></div>
         <div className="patient-hero"><div className="patient-avatar">{patientProfile?.patientProfile?.name?.slice(0, 1) || "ম"}</div><div><small>স্বাগতম</small><h3>{patientProfile?.patientProfile?.name || "তথ্য আনা হচ্ছে…"}</h3><span>Patient ID: {patientProfile?.publicId || "—"}</span></div></div>
         <div className="profile-card"><div className="profile-card-title"><UserRound size={17} /><strong>আপনার profile</strong></div><div className="profile-grid"><div><small>মোবাইল</small><strong>{patientProfile?.patientProfile?.contactNumber || patientProfile?.phone || "—"}</strong></div><div><small>ইমেইল</small><strong>{patientProfile?.email || "দেওয়া হয়নি"}</strong></div><div><small>এলাকা</small><strong>{patientProfile?.patientProfile ? `${patientProfile.patientProfile.upazila.nameBn}, ${patientProfile.patientProfile.district.nameBn}` : "—"}</strong></div><div><small>জরুরি যোগাযোগ</small><strong>{patientProfile?.patientProfile?.emergencyContactNumber || "—"}</strong></div></div></div>
         <div className="patient-next"><CalendarHeart size={21} /><div><strong>আপনার care journey</strong><span>আপনার visit, follow-up এবং প্রয়োজনীয় সহায়তার তথ্য শিগগিরই এখানে দেখা যাবে।</span></div></div>
@@ -180,7 +214,7 @@ function App() {
         <button className="primary-button" disabled={busy}>{busy ? "নিবন্ধন হচ্ছে…" : "নিবন্ধন সম্পন্ন করুন"}<span>→</span></button>
       </form>}
       {screen === "admin" && <>
-        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> অ্যাডমিন মোড</span><button type="button" className="logout-button" onClick={() => { localStorage.removeItem("maternacare_token"); clearForms(); setOverview(null); setScreen("login"); }}> <LogOut size={15} /> লগআউট</button></div>
+        <div className="admin-toolbar"><span className="admin-status"><ShieldCheck size={16} /> অ্যাডমিন মোড</span><button type="button" className="logout-button" onClick={logout}> <LogOut size={15} /> লগআউট</button></div>
         <div className="overview-grid"><div className="overview-card"><span className="overview-icon patients"><UsersRound size={19} /></span><small>সক্রিয় patient</small><strong>{overview?.counts.patients ?? "—"}</strong></div><div className="overview-card"><span className="overview-icon nurses"><UserCog size={19} /></span><small>নার্স / CHW</small><strong>{overview?.counts.nurses ?? "—"}</strong></div><div className="overview-card"><span className="overview-icon admins"><ShieldCheck size={19} /></span><small>অ্যাডমিন</small><strong>{overview?.counts.admins ?? "—"}</strong></div></div>
         <div className="admin-section-heading"><div><strong>দ্রুত কাজ</strong><small>নতুন team member যোগ করুন</small></div><button type="button" className="refresh-button" onClick={() => setScreen("admin")}><RefreshCw size={15} /> Refresh</button></div>
         <form onSubmit={createManagedAccount} className="registration-form" autoComplete="off">
