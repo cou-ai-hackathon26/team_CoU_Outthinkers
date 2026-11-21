@@ -4,9 +4,10 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import Registration from './Registration.tsx'
+import WorkerIntakeReview from './WorkerIntakeReview.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : <App />}
+    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : <App />}
   </StrictMode>,
 )
