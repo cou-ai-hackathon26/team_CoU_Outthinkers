@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { ArrowLeft, CalendarDays, CalendarHeart, CheckCircle2, Eye, EyeOff, HeartPulse, LockKeyhole, Mail, MapPin, MessageCircle, Phone, ShieldCheck, UserPlus, UserRound, UsersRound, UserCog, LogOut, RefreshCw } from "lucide-react";
+import { ArrowLeft, CalendarDays, CalendarHeart, CheckCircle2, Eye, EyeOff, HeartPulse, LockKeyhole, Mail, MapPin, MessageCircle, Mic, Phone, ShieldCheck, Square, UserPlus, UserRound, UsersRound, UserCog, LogOut, RefreshCw } from "lucide-react";
 import api from "./lib/api";
 
 type Role = "patient" | "staff";
@@ -50,10 +50,17 @@ function App() {
   const [patientSearchQuery, setPatientSearchQuery] = useState("");
   const [patientSearchResults, setPatientSearchResults] = useState<PatientSearchResult[]>([]);
   const [intake, setIntake] = useState(emptyIntake);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const [voiceError, setVoiceError] = useState("");
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   const clearFeedback = () => { setMessage(""); setError(""); };
   const clearForms = () => {
-    setIdentifier(""); setPassword(""); setOtp(""); setPatientSearchQuery(""); setPatientSearchResults([]); setIntake(emptyIntake);
+    setIdentifier(""); setPassword(""); setOtp(""); setPatientSearchQuery(""); setPatientSearchResults([]); setIntake(emptyIntake); setTranscript(""); setVoiceError("");
     setRegistration(emptyRegistration); setManagedAccount(emptyManagedAccount);
   };
   const goLogin = () => { clearFeedback(); clearForms(); setScreen("login"); };
@@ -194,6 +201,29 @@ function App() {
     finally { setBusy(false); }
   }
 
+  async function startRecording() {
+    setVoiceError("");
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/mp4";
+      const recorder = new MediaRecorder(stream, { mimeType });
+      chunksRef.current = [];
+      recorder.ondataavailable = (event) => { if (event.data.size) chunksRef.current.push(event.data); };
+      recorder.onstop = async () => {
+        stream.getTracks().forEach((track) => track.stop()); streamRef.current = null; setIsRecording(false);
+        const audio = new Blob(chunksRef.current, { type: recorder.mimeType });
+        const formData = new FormData(); formData.append("audio", audio, "materna-care-note.webm");
+        setIsTranscribing(true);
+        try { const result = await api.post("/voice-intake", formData, { headers: { "Content-Type": "multipart/form-data" } }); const text = result.data.transcript || ""; setTranscript(text); setIntake((current) => ({ ...current, summary: text })); }
+        catch (requestError: any) { setVoiceError(requestError.response?.data?.error || "কণ্ঠস্বর থেকে তথ্য নেওয়া যায়নি। হাতে লিখে চালিয়ে যান।"); }
+        finally { setIsTranscribing(false); }
+      };
+      recorderRef.current = recorder; streamRef.current = stream; recorder.start(); setIsRecording(true);
+    } catch { setVoiceError("মাইক্রোফোন ব্যবহার করা যাচ্ছে না। অনুমতি দিন অথবা হাতে লিখে তথ্য দিন।"); }
+  }
+
+  function stopRecording() { recorderRef.current?.stop(); }
+
   const title = screen === "otp" ? "আপনার OTP দিন" : screen === "forgot" ? "পাসওয়ার্ড ফিরে পান" : screen === "reset" ? "নতুন পাসওয়ার্ড দিন" : screen === "register" ? "নতুন patient account" : screen === "admin" ? "অ্যাডমিন কন্ট্রোল সেন্টার" : screen === "nurse" ? "আপনার কাজের জায়গা" : screen === "patient" ? "আপনার care space" : screen === "intake" ? "নতুন care intake" : "আপনার যত্ন, আরও সহজে";
   const intro = screen === "login" ? "আপনার পরিচয় নির্বাচন করে শুরু করুন" : screen === "otp" ? "আপনার ফোন বা ইমেইলে পাঠানো ৬ সংখ্যার কোডটি লিখুন" : screen === "forgot" ? "আপনার ইমেইল বা কর্মী আইডি দিন" : screen === "register" ? "কয়েকটি সহজ তথ্য দিয়ে নিবন্ধন সম্পন্ন করুন" : screen === "admin" ? "নিরাপদভাবে নতুন team member তৈরি করুন" : screen === "nurse" ? "আপনার assigned এলাকার care workflow এখান থেকে শুরু হবে" : screen === "patient" ? "আপনার account-এর প্রয়োজনীয় তথ্য এক জায়গায়" : screen === "intake" ? "Patient নির্বাচন করে প্রাথমিক তথ্য সংরক্ষণ করুন" : "নিরাপদ একটি নতুন পাসওয়ার্ড তৈরি করুন";
 
@@ -207,6 +237,7 @@ function App() {
         <div className="intake-step"><span>১</span><div><strong>Patient নির্বাচন</strong><small>Patient ID বা নাম দিয়ে খুঁজুন</small></div></div>
         <form onSubmit={searchPatients} className="search-form" autoComplete="off"><div className="input-wrap"><UserRound size={18} /><input value={patientSearchQuery} onChange={(event) => setPatientSearchQuery(event.target.value)} placeholder="যেমন: 00000001 বা নাম" required /><button className="search-button" disabled={busy}>খুঁজুন</button></div></form>
         {patientSearchResults.length > 0 && <div className="search-results">{patientSearchResults.map((patient) => <button type="button" className={intake.patientId === patient.patientId ? "patient-result selected" : "patient-result"} key={patient.patientId} onClick={() => setIntake({ ...intake, patientId: patient.patientId })}><span className="recent-avatar">{patient.name.slice(0, 1)}</span><span><strong>{patient.name}</strong><small>ID: {patient.patientId} · {patient.location || "এলাকা নেই"}</small></span><b>{intake.patientId === patient.patientId ? "✓" : "→"}</b></button>)}</div>}
+        <div className="voice-card"><div className="voice-card-heading"><span className={isRecording ? "recording-dot live" : "recording-dot"}></span><div><strong>{isRecording ? "রেকর্ডিং চলছে…" : isTranscribing ? "লিখিত রূপ তৈরি হচ্ছে…" : "বাংলায় কথা বলে লিখুন"}</strong><small>রোগীর কথা বা আপনার পর্যবেক্ষণ বলুন</small></div></div>{!isRecording && !isTranscribing && <button type="button" className="record-button" onClick={startRecording}><Mic size={18} /> রেকর্ড শুরু করুন</button>}{isRecording && <button type="button" className="record-button stop" onClick={stopRecording}><Square size={16} /> রেকর্ড বন্ধ করুন</button>}{isTranscribing && <div className="transcribing-state"><span className="spinner"></span> Faster-Whisper transcript তৈরি করছে…</div>}{transcript && <div className="transcript-box"><small>AI transcript — সংরক্ষণের আগে যাচাই করুন</small><p>{transcript}</p></div>}{voiceError && <p className="voice-error">{voiceError}</p>}</div>
         <form onSubmit={submitIntake} className="registration-form" autoComplete="off"><div className="selected-patient">{intake.patientId ? `নির্বাচিত Patient ID: ${intake.patientId}` : "Patient নির্বাচন না করা পর্যন্ত form সম্পূর্ণ হবে না"}</div><div className="form-grid"><div><label className="field-label" htmlFor="lmp">শেষ মাসিকের তারিখ</label><div className="input-wrap"><CalendarDays size={18} /><input id="lmp" type="date" value={intake.lastMenstrualPeriod} onChange={(event) => setIntake({ ...intake, lastMenstrualPeriod: event.target.value })} /></div></div><div><label className="field-label" htmlFor="edd">সম্ভাব্য প্রসবের তারিখ</label><div className="input-wrap"><CalendarDays size={18} /><input id="edd" type="date" value={intake.expectedDeliveryDate} onChange={(event) => setIntake({ ...intake, expectedDeliveryDate: event.target.value })} /></div></div></div><div className="form-grid"><div><label className="field-label" htmlFor="gravida">মোট গর্ভধারণ</label><input className="plain-input" id="gravida" type="number" min="0" value={intake.gravida} onChange={(event) => setIntake({ ...intake, gravida: event.target.value })} placeholder="যেমন: ১" /></div><div><label className="field-label" htmlFor="para">পূর্বের প্রসব</label><input className="plain-input" id="para" type="number" min="0" value={intake.para} onChange={(event) => setIntake({ ...intake, para: event.target.value })} placeholder="যেমন: ০" /></div></div><label className="field-label" htmlFor="summary">প্রাথমিক পর্যবেক্ষণ / concern</label><textarea id="summary" value={intake.summary} onChange={(event) => setIntake({ ...intake, summary: event.target.value })} placeholder="রোগী কী জানিয়েছেন বা আপনি কী লক্ষ্য করেছেন লিখুন" rows={4} required /><button className="primary-button" disabled={busy || !intake.patientId}>{busy ? "সংরক্ষণ হচ্ছে…" : "Care intake সংরক্ষণ করুন"}<span>→</span></button></form>
       </>}
       {screen === "nurse" && <>
