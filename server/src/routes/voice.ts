@@ -25,11 +25,11 @@ router.post("/", upload.single("audio"), async (req, res) => {
 
     const form = new FormData();
 
-    form.append(
-      "file",
-      req.file.buffer,
-      req.file.originalname
-    );
+    form.append("file", req.file.buffer, {
+      filename: req.file.originalname,
+      contentType: req.file.mimetype || "application/octet-stream",
+      knownLength: req.file.size,
+    });
 
     const response = await axios.post(
       `${AI_URL}/transcribe`,
@@ -45,7 +45,9 @@ router.post("/", upload.single("audio"), async (req, res) => {
   } catch (error) {
     console.error("AI transcription proxy failed", error);
     return res.status(502).json({
-      error: "AI transcription service unavailable",
+      error: axios.isAxiosError(error)
+        ? String(error.response?.data?.detail || error.response?.data?.error || "AI transcription failed")
+        : "AI transcription service unavailable",
     });
   }
 });
