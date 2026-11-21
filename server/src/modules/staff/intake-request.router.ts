@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
@@ -44,7 +45,7 @@ router.patch("/intake-requests/:id/review", async (request, response) => {
   if (!["VERIFIED", "REJECTED", "SUBMITTED"].includes(status)) {
     response.status(400).json({ error: "Review status সঠিক নয়।" }); return;
   }
-  const existing = await prisma.patientIntakeRequest.findUnique({ where: { id: request.params.id }, select: { id: true, status: true } });
+  const existing = await prisma.patientIntakeRequest.findUnique({ where: { id: request.params.id }, select: { id: true, status: true, patientUserId: true, transcriptText: true } });
   if (!existing) { response.status(404).json({ error: "Intake খুঁজে পাওয়া যায়নি।" }); return; }
   if (existing.status === "VERIFIED" || existing.status === "REJECTED") {
     response.status(409).json({ error: "এই intake ইতিমধ্যে review করা হয়েছে।" }); return;
@@ -55,8 +56,20 @@ router.patch("/intake-requests/:id/review", async (request, response) => {
       data: { status: status as "VERIFIED" | "REJECTED" | "SUBMITTED", transcriptText, aiSummary, reviewedAt: new Date(), reviewedById: auth.userId },
       select: { id: true, status: true, reviewedAt: true },
     });
-    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `PATIENT_INTAKE_${status}`, targetType: "PatientIntakeRequest", targetId: intake.id, metadata: { previousStatus: existing.status } } });
-    return intake;
+    let pregnancyCase: { id: string; caseCode: string } | null = null;
+    if (status === "VERIFIED") {
+      pregnancyCase = await transaction.pregnancyCase.findFirst({ where: { patientUserId: existing.patientUserId, status: "ACTIVE" }, select: { id: true, caseCode: true } });
+      if (!pregnancyCase) {
+        pregnancyCase = await transaction.pregnancyCase.create({
+          data: { patientUserId: existing.patientUserId, caseCode: `MC-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`, assignedStaffId: auth.userId, createdByUserId: auth.userId },
+          select: { id: true, caseCode: true },
+        });
+      }
+      await transaction.careEvent.create({ data: { pregnancyCaseId: pregnancyCase.id, eventType: "INITIAL_INTAKE", sourceType: "VOICE", verificationStatus: "CONFIRMED", summary: transcriptText || existing.transcriptText || null, createdByUserId: auth.userId } });
+      await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PREGNANCY_CASE_CREATED_FROM_INTAKE", targetType: "PregnancyCase", targetId: pregnancyCase.id, metadata: { intakeRequestId: intake.id, caseCode: pregnancyCase.caseCode } } });
+    }
+    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `PATIENT_INTAKE_${status}`, targetType: "PatientIntakeRequest", targetId: intake.id, metadata: { previousStatus: existing.status, caseCode: pregnancyCase?.caseCode || null } } });
+    return { ...intake, pregnancyCase };
   });
   response.json({ message: status === "VERIFIED" ? "Intake যাচাই করে সংরক্ষণ করা হয়েছে।" : status === "REJECTED" ? "Intake বাতিল করা হয়েছে।" : "Intake আবার review queue-তে পাঠানো হয়েছে।", data: updated });
 });
