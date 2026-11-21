@@ -63,6 +63,14 @@ enum TranscriptionStatus {
   FAILED
 }
 
+enum IntakeRequestStatus {
+  SUBMITTED
+  PROCESSING
+  READY_FOR_REVIEW
+  VERIFIED
+  REJECTED
+}
+
 enum ExtractedFieldStatus {
   UNCONFIRMED
   CONFIRMED
@@ -119,6 +127,8 @@ model User {
   patientTasks       FollowUpTask[]       @relation("PatientFollowUpTasks")
   confirmedFields    ExtractedField[]     @relation("ConfirmedExtractedFields")
   acknowledgedAlerts SafetyAlert[]        @relation("AcknowledgedSafetyAlerts")
+  patientIntakeRequests PatientIntakeRequest[] @relation("PatientIntakeRequests")
+  reviewedIntakeRequests PatientIntakeRequest[] @relation("ReviewedIntakeRequests")
 
   @@index([role, status])
   @@map("users")
@@ -278,6 +288,31 @@ model AuditLog {
   @@index([actorUserId, createdAt])
   @@index([targetType, targetId, createdAt])
   @@map("audit_logs")
+}
+
+model PatientIntakeRequest {
+  id                String              @id @default(cuid())
+  patientUserId     String              @map("patient_user_id")
+  status            IntakeRequestStatus @default(SUBMITTED)
+  sourceType        CareSourceType      @default(VOICE) @map("source_type")
+  audioStorageKey   String?             @map("audio_storage_key")
+  originalFilename  String?             @map("original_filename")
+  mimeType          String?             @map("mime_type")
+  transcriptText    String?             @map("transcript_text")
+  transcriptionStatus TranscriptionStatus @default(COMPLETED) @map("transcription_status")
+  aiSummary         Json?               @map("ai_summary")
+  submittedAt       DateTime            @default(now()) @map("submitted_at")
+  reviewedAt        DateTime?           @map("reviewed_at")
+  reviewedById      String?             @map("reviewed_by_id")
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+
+  patient   User  @relation("PatientIntakeRequests", fields: [patientUserId], references: [id], onDelete: Cascade)
+  reviewedBy User? @relation("ReviewedIntakeRequests", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@index([patientUserId, status, submittedAt])
+  @@index([status, submittedAt])
+  @@map("patient_intake_requests")
 }
 
 model PregnancyCase {

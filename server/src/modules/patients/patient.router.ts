@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import intakeRequestRouter from "./intake-request.router";
 
 const router = Router();
 router.use(requireAuth, requireRole("PATIENT"));
+router.use(intakeRequestRouter);
 
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };

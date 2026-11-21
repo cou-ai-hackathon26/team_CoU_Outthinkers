@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import intakeRequestRouter from "./intake-request.router";
 import careIntakeRouter from "./care-intake.router";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
+router.use(intakeRequestRouter);
 router.use(careIntakeRouter);
 
 router.get("/me", async (_request, response) => {
