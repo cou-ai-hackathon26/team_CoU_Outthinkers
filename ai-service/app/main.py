@@ -62,6 +62,13 @@ ASR_MODEL = os.getenv(
     "bengaliAI/tugstugi_bengaliai-regional-asr_whisper-medium"
 )
 
+ASR_CPU_THREADS = int(
+    os.getenv(
+        "ASR_CPU_THREADS",
+        str(min(8, os.cpu_count() or 1)),
+    )
+)
+
 
 # ==========================================
 # FASTAPI LIFESPAN
@@ -70,6 +77,7 @@ ASR_MODEL = os.getenv(
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
+    torch.set_num_threads(max(1, ASR_CPU_THREADS))
     app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
     app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
         ASR_MODEL,
@@ -199,8 +207,10 @@ async def transcribe(
             with torch.inference_mode():
                 predicted_ids = asr_model.generate(
                     inputs["input_features"],
-                    num_beams=5,
+                    # Greedy decoding is substantially faster on CPU than beam search.
+                    num_beams=1,
                     do_sample=False,
+                    max_new_tokens=256,
                 )
             transcript = processor.batch_decode(
                 predicted_ids,
