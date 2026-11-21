@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import api from "./lib/api";
 
+const Link = (props: any) => <RouterLink {...props} reloadDocument />;
+const navigate = (path: string) => window.location.assign(path);
+
 export default function Registration() {
-  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", dateOfBirth: "", phone: "", email: "", emergencyContactNumber: "", divisionId: "", districtId: "", upazilaId: "", address: "" });
   const [divisions, setDivisions] = useState<any[]>([]); const [districts, setDistricts] = useState<any[]>([]); const [upazilas, setUpazilas] = useState<any[]>([]);
   const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [busy, setBusy] = useState(false);
