@@ -78,6 +78,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     )
     app.state.asr_model.to("cpu")
     app.state.asr_model.eval()
+    app.state.asr_model.generation_config.forced_decoder_ids = (
+        app.state.processor.get_decoder_prompt_ids(
+            language="bn",
+            task="transcribe",
+        )
+    )
 
     print(f"Bengali ASR model initialized: {ASR_MODEL}")
 
@@ -190,14 +196,9 @@ async def transcribe(
                 sampling_rate=16000,
                 return_tensors="pt",
             )
-            forced_decoder_ids = processor.get_decoder_prompt_ids(
-                language="bn",
-                task="transcribe",
-            )
             with torch.inference_mode():
                 predicted_ids = asr_model.generate(
                     inputs["input_features"],
-                    forced_decoder_ids=forced_decoder_ids,
                     num_beams=5,
                     do_sample=False,
                 )
