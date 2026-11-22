@@ -13,12 +13,12 @@ router.use(followUpRouter);
 
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
-  const user = await prisma.user.findUnique({
+  const [user, pendingIntakes, assignedPatients] = await Promise.all([prisma.user.findUnique({
     where: { id: auth.userId },
     select: { email: true, phone: true, role: true, status: true, staffProfile: { select: { name: true, employeeId: true, address: true, division: { select: { nameBn: true } }, district: { select: { nameBn: true } }, upazila: { select: { nameBn: true } } } } },
-  });
+  }), prisma.patientIntakeRequest.count({ where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] } } }), prisma.pregnancyCase.count({ where: { assignedStaffId: auth.userId, status: "ACTIVE" } })]);
   if (!user || user.status !== "ACTIVE") { response.status(401).json({ error: "অ্যাকাউন্ট ব্যবহার করা যাচ্ছে না।" }); return; }
-  response.json({ data: user });
+  response.json({ data: { ...user, dashboard: { pendingIntakes, assignedPatients } } });
 });
 
 router.get("/patients/search", async (request, response) => {

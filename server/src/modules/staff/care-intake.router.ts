@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import axios from "axios";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
@@ -7,6 +8,19 @@ const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 
 function clean(value: unknown) { return String(value || "").trim(); }
+
+router.post("/care-intakes/preview", async (request, response) => {
+  const transcript = clean(request.body?.transcript);
+  if (!transcript) { response.status(400).json({ error: "Transcript প্রয়োজন।" }); return; }
+  try {
+    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const result = await axios.post(`${aiUrl}/extract`, { transcript }, { timeout: 120000 });
+    response.json({ data: { transcript, summary: result.data } });
+  } catch (error) {
+    console.error("Manual voice intake summary failed", error);
+    response.status(502).json({ error: "AI summary তৈরি করা যায়নি। Transcript দেখে manual summary লিখুন।" });
+  }
+});
 
 router.post("/care-intakes", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
