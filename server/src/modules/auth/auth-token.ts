@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import type { NextFunction, Request, Response } from "express";
+import { prisma } from "../../lib/prisma";
 
 export type AuthClaims = {
   userId: string;
@@ -58,7 +59,7 @@ export function verifyAuthToken(token: string): AuthClaims | null {
   }
 }
 
-export function requireAuth(request: Request, response: Response, next: NextFunction) {
+export async function requireAuth(request: Request, response: Response, next: NextFunction) {
   const header = request.header("authorization");
   const token = header?.startsWith("Bearer ") ? header.slice(7) : "";
   const claims = token ? verifyAuthToken(token) : null;
@@ -66,8 +67,17 @@ export function requireAuth(request: Request, response: Response, next: NextFunc
     response.status(401).json({ error: "অনুমতি প্রয়োজন।" });
     return;
   }
-  response.locals.auth = claims;
-  next();
+  try {
+    const user = await prisma.user.findUnique({ where: { id: claims.userId }, select: { role: true, status: true } });
+    if (!user || user.status !== "ACTIVE" || user.role !== claims.role) {
+      response.status(401).json({ error: "অ্যাকাউন্ট ব্যবহার করা যাচ্ছে না।" });
+      return;
+    }
+    response.locals.auth = claims;
+    next();
+  } catch (error) {
+    next(error);
+  }
 }
 
 export function requireRole(...roles: AuthClaims["role"][]) {
