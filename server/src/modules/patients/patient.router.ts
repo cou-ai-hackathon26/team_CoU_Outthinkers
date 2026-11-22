@@ -26,6 +26,10 @@ function findChatRedFlags(text: string) {
   return chatRedFlags.filter(([pattern]) => new RegExp(pattern, "i").test(source)).map(([, label]) => label);
 }
 
+function isIdentityQuestion(text: string) {
+  return /আপনি কে|আপনার পরিচয়|আপনার পরিচয়|who are you/i.test(text);
+}
+
 router.post("/chat/sessions", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
   const session = await prisma.chatSession.create({ data: { patientUserId: auth.userId } });
@@ -54,7 +58,9 @@ router.post("/chat/sessions/:id/messages", async (request, response) => {
   await prisma.chatMessage.create({ data: { sessionId: session.id, role: "USER", content } });
   const redFlags = findChatRedFlags(content);
   let answer: { reply: string; urgency: string; red_flags: string[]; suggested_action: string };
-  if (redFlags.length) {
+  if (isIdentityQuestion(content)) {
+    answer = { reply: "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।", urgency: "NORMAL", red_flags: [], suggested_action: "আপনার নির্দিষ্ট প্রশ্নটি লিখুন বা স্বাস্থ্যকর্মীর সঙ্গে কথা বলুন।" };
+  } else if (redFlags.length) {
     answer = { reply: `আপনি ${redFlags.join(", ")} এর কথা বলেছেন। এটি জরুরি হতে পারে। এখনই নিকটস্থ হাসপাতাল/স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন এবং সম্ভব হলে আপনার স্বাস্থ্যকর্মীকে জানান। আমি রোগ নির্ণয় করতে পারি না।`, urgency: "EMERGENCY", red_flags: redFlags, suggested_action: "এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।" };
   } else {
     try {
@@ -79,6 +85,17 @@ router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
   const session = await prisma.chatSession.findFirst({ where: { id: request.params.id, patientUserId: auth.userId }, select: { id: true } });
   if (!session) { response.status(404).json({ error: "Chat session পাওয়া যায়নি।" }); return; }
   await prisma.chatMessage.create({ data: { sessionId: session.id, role: "USER", content } });
+
+  if (isIdentityQuestion(content)) {
+    const answer = "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।";
+    response.status(200).set({ "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache, no-transform", Connection: "keep-alive", "X-Accel-Buffering": "no" });
+    response.flushHeaders?.();
+    for (const character of answer) response.write(`data: ${JSON.stringify({ type: "delta", text: character })}\n\n`);
+    await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: answer, urgency: "NORMAL" } });
+    response.write(`data: ${JSON.stringify({ type: "done", urgency: "NORMAL", red_flags: [], suggested_action: "আপনার নির্দিষ্ট প্রশ্নটি লিখুন বা স্বাস্থ্যকর্মীর সঙ্গে কথা বলুন।" })}\n\n`);
+    response.end();
+    return;
+  }
 
   try {
     const history = await prisma.chatMessage.findMany({ where: { sessionId: session.id }, orderBy: { createdAt: "asc" }, take: 12, select: { role: true, content: true } });
