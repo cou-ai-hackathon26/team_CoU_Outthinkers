@@ -126,6 +126,23 @@ class ExtractedIntake(BaseModel):
     uncertain_fields: list[str] = Field(default_factory=list)
 
 
+def fallback_extract(transcript: str) -> ExtractedIntake:
+    """Keep the intake reviewable when the optional local LLM is offline."""
+    symptom_terms = [
+        "রক্তপাত", "রক্ত যাচ্ছে", "পেট ব্যথা", "মাথাব্যথা", "জ্বর",
+        "শ্বাসকষ্ট", "খিঁচুনি", "অজ্ঞান", "নড়াচড়া কম", "ব্যথা",
+        "bleeding", "fever", "pain", "headache", "breathing",
+    ]
+    observation_terms = ["গর্ভবতী", "মাসের গর্ভবতী", "শিশুর", "বাচ্চা", "pregnant", "baby"]
+    reported_symptoms = [term for term in symptom_terms if term.lower() in transcript.lower()]
+    observations = [term for term in observation_terms if term.lower() in transcript.lower()]
+    return ExtractedIntake(
+        reported_symptoms=reported_symptoms,
+        observations=observations,
+        uncertain_fields=["স্থানীয় AI model চালু ছিল না; স্বাস্থ্যকর্মী transcript নিজে যাচাই করবেন"],
+    )
+
+
 # ==========================================
 # HEALTH CHECK
 # ==========================================
@@ -303,10 +320,5 @@ Original note:
         return validated
 
     except Exception as exc:
-
-        print(f"Extraction error: {exc}")
-
-        raise HTTPException(
-            status_code=502,
-            detail="Information extraction failed"
-        ) from exc
+        print(f"Extraction error; using safe fallback: {exc}")
+        return fallback_extract(request.transcript)
