@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { suggestSafetyAlerts } from "./safety-alert-suggestions";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -65,7 +66,15 @@ router.patch("/intake-requests/:id/review", async (request, response) => {
           select: { id: true, caseCode: true },
         });
       }
-      await transaction.careEvent.create({ data: { pregnancyCaseId: pregnancyCase.id, eventType: "INITIAL_INTAKE", sourceType: "VOICE", verificationStatus: "CONFIRMED", summary: transcriptText || existing.transcriptText || null, createdByUserId: auth.userId } });
+      const careEvent = await transaction.careEvent.create({ data: { pregnancyCaseId: pregnancyCase.id, eventType: "INITIAL_INTAKE", sourceType: "VOICE", verificationStatus: "CONFIRMED", summary: transcriptText || existing.transcriptText || null, createdByUserId: auth.userId }, select: { id: true } });
+      const suggestions = suggestSafetyAlerts(transcriptText || existing.transcriptText || "", aiSummary);
+      for (const suggestion of suggestions) {
+        const duplicate = await transaction.safetyAlert.findFirst({ where: { careEventId: careEvent.id, title: suggestion.title } });
+        if (!duplicate) {
+          const alert = await transaction.safetyAlert.create({ data: { pregnancyCaseId: pregnancyCase.id, careEventId: careEvent.id, severity: suggestion.severity, title: suggestion.title, reason: suggestion.reason, sourceFacts: { rule: suggestion.code, matchedPhrases: suggestion.matchedPhrases, source: "verified_patient_intake" } }, select: { id: true } });
+          await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: "SAFETY_ALERT_SUGGESTED", targetType: "SafetyAlert", targetId: alert.id, metadata: { intakeRequestId: intake.id, rule: suggestion.code, severity: suggestion.severity } } });
+        }
+      }
       await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PREGNANCY_CASE_CREATED_FROM_INTAKE", targetType: "PregnancyCase", targetId: pregnancyCase.id, metadata: { intakeRequestId: intake.id, caseCode: pregnancyCase.caseCode } } });
     }
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `PATIENT_INTAKE_${status}`, targetType: "PatientIntakeRequest", targetId: intake.id, metadata: { previousStatus: existing.status, caseCode: pregnancyCase?.caseCode || null } } });

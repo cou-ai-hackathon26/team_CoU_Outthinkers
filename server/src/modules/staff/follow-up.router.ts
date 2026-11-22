@@ -38,7 +38,7 @@ router.patch("/follow-up-tasks/:id/complete", async (request, response) => {
 
 router.get("/safety-alerts", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
-  const alerts = await prisma.safetyAlert.findMany({ where: { pregnancyCase: { assignedStaffId: auth.userId }, status: { not: "RESOLVED" } }, orderBy: { createdAt: "desc" }, take: 100, select: { id: true, severity: true, title: true, reason: true, status: true, createdAt: true, pregnancyCase: { select: { caseCode: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } } } });
+  const alerts = await prisma.safetyAlert.findMany({ where: { pregnancyCase: { assignedStaffId: auth.userId }, status: { not: "RESOLVED" } }, orderBy: { createdAt: "desc" }, take: 100, select: { id: true, severity: true, title: true, reason: true, sourceFacts: true, status: true, createdAt: true, pregnancyCase: { select: { caseCode: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } } } });
   response.json({ data: alerts });
 });
 
