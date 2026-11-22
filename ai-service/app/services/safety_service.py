@@ -14,4 +14,13 @@ RED_FLAG_RULES = [
 
 def find_red_flags(text: str) -> list[str]:
     source = text.lower()
-    return [label for pattern, label in RED_FLAG_RULES if re.search(pattern, source, re.IGNORECASE)]
+    flags: list[str] = []
+    for pattern, label in RED_FLAG_RULES:
+        match = re.search(pattern, source, re.IGNORECASE)
+        if not match:
+            continue
+        context = source[max(0, match.start() - 18):match.end() + 18]
+        if re.search(r"বন্ধ|নেই|হয়নি|হয়নি|আর নেই|কমে গেছে|stopped|no longer|not now|gone", context, re.IGNORECASE):
+            continue
+        flags.append(label)
+    return flags
