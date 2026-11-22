@@ -7,7 +7,7 @@ router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 
 router.get("/follow-up-tasks", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
-  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
+  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
   response.json({ data: tasks.map(task => ({ ...task, patientId: task.patientUser.publicId, patientName: task.patientUser.patientProfile?.name || "নাম নেই" })) });
 });
 
@@ -31,8 +31,12 @@ router.post("/follow-up-tasks", async (request, response) => {
 
 router.patch("/follow-up-tasks/:id/complete", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
-  const task = await prisma.followUpTask.updateMany({ where: { id: request.params.id, assignedStaffId: auth.userId, status: { not: "COMPLETED" } }, data: { status: "COMPLETED", completedAt: new Date(), completedById: auth.userId } });
+  const outcome = String(request.body?.outcome || "").trim();
+  const nextAction = String(request.body?.nextAction || "").trim();
+  if (!outcome) { response.status(400).json({ error: "Follow-up-এর ফলাফল লিখুন।" }); return; }
+  const task = await prisma.followUpTask.updateMany({ where: { id: request.params.id, assignedStaffId: auth.userId, status: { not: "COMPLETED" } }, data: { status: "COMPLETED", outcome, nextAction: nextAction || null, completedAt: new Date(), completedById: auth.userId } });
   if (!task.count) { response.status(404).json({ error: "Task খুঁজে পাওয়া যায়নি।" }); return; }
+  await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "FOLLOW_UP_TASK_COMPLETED", targetType: "FollowUpTask", targetId: request.params.id, metadata: { hasNextAction: Boolean(nextAction) } } });
   response.json({ message: "Follow-up সম্পন্ন হয়েছে।" });
 });
 

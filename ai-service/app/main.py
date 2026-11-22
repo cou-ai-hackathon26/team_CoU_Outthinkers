@@ -1,6 +1,7 @@
 import os
 import json
 import tempfile
+import asyncio
 from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
@@ -153,6 +154,8 @@ class ExtractedIntake(BaseModel):
     dates: list[str] = Field(default_factory=list)
     access_barriers: list[str] = Field(default_factory=list)
     uncertain_fields: list[str] = Field(default_factory=list)
+    extractionStatus: str = "READY"
+    extractionProvider: str = "gemini"
 
 
 def fallback_extract(transcript: str) -> ExtractedIntake:
@@ -169,7 +172,39 @@ def fallback_extract(transcript: str) -> ExtractedIntake:
         reported_symptoms=reported_symptoms,
         observations=observations,
         uncertain_fields=["AI summary তৈরি করা যায়নি; স্বাস্থ্যকর্মী transcript নিজে যাচাই করবেন"],
+        extractionStatus="FAILED",
+        extractionProvider=AI_EXTRACTION_PROVIDER,
     )
+
+
+async def gemini_request(client: httpx.AsyncClient, url: str, payload: dict) -> dict:
+    """Retry transient Gemini capacity/rate-limit failures before falling back."""
+    last_error: Exception | None = None
+    for attempt in range(3):
+        try:
+            response = await client.post(
+                url,
+                headers={"x-goog-api-key": GEMINI_API_KEY or ""},
+                json=payload,
+            )
+            if response.status_code in {429, 500, 502, 503, 504}:
+                retry_after = response.headers.get("retry-after")
+                delay = float(retry_after) if retry_after and retry_after.isdigit() else 2 ** attempt
+                last_error = RuntimeError(f"Gemini HTTP {response.status_code}: {response.text[:500]}")
+                if attempt < 2:
+                    await asyncio.sleep(min(delay, 8))
+                    continue
+                raise last_error
+            if response.is_error:
+                raise RuntimeError(f"Gemini HTTP {response.status_code}: {response.text[:500]}")
+            return response.json()
+        except (httpx.TimeoutException, httpx.NetworkError) as exc:
+            last_error = exc
+            if attempt < 2:
+                await asyncio.sleep(2 ** attempt)
+                continue
+            raise
+    raise last_error or RuntimeError("Gemini request failed")
 
 
 # ==========================================
@@ -321,17 +356,27 @@ Original note:
 """
 
     try:
-        schema = ExtractedIntake.model_json_schema()
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "reported_symptoms": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "observations": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "dates": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "access_barriers": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "uncertain_fields": {"type": "ARRAY", "items": {"type": "STRING"}},
+            },
+            "required": ["reported_symptoms", "observations", "dates", "access_barriers", "uncertain_fields"],
+        }
 
         if AI_EXTRACTION_PROVIDER == "gemini":
             if not GEMINI_API_KEY:
                 raise RuntimeError("GEMINI_API_KEY is not configured")
 
             async with httpx.AsyncClient(timeout=120) as client:
-                response = await client.post(
+                result = await gemini_request(
+                    client,
                     f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:generateContent",
-                    headers={"x-goog-api-key": GEMINI_API_KEY},
-                    json={
+                    {
                         "contents": [{"parts": [{"text": prompt}]}],
                         "generationConfig": {
                             "temperature": 0.1,
@@ -340,12 +385,6 @@ Original note:
                         },
                     },
                 )
-                if response.is_error:
-                    detail = response.text[:500].replace("\n", " ")
-                    raise RuntimeError(
-                        f"Gemini HTTP {response.status_code}: {detail}"
-                    )
-                result = response.json()
                 parts = result.get("candidates", [{}])[0].get("content", {}).get("parts", [])
                 response_text = "".join(part.get("text", "") for part in parts).strip()
                 if not response_text:
@@ -366,7 +405,10 @@ Original note:
         else:
             raise RuntimeError(f"Unsupported AI_EXTRACTION_PROVIDER: {AI_EXTRACTION_PROVIDER}")
 
-        return ExtractedIntake.model_validate(json.loads(response_text))
+        validated = ExtractedIntake.model_validate(json.loads(response_text))
+        validated.extractionStatus = "READY"
+        validated.extractionProvider = AI_EXTRACTION_PROVIDER
+        return validated
 
     except Exception as exc:
         print(

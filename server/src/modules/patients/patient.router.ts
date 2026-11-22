@@ -7,6 +7,17 @@ const router = Router();
 router.use(requireAuth, requireRole("PATIENT"));
 router.use(intakeRequestRouter);
 
+router.get("/follow-ups", async (_request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const tasks = await prisma.followUpTask.findMany({
+    where: { patientUserId: auth.userId, status: { not: "CANCELLED" } },
+    orderBy: [{ status: "asc" }, { dueAt: "asc" }],
+    take: 50,
+    select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true },
+  });
+  response.json({ data: tasks });
+});
+
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
   const user = await prisma.user.findUnique({

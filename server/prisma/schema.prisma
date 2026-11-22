@@ -416,6 +416,8 @@ model FollowUpTask {
   priority        TaskPriority @default(NORMAL)
   dueAt           DateTime?    @map("due_at")
   status          TaskStatus   @default(OPEN)
+  outcome         String?
+  nextAction      String?      @map("next_action")
   completedAt     DateTime?    @map("completed_at")
   completedById   String?      @map("completed_by_id")
   createdAt       DateTime     @default(now()) @map("created_at")

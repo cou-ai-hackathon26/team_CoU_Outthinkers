@@ -14,9 +14,10 @@ async function enrichIntake(intakeId: string, transcriptText: string) {
   try {
     const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
     const result = await axios.post(`${aiUrl}/extract`, { transcript: transcriptText }, { timeout: 120000 });
+    const extractionFailed = result.data?.extractionStatus === "FAILED";
     await prisma.$transaction(async (transaction) => {
       await transaction.patientIntakeRequest.update({ where: { id: intakeId }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data } });
-      await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: "PATIENT_INTAKE_AI_SUMMARY_CREATED", targetType: "PatientIntakeRequest", targetId: intakeId } });
+      await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: extractionFailed ? "PATIENT_INTAKE_AI_SUMMARY_FAILED" : "PATIENT_INTAKE_AI_SUMMARY_CREATED", targetType: "PatientIntakeRequest", targetId: intakeId } });
     });
   } catch (error) {
     console.error("AI intake extraction failed", error);
