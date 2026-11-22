@@ -47,12 +47,12 @@ av.open = _compatible_av_open
 
 OLLAMA_URL = os.getenv(
     "OLLAMA_BASE_URL",
-    "http://localhost:11434"
+    "http://127.0.0.1:11434"
 )
 
 OLLAMA_MODEL = os.getenv(
     "OLLAMA_MODEL",
-    "qwen2.5:1.5b"
+    "llama3.2:1b"
 )
 
 ASR_MODEL = os.getenv(
@@ -78,6 +78,7 @@ ASR_CPU_THREADS = int(
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     torch.set_num_threads(max(1, ASR_CPU_THREADS))
+    print(f"Ollama extraction configured: {OLLAMA_URL} / {OLLAMA_MODEL}")
     app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
     app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
         ASR_MODEL,
