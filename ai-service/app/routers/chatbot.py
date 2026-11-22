@@ -11,6 +11,7 @@ from app.prompts.chatbot_prompt import build_stream_chatbot_prompt
 from app.services.gemini_service import stream_text
 from app.services.safety_service import find_red_flags
 from app.services.intent_service import classify_intent
+from app.services.diet_service import clarification_response, extract_diet_profile, missing_diet_questions
 
 router = APIRouter()
 
@@ -58,7 +59,18 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
     conversation = "\n".join(f"{message.role.upper()}: {message.content[:4000]}" for message in payload.messages[-12:])
     latest_message = payload.messages[-1].content if payload.messages else ""
-    intent = classify_intent(latest_message)
+    intent = classify_intent(latest_message, conversation)
+    profile = extract_diet_profile(conversation)
+    missing = missing_diet_questions(profile)
+    if intent.name == "DIET_PLAN" and missing:
+        answer = clarification_response(profile)
+
+        async def diet_events():
+            for character in answer:
+                yield f"data: {json.dumps({'type': 'delta', 'text': character}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': 'উপরের তথ্যগুলো লিখে পাঠান।', 'intent': 'DIET_PLAN', 'needs_clarification': True}, ensure_ascii=False)}\n\n"
+
+        return StreamingResponse(diet_events(), media_type="text/event-stream")
 
     async def events():
         try:

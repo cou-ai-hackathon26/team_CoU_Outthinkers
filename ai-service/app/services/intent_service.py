@@ -19,7 +19,9 @@ RULES = [
 ]
 
 
-def classify_intent(text: str) -> IntentResult:
+def classify_intent(text: str, context: str = "") -> IntentResult:
+    if context and re.search(r"ডায়েট|ডায়েট|খাদ্য|খাবার|diet|meal", context, re.IGNORECASE) and re.search(r"সপ্তাহ|মাস|ডায়াবেটিস|ডায়াবেটিস|রক্তচাপ|অ্যানিম|অ্যালার্জি|নিরামিষ|week|month|diabetes|allerg", text, re.IGNORECASE):
+        return IntentResult("DIET_PLAN", "MEDIUM")
     for name, pattern in RULES:
         if re.search(pattern, text, re.IGNORECASE):
             return IntentResult(name, "HIGH")
