@@ -63,4 +63,19 @@ router.get("/audit-logs", async (_request, response) => {
   response.json({ data: logs });
 });
 
+router.patch("/users/:id/status", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const status = String(request.body?.status || "").trim();
+  if (!["ACTIVE", "SUSPENDED"].includes(status)) { response.status(400).json({ error: "Account status সঠিক নয়।" }); return; }
+  if (request.params.id === auth.userId) { response.status(400).json({ error: "নিজের account suspend করা যাবে না।" }); return; }
+  const existing = await prisma.user.findUnique({ where: { id: request.params.id }, select: { id: true, role: true, status: true, email: true } });
+  if (!existing || !["NURSE", "ADMIN"].includes(existing.role)) { response.status(404).json({ error: "Staff account খুঁজে পাওয়া যায়নি।" }); return; }
+  const updated = await prisma.$transaction(async transaction => {
+    const user = await transaction.user.update({ where: { id: existing.id }, data: { status: status as "ACTIVE" | "SUSPENDED" }, select: { id: true, status: true, email: true, role: true } });
+    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `STAFF_${status}`, targetType: "User", targetId: existing.id, metadata: { previousStatus: existing.status, email: existing.email } } });
+    return user;
+  });
+  response.json({ message: status === "ACTIVE" ? "Account আবার চালু হয়েছে।" : "Account suspend হয়েছে।", data: updated });
+});
+
 export default router;
