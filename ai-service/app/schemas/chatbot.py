@@ -19,3 +19,5 @@ class ChatResponse(BaseModel):
     needs_clarification: bool = False
     clarifying_questions: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
+    requires_nurse_review: bool = False
+    validation_status: str = "NOT_VALIDATED"

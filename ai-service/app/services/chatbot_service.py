@@ -7,6 +7,7 @@ from app.services.gemini_service import generate_json
 from app.services.intent_service import classify_intent
 from app.services.diet_service import clarification_response, extract_diet_profile, missing_diet_questions
 from app.services.knowledge_service import format_guidance, retrieve_guidance
+from app.services.response_validator import validate_response
 
 
 CHAT_SCHEMA = {"type": "OBJECT", "properties": {"reply": {"type": "STRING"}, "urgency": {"type": "STRING", "enum": ["NORMAL", "HIGH", "EMERGENCY"]}, "red_flags": {"type": "ARRAY", "items": {"type": "STRING"}}, "suggested_action": {"type": "STRING"}, "sources": {"type": "ARRAY", "items": {"type": "STRING"}}}, "required": ["reply", "urgency", "red_flags", "suggested_action", "sources"]}
@@ -25,5 +26,4 @@ async def chat(request: ChatRequest) -> ChatResponse:
     guidance_chunks = retrieve_guidance(latest_message + " " + intent.name)
     prompt = build_chatbot_prompt(conversation, latest_message, intent.name, format_guidance(guidance_chunks))
     result = ChatResponse.model_validate(json.loads(await generate_json(prompt, CHAT_SCHEMA, 0.2, timeout=90)))
-    result.intent = intent.name
-    return result
+    return validate_response(result, guidance_chunks, intent.name)
