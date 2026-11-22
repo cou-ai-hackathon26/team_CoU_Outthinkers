@@ -1,11 +1,76 @@
 import { Router } from "express";
+import axios from "axios";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import intakeRequestRouter from "./intake-request.router";
+import { aiServiceHeaders } from "../../lib/ai-client";
+import { rateLimit } from "../../lib/rate-limit";
 
 const router = Router();
 router.use(requireAuth, requireRole("PATIENT"));
 router.use(intakeRequestRouter);
+router.use("/chat", rateLimit({ name: "patient-chat", windowMs: 60_000, max: 30 }));
+
+const chatRedFlags: Array<[string, string]> = [
+  ["রক্তপাত|রক্ত যাচ্ছে|অনেক রক্ত|bleeding|heavy bleeding", "রক্তপাত"],
+  ["তীব্র পেট ব্যথা|প্রচণ্ড পেট ব্যথা|severe abdominal pain", "তীব্র পেটব্যথা"],
+  ["খিঁচুনি|অজ্ঞান|seizure|unconscious", "খিঁচুনি বা অজ্ঞান"],
+  ["শ্বাসকষ্ট|শ্বাস নিতে কষ্ট|difficulty breathing", "শ্বাসকষ্ট"],
+  ["চোখে ঝাপসা|দৃষ্টি ঝাপসা|severe headache", "তীব্র মাথাব্যথা বা দৃষ্টির সমস্যা"],
+  ["জ্বর|fever|high temperature", "জ্বর"],
+  ["বাচ্চা নড়ছে না|শিশু নড়ছে না|নড়াচড়া কম|reduced fetal movement", "শিশুর নড়াচড়া কম"],
+];
+
+function findChatRedFlags(text: string) {
+  const source = text.toLowerCase();
+  return chatRedFlags.filter(([pattern]) => new RegExp(pattern, "i").test(source)).map(([, label]) => label);
+}
+
+router.post("/chat/sessions", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const session = await prisma.chatSession.create({ data: { patientUserId: auth.userId } });
+  response.status(201).json({ data: { id: session.id, title: session.title, createdAt: session.createdAt } });
+});
+
+router.get("/chat/sessions", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const sessions = await prisma.chatSession.findMany({ where: { patientUserId: auth.userId }, orderBy: { updatedAt: "desc" }, take: 30, select: { id: true, title: true, createdAt: true, updatedAt: true, messages: { orderBy: { createdAt: "desc" }, take: 1, select: { content: true, createdAt: true } } } });
+  response.json({ data: sessions });
+});
+
+router.get("/chat/sessions/:id", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const session = await prisma.chatSession.findFirst({ where: { id: request.params.id, patientUserId: auth.userId }, select: { id: true, title: true, createdAt: true, messages: { orderBy: { createdAt: "asc" }, select: { id: true, role: true, content: true, urgency: true, createdAt: true } } } });
+  if (!session) { response.status(404).json({ error: "Chat session পাওয়া যায়নি।" }); return; }
+  response.json({ data: session });
+});
+
+router.post("/chat/sessions/:id/messages", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const content = String(request.body?.content || "").trim();
+  if (!content || content.length > 4000) { response.status(400).json({ error: "১ থেকে ৪০০০ অক্ষরের মধ্যে আপনার কথা লিখুন।" }); return; }
+  const session = await prisma.chatSession.findFirst({ where: { id: request.params.id, patientUserId: auth.userId }, select: { id: true } });
+  if (!session) { response.status(404).json({ error: "Chat session পাওয়া যায়নি।" }); return; }
+  await prisma.chatMessage.create({ data: { sessionId: session.id, role: "USER", content } });
+  const redFlags = findChatRedFlags(content);
+  let answer: { reply: string; urgency: string; red_flags: string[]; suggested_action: string };
+  if (redFlags.length) {
+    answer = { reply: `আপনি ${redFlags.join(", ")} এর কথা বলেছেন। এটি জরুরি হতে পারে। এখনই নিকটস্থ হাসপাতাল/স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন এবং সম্ভব হলে আপনার স্বাস্থ্যকর্মীকে জানান। আমি রোগ নির্ণয় করতে পারি না।`, urgency: "EMERGENCY", red_flags: redFlags, suggested_action: "এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।" };
+  } else {
+    try {
+      const history = await prisma.chatMessage.findMany({ where: { sessionId: session.id }, orderBy: { createdAt: "asc" }, take: 12, select: { role: true, content: true } });
+      const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+      const result = await axios.post(`${aiUrl}/chat`, { messages: history }, { timeout: 100_000, headers: aiServiceHeaders() });
+      answer = result.data;
+    } catch (error) {
+      console.error("Patient chatbot failed", error);
+      response.status(502).json({ error: "Chat assistant এখন সাময়িকভাবে unavailable। আপনার care intake পাঠাতে পারেন।" });
+      return;
+    }
+  }
+  const saved = await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: answer.reply, urgency: answer.urgency } });
+  response.status(201).json({ data: { message: { id: saved.id, role: saved.role, content: saved.content, urgency: saved.urgency, createdAt: saved.createdAt }, redFlags: answer.red_flags || [], suggestedAction: answer.suggested_action || "" } });
+});
 
 router.get("/follow-ups", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };

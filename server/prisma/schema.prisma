@@ -102,6 +102,12 @@ enum AlertStatus {
   RESOLVED
 }
 
+enum ChatMessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
 model User {
   id           String     @id @default(cuid())
   role         UserRole
@@ -129,6 +135,7 @@ model User {
   acknowledgedAlerts SafetyAlert[]        @relation("AcknowledgedSafetyAlerts")
   patientIntakeRequests PatientIntakeRequest[] @relation("PatientIntakeRequests")
   reviewedIntakeRequests PatientIntakeRequest[] @relation("ReviewedIntakeRequests")
+  chatSessions       ChatSession[]         @relation("PatientChatSessions")
 
   @@index([role, status])
   @@map("users")
@@ -454,4 +461,32 @@ model SafetyAlert {
 
   @@index([pregnancyCaseId, status])
   @@map("safety_alerts")
+}
+
+model ChatSession {
+  id            String        @id @default(cuid())
+  patientUserId String        @map("patient_user_id")
+  title         String        @default("স্বাস্থ্য সহায়তা")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  patient  User          @relation("PatientChatSessions", fields: [patientUserId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@index([patientUserId, updatedAt])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id        String          @id @default(cuid())
+  sessionId String          @map("session_id")
+  role      ChatMessageRole
+  content   String
+  urgency   String?
+  createdAt DateTime        @default(now()) @map("created_at")
+
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@map("chat_messages")
 }

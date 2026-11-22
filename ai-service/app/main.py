@@ -159,6 +159,22 @@ class ExtractedIntake(BaseModel):
     extractionProvider: str = "gemini"
 
 
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    messages: list[ChatMessage]
+
+
+class ChatResponse(BaseModel):
+    reply: str
+    urgency: str = "NORMAL"
+    red_flags: list[str] = Field(default_factory=list)
+    suggested_action: str = ""
+
+
 def fallback_extract(transcript: str) -> ExtractedIntake:
     """Keep the intake reviewable when the configured extraction provider is unavailable."""
     symptom_terms = [
@@ -421,3 +437,51 @@ Original note:
             f"{type(exc).__name__}: {exc}"
         )
         return fallback_extract(payload.transcript)
+
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat(request: Request, payload: ChatRequest):
+    if AI_SERVICE_TOKEN and request.headers.get("x-ai-service-token") != AI_SERVICE_TOKEN:
+        raise HTTPException(status_code=401, detail="AI service authentication required")
+    if AI_EXTRACTION_PROVIDER != "gemini" or not GEMINI_API_KEY:
+        raise HTTPException(status_code=503, detail="Gemini chat is not configured")
+
+    conversation = "\n".join(f"{message.role.upper()}: {message.content[:4000]}" for message in payload.messages[-12:])
+    prompt = f"""
+You are MaternaCare AI, a Bengali maternal-health information assistant.
+Respond primarily in natural Bengali. You are not a doctor and must not diagnose,
+prescribe medicine, recommend dosage, or claim certainty. Give general information,
+ask a short clarifying question when useful, and advise contacting a nurse or doctor.
+If the conversation indicates bleeding, severe abdominal pain, seizure, unconsciousness,
+breathing difficulty, severe headache/blurred vision, fever, or reduced fetal movement,
+mark urgency as EMERGENCY and clearly advise urgent professional care.
+Do not invent patient facts. Use only the conversation below.
+
+Return JSON with:
+- reply: a concise, empathetic Bengali response
+- urgency: NORMAL, HIGH, or EMERGENCY
+- red_flags: explicitly mentioned concerning symptoms, or []
+- suggested_action: one safe next step in Bengali
+
+Conversation:
+{conversation}
+"""
+    schema = {
+        "type": "OBJECT",
+        "properties": {
+            "reply": {"type": "STRING"},
+            "urgency": {"type": "STRING", "enum": ["NORMAL", "HIGH", "EMERGENCY"]},
+            "red_flags": {"type": "ARRAY", "items": {"type": "STRING"}},
+            "suggested_action": {"type": "STRING"},
+        },
+        "required": ["reply", "urgency", "red_flags", "suggested_action"],
+    }
+    try:
+        async with httpx.AsyncClient(timeout=90) as client:
+            result = await gemini_request(client, f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:generateContent", {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json", "responseSchema": schema}})
+        parts = result.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+        text = "".join(part.get("text", "") for part in parts).strip()
+        return ChatResponse.model_validate(json.loads(text))
+    except Exception as exc:
+        print(f"Chat extraction failed: {type(exc).__name__}: {exc}")
+        raise HTTPException(status_code=502, detail="Chat service is temporarily unavailable") from exc
