@@ -3,11 +3,13 @@ import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import intakeRequestRouter from "./intake-request.router";
 import careIntakeRouter from "./care-intake.router";
+import followUpRouter from "./follow-up.router";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 router.use(intakeRequestRouter);
 router.use(careIntakeRouter);
+router.use(followUpRouter);
 
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };

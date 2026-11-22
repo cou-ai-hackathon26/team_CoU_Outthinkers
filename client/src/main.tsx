@@ -6,9 +6,10 @@ import App from './App.tsx'
 import Registration from './Registration.tsx'
 import WorkerIntakeReview from './WorkerIntakeReview.tsx'
 import PatientRequests from './PatientRequests.tsx'
+import WorkerFollowUps from './WorkerFollowUps.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : window.location.pathname === '/patient/requests' ? <PatientRequests /> : <App />}
+    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : window.location.pathname === '/patient/requests' ? <PatientRequests /> : window.location.pathname === '/worker/follow-ups' ? <WorkerFollowUps /> : <App />}
   </StrictMode>,
 )
