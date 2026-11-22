@@ -12,6 +12,10 @@ router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 router.get("/intake-requests", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);
+  await prisma.patientIntakeRequest.updateMany({
+    where: { status: "PROCESSING", submittedAt: { lt: new Date(Date.now() - 10 * 60_000) } },
+    data: { status: "READY_FOR_REVIEW", aiSummary: { extractionStatus: "FAILED", uncertain_fields: ["AI processing মাঝপথে বন্ধ হয়েছে; transcript নিজে যাচাই করুন"] } },
+  });
   const requests = await prisma.patientIntakeRequest.findMany({
     where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] }, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) },
     orderBy: { submittedAt: "asc" },

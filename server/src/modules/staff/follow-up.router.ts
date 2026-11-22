@@ -56,4 +56,12 @@ router.patch("/safety-alerts/:id/acknowledge", async (request, response) => {
   response.json({ message: "Safety alert acknowledge করা হয়েছে।" });
 });
 
+router.patch("/safety-alerts/:id/resolve", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const updated = await prisma.safetyAlert.updateMany({ where: { id: request.params.id, pregnancyCase: { assignedStaffId: auth.userId }, status: "ACKNOWLEDGED" }, data: { status: "RESOLVED" } });
+  if (!updated.count) { response.status(404).json({ error: "সমাধান করার মতো acknowledged alert পাওয়া যায়নি।" }); return; }
+  await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "SAFETY_ALERT_RESOLVED", targetType: "SafetyAlert", targetId: request.params.id } });
+  response.json({ message: "Safety alert resolved হয়েছে।" });
+});
+
 export default router;
