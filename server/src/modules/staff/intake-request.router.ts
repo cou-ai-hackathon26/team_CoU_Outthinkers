@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import axios from "axios";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
@@ -36,6 +37,27 @@ router.get("/intake-requests/:id", async (request, response) => {
   });
   if (!intake) { response.status(404).json({ error: "Intake খুঁজে পাওয়া যায়নি।" }); return; }
   response.json({ data: intake });
+});
+
+router.post("/intake-requests/:id/retry-extraction", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const existing = await prisma.patientIntakeRequest.findUnique({ where: { id: request.params.id }, select: { id: true, status: true, transcriptText: true } });
+  if (!existing) { response.status(404).json({ error: "Intake খুঁজে পাওয়া যায়নি।" }); return; }
+  if (existing.status === "VERIFIED" || existing.status === "REJECTED") { response.status(409).json({ error: "এই intake আর পুনরায় process করা যাবে না।" }); return; }
+  if (!existing.transcriptText?.trim()) { response.status(400).json({ error: "Transcript না থাকায় summary তৈরি করা যাচ্ছে না।" }); return; }
+  try {
+    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const result = await axios.post(`${aiUrl}/extract`, { transcript: existing.transcriptText }, { timeout: 120000 });
+    const updated = await prisma.$transaction(async transaction => {
+      const intake = await transaction.patientIntakeRequest.update({ where: { id: existing.id }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data, reviewedAt: null, reviewedById: null }, select: { id: true, status: true, aiSummary: true } });
+      await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PATIENT_INTAKE_AI_SUMMARY_RETRIED", targetType: "PatientIntakeRequest", targetId: intake.id } });
+      return intake;
+    });
+    response.json({ message: "AI summary আবার তৈরি হয়েছে।", data: updated });
+  } catch (error) {
+    console.error("AI intake retry failed", error);
+    response.status(502).json({ error: axios.isAxiosError(error) ? String(error.response?.data?.detail || "AI service এখনো প্রস্তুত নয়।") : "AI summary তৈরি করা যায়নি।" });
+  }
 });
 
 router.patch("/intake-requests/:id/review", async (request, response) => {
