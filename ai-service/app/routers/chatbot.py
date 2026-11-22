@@ -1,4 +1,5 @@
 import json
+import re
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
@@ -44,11 +45,22 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
         return StreamingResponse(emergency_events(), media_type="text/event-stream")
 
+    if re.search(r"আপনি কে|আপনার পরিচয়|আপনার পরিচয়|who are you", latest_message, re.IGNORECASE):
+        answer = "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।"
+
+        async def identity_events():
+            for character in answer:
+                yield f"data: {json.dumps({'type': 'delta', 'text': character}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': 'আপনার নির্দিষ্ট প্রশ্নটি লিখুন বা স্বাস্থ্যকর্মীর সঙ্গে কথা বলুন।'}, ensure_ascii=False)}\n\n"
+
+        return StreamingResponse(identity_events(), media_type="text/event-stream")
+
     conversation = "\n".join(f"{message.role.upper()}: {message.content[:4000]}" for message in payload.messages[-12:])
+    latest_message = payload.messages[-1].content if payload.messages else ""
 
     async def events():
         try:
-            async for text in stream_text(build_stream_chatbot_prompt(conversation)):
+            async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': ''}, ensure_ascii=False)}\n\n"
         except Exception as exc:

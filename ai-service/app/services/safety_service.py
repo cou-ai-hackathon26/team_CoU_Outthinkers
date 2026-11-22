@@ -20,7 +20,9 @@ def find_red_flags(text: str) -> list[str]:
         if not match:
             continue
         context = source[max(0, match.start() - 18):match.end() + 18]
-        if re.search(r"বন্ধ|নেই|হয়নি|হয়নি|আর নেই|কমে গেছে|stopped|no longer|not now|gone", context, re.IGNORECASE):
+        resolved = re.search(r"বন্ধ (হয়েছে|হয়েছে|ছিল)|নেই|হয়নি|হয়নি|আর নেই|থেমে গেছে|কমে গেছে|stopped|no longer|not now|gone", context, re.IGNORECASE)
+        asks_to_stop = re.search(r"বন্ধ করতে|বন্ধ করা|থামাতে|stop", context, re.IGNORECASE)
+        if resolved and not asks_to_stop:
             continue
         flags.append(label)
     return flags
