@@ -5,7 +5,12 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
+from app.config import KNOWLEDGE_EMBEDDING_MODEL, KNOWLEDGE_RETRIEVAL_MODE
+
 KNOWLEDGE_ROOT = Path(__file__).resolve().parents[2] / "knowledge"
+_embedding_model = None
+_embedding_vectors = None
+_embedding_chunks: tuple | None = None
 
 
 @dataclass(frozen=True)
@@ -51,14 +56,47 @@ def _load_chunks() -> list[KnowledgeChunk]:
 
 
 def retrieve_guidance(query: str, limit: int = 3) -> list[KnowledgeChunk]:
+    chunks = _load_chunks()
+    if KNOWLEDGE_RETRIEVAL_MODE in {"embedding", "auto"}:
+        embedded = _retrieve_with_embeddings(query, chunks, limit)
+        if embedded is not None:
+            return embedded
+    return _retrieve_with_keywords(query, chunks, limit)
+
+
+def _retrieve_with_keywords(query: str, chunks: list[KnowledgeChunk], limit: int) -> list[KnowledgeChunk]:
     query_terms = {term for term in re.findall(r"[\w\u0980-\u09FF]+", query.lower()) if len(term) > 2}
     scored = []
-    for chunk in _load_chunks():
+    for chunk in chunks:
         chunk_terms = set(re.findall(r"[\w\u0980-\u09FF]+", chunk.text.lower()))
         score = len(query_terms & chunk_terms)
         if score:
             scored.append((score, chunk))
     return [chunk for _, chunk in sorted(scored, key=lambda item: item[0], reverse=True)[:limit]]
+
+
+def _retrieve_with_embeddings(query: str, chunks: list[KnowledgeChunk], limit: int) -> list[KnowledgeChunk] | None:
+    """Return embedding matches, or None when the optional backend is unavailable."""
+    if not chunks:
+        return []
+    try:
+        from sentence_transformers import SentenceTransformer
+    except ImportError:
+        return None
+
+    global _embedding_model, _embedding_vectors, _embedding_chunks
+    try:
+        if _embedding_model is None:
+            _embedding_model = SentenceTransformer(KNOWLEDGE_EMBEDDING_MODEL)
+        if _embedding_chunks != tuple(chunks):
+            _embedding_vectors = _embedding_model.encode([chunk.text for chunk in chunks], normalize_embeddings=True)
+            _embedding_chunks = tuple(chunks)
+        query_vector = _embedding_model.encode([query], normalize_embeddings=True)[0]
+        scores = [(float(vector @ query_vector), chunk) for vector, chunk in zip(_embedding_vectors, chunks)]
+        return [chunk for score, chunk in sorted(scores, key=lambda item: item[0], reverse=True)[:limit] if score > 0.25]
+    except Exception as exc:  # pragma: no cover - depends on local model/network
+        print(f"Semantic retrieval unavailable; using keyword fallback: {type(exc).__name__}: {exc}")
+        return None
 
 
 def format_guidance(chunks: list[KnowledgeChunk]) -> str:

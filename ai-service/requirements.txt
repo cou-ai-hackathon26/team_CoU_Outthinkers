@@ -9,3 +9,5 @@ pydantic
 httpx
 python-dotenv
 pypdf
+# Optional semantic retrieval backend. If not installed, retrieval safely falls back to keyword scoring.
+sentence-transformers
