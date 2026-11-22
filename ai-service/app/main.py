@@ -69,6 +69,7 @@ GEMINI_BASE_URL = os.getenv(
     "GEMINI_BASE_URL",
     "https://generativelanguage.googleapis.com/v1beta",
 ).rstrip("/")
+AI_SERVICE_TOKEN = os.getenv("AI_SERVICE_TOKEN", "").strip()
 
 OLLAMA_URL = os.getenv(
     "OLLAMA_BASE_URL",
@@ -228,6 +229,8 @@ async def transcribe(
     request: Request,
     file: UploadFile = File(...)
 ):
+    if AI_SERVICE_TOKEN and request.headers.get("x-ai-service-token") != AI_SERVICE_TOKEN:
+        raise HTTPException(status_code=401, detail="AI service authentication required")
 
     processor = getattr(request.app.state, "processor", None)
     asr_model = getattr(request.app.state, "asr_model", None)
@@ -328,7 +331,9 @@ async def transcribe(
     "/extract",
     response_model=ExtractedIntake
 )
-async def extract(request: ExtractionRequest):
+async def extract(request: Request, payload: ExtractionRequest):
+    if AI_SERVICE_TOKEN and request.headers.get("x-ai-service-token") != AI_SERVICE_TOKEN:
+        raise HTTPException(status_code=401, detail="AI service authentication required")
 
     prompt = f"""
 You extract information from community health worker notes.
@@ -352,7 +357,7 @@ Return JSON with these fields:
 - uncertain_fields: list of information requiring human verification
 
 Original note:
-{request.transcript}
+{payload.transcript}
 """
 
     try:
@@ -415,4 +420,4 @@ Original note:
             f"{AI_EXTRACTION_PROVIDER.title()} extraction error; using safe fallback: "
             f"{type(exc).__name__}: {exc}"
         )
-        return fallback_extract(request.transcript)
+        return fallback_extract(payload.transcript)

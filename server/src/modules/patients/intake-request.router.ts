@@ -2,6 +2,7 @@ import { Router } from "express";
 import axios from "axios";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { aiServiceHeaders } from "../../lib/ai-client";
 
 const router = Router();
 router.use(requireAuth, requireRole("PATIENT"));
@@ -13,7 +14,7 @@ function clean(value: unknown) {
 async function enrichIntake(intakeId: string, transcriptText: string) {
   try {
     const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
-    const result = await axios.post(`${aiUrl}/extract`, { transcript: transcriptText }, { timeout: 120000 });
+    const result = await axios.post(`${aiUrl}/extract`, { transcript: transcriptText }, { timeout: 120000, headers: aiServiceHeaders() });
     const extractionFailed = result.data?.extractionStatus === "FAILED";
     await prisma.$transaction(async (transaction) => {
       await transaction.patientIntakeRequest.update({ where: { id: intakeId }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data } });

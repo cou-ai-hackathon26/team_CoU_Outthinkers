@@ -3,6 +3,7 @@ import axios from "axios";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { aiServiceHeaders } from "../../lib/ai-client";
 import { suggestSafetyAlerts } from "./safety-alert-suggestions";
 
 const router = Router();
@@ -15,7 +16,7 @@ router.post("/care-intakes/preview", async (request, response) => {
   if (!transcript) { response.status(400).json({ error: "Transcript প্রয়োজন।" }); return; }
   try {
     const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
-    const result = await axios.post(`${aiUrl}/extract`, { transcript }, { timeout: 120000 });
+    const result = await axios.post(`${aiUrl}/extract`, { transcript }, { timeout: 120000, headers: aiServiceHeaders() });
     response.json({ data: { transcript, summary: result.data } });
   } catch (error) {
     console.error("Manual voice intake summary failed", error);

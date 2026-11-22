@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 import axios from "axios";
 import FormData from "form-data";
+import { aiServiceHeaders } from "../lib/ai-client";
 
 const router = Router();
 
@@ -35,7 +36,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
       `${AI_URL}/transcribe`,
       form,
       {
-        headers: form.getHeaders(),
+        headers: { ...form.getHeaders(), ...aiServiceHeaders() },
         timeout: 180000,
         maxBodyLength: 10 * 1024 * 1024,
       }

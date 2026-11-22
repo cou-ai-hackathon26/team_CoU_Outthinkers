@@ -5,6 +5,7 @@ import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { suggestSafetyAlerts } from "./safety-alert-suggestions";
 import { getStaffScope } from "./staff-scope";
+import { aiServiceHeaders } from "../../lib/ai-client";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -57,7 +58,7 @@ router.post("/intake-requests/:id/retry-extraction", async (request, response) =
   if (!existing.transcriptText?.trim()) { response.status(400).json({ error: "Transcript না থাকায় summary তৈরি করা যাচ্ছে না।" }); return; }
   try {
     const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
-    const result = await axios.post(`${aiUrl}/extract`, { transcript: existing.transcriptText }, { timeout: 120000 });
+    const result = await axios.post(`${aiUrl}/extract`, { transcript: existing.transcriptText }, { timeout: 120000, headers: aiServiceHeaders() });
     const updated = await prisma.$transaction(async transaction => {
       const intake = await transaction.patientIntakeRequest.update({ where: { id: existing.id }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data, reviewedAt: null, reviewedById: null }, select: { id: true, status: true, aiSummary: true } });
       await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PATIENT_INTAKE_AI_SUMMARY_RETRIED", targetType: "PatientIntakeRequest", targetId: intake.id } });
