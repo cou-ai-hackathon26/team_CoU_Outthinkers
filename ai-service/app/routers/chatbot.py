@@ -10,6 +10,7 @@ from app.services.chatbot_service import chat as run_chat
 from app.prompts.chatbot_prompt import build_stream_chatbot_prompt
 from app.services.gemini_service import stream_text
 from app.services.safety_service import find_red_flags
+from app.services.intent_service import classify_intent
 
 router = APIRouter()
 
@@ -57,10 +58,11 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
     conversation = "\n".join(f"{message.role.upper()}: {message.content[:4000]}" for message in payload.messages[-12:])
     latest_message = payload.messages[-1].content if payload.messages else ""
+    intent = classify_intent(latest_message)
 
     async def events():
         try:
-            async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message)):
+            async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': ''}, ensure_ascii=False)}\n\n"
         except Exception as exc:
