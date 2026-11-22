@@ -4,6 +4,7 @@ import { requireAuth, requireRole } from "../auth/auth-token";
 import intakeRequestRouter from "./intake-request.router";
 import careIntakeRouter from "./care-intake.router";
 import followUpRouter from "./follow-up.router";
+import { getStaffScope } from "./staff-scope";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -13,15 +14,18 @@ router.use(followUpRouter);
 
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const [user, pendingIntakes, assignedPatients] = await Promise.all([prisma.user.findUnique({
     where: { id: auth.userId },
     select: { email: true, phone: true, role: true, status: true, staffProfile: { select: { name: true, employeeId: true, address: true, division: { select: { nameBn: true } }, district: { select: { nameBn: true } }, upazila: { select: { nameBn: true } } } } },
-  }), prisma.patientIntakeRequest.count({ where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] } } }), prisma.pregnancyCase.count({ where: { assignedStaffId: auth.userId, status: "ACTIVE" } })]);
+  }), prisma.patientIntakeRequest.count({ where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] }, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) } }), prisma.pregnancyCase.count({ where: { assignedStaffId: auth.userId, status: "ACTIVE" } })]);
   if (!user || user.status !== "ACTIVE") { response.status(401).json({ error: "অ্যাকাউন্ট ব্যবহার করা যাচ্ছে না।" }); return; }
   response.json({ data: { ...user, dashboard: { pendingIntakes, assignedPatients } } });
 });
 
 router.get("/patients/search", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const query = String(request.query.query || "").trim();
   if (query.length < 2) {
     response.status(400).json({ error: "কমপক্ষে ২টি অক্ষর বা সংখ্যা লিখুন।" });
@@ -32,6 +36,7 @@ router.get("/patients/search", async (request, response) => {
     where: {
       role: "PATIENT",
       status: "ACTIVE",
+      ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }),
       OR: [
         { publicId: { contains: query } },
         { phone: { contains: query } },
@@ -69,8 +74,10 @@ router.get("/patients/search", async (request, response) => {
 });
 
 router.get("/patients/:patientId/care-summary", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const patient = await prisma.user.findFirst({
-    where: { publicId: request.params.patientId, role: "PATIENT", status: "ACTIVE" },
+    where: { publicId: request.params.patientId, role: "PATIENT", status: "ACTIVE", ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }) },
     select: {
       publicId: true, email: true, phone: true,
       patientProfile: { select: { name: true, contactNumber: true, emergencyContactNumber: true, address: true, division: { select: { nameBn: true } }, district: { select: { nameBn: true } }, upazila: { select: { nameBn: true } } } },

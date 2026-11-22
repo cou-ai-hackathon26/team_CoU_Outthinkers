@@ -1,22 +1,25 @@
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { getStaffScope } from "./staff-scope";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 
 router.get("/follow-up-tasks", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
   response.json({ data: tasks.map(task => ({ ...task, patientId: task.patientUser.publicId, patientName: task.patientUser.patientProfile?.name || "নাম নেই" })) });
 });
 
 router.post("/follow-up-tasks", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const patientId = String(request.body?.patientId || "").trim(); const title = String(request.body?.title || "").trim(); const reason = String(request.body?.reason || "").trim(); const priority = String(request.body?.priority || "NORMAL");
   if (!patientId || !title || !reason) { response.status(400).json({ error: "Patient ID, task title এবং কারণ দিন।" }); return; }
   if (!["NORMAL", "HIGH", "URGENT"].includes(priority)) { response.status(400).json({ error: "Priority সঠিক নয়।" }); return; }
-  const patient = await prisma.user.findFirst({ where: { publicId: patientId, role: "PATIENT", status: "ACTIVE" }, select: { id: true, publicId: true, patientProfile: { select: { name: true } } } });
+  const patient = await prisma.user.findFirst({ where: { publicId: patientId, role: "PATIENT", status: "ACTIVE", ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }) }, select: { id: true, publicId: true, patientProfile: { select: { name: true } } } });
   if (!patient) { response.status(404).json({ error: "Patient খুঁজে পাওয়া যায়নি।" }); return; }
   const pregnancyCase = await prisma.pregnancyCase.findFirst({ where: { patientUserId: patient.id, status: "ACTIVE" }, select: { id: true } });
   const dueAt = request.body?.dueAt ? new Date(String(request.body.dueAt)) : null;

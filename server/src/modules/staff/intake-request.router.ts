@@ -4,13 +4,16 @@ import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { suggestSafetyAlerts } from "./safety-alert-suggestions";
+import { getStaffScope } from "./staff-scope";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 
 router.get("/intake-requests", async (_request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const requests = await prisma.patientIntakeRequest.findMany({
-    where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] } },
+    where: { status: { in: ["SUBMITTED", "PROCESSING", "READY_FOR_REVIEW"] }, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) },
     orderBy: { submittedAt: "asc" },
     select: { id: true, status: true, transcriptText: true, aiSummary: true, submittedAt: true, patient: { select: { publicId: true, patientProfile: { select: { name: true, contactNumber: true, upazila: { select: { nameBn: true } }, district: { select: { nameBn: true } } } } } } },
   });
@@ -18,8 +21,10 @@ router.get("/intake-requests", async (_request, response) => {
 });
 
 router.get("/intake-requests/:id", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const intake = await prisma.patientIntakeRequest.findUnique({
-    where: { id: request.params.id },
+    where: { id: request.params.id, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) },
     select: {
       id: true, status: true, transcriptText: true, aiSummary: true, submittedAt: true, reviewedAt: true,
       patient: {
@@ -41,7 +46,8 @@ router.get("/intake-requests/:id", async (request, response) => {
 
 router.post("/intake-requests/:id/retry-extraction", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
-  const existing = await prisma.patientIntakeRequest.findUnique({ where: { id: request.params.id }, select: { id: true, status: true, transcriptText: true } });
+  const scope = await getStaffScope(auth.userId);
+  const existing = await prisma.patientIntakeRequest.findFirst({ where: { id: request.params.id, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) }, select: { id: true, status: true, transcriptText: true } });
   if (!existing) { response.status(404).json({ error: "Intake খুঁজে পাওয়া যায়নি।" }); return; }
   if (existing.status === "VERIFIED" || existing.status === "REJECTED") { response.status(409).json({ error: "এই intake আর পুনরায় process করা যাবে না।" }); return; }
   if (!existing.transcriptText?.trim()) { response.status(400).json({ error: "Transcript না থাকায় summary তৈরি করা যাচ্ছে না।" }); return; }
@@ -62,13 +68,14 @@ router.post("/intake-requests/:id/retry-extraction", async (request, response) =
 
 router.patch("/intake-requests/:id/review", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
   const status = String(request.body?.status || "").trim();
   const transcriptText = request.body?.transcriptText == null ? undefined : String(request.body.transcriptText).trim();
   const aiSummary = request.body?.aiSummary;
   if (!["VERIFIED", "REJECTED", "SUBMITTED"].includes(status)) {
     response.status(400).json({ error: "Review status সঠিক নয়।" }); return;
   }
-  const existing = await prisma.patientIntakeRequest.findUnique({ where: { id: request.params.id }, select: { id: true, status: true, patientUserId: true, transcriptText: true } });
+  const existing = await prisma.patientIntakeRequest.findFirst({ where: { id: request.params.id, ...(scope?.role === "ADMIN" ? {} : { patient: { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } } }) }, select: { id: true, status: true, patientUserId: true, transcriptText: true } });
   if (!existing) { response.status(404).json({ error: "Intake খুঁজে পাওয়া যায়নি।" }); return; }
   if (existing.status === "VERIFIED" || existing.status === "REJECTED") {
     response.status(409).json({ error: "এই intake ইতিমধ্যে review করা হয়েছে।" }); return;
