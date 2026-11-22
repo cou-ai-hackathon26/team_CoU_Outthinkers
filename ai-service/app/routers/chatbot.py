@@ -12,6 +12,7 @@ from app.services.gemini_service import stream_text
 from app.services.safety_service import find_red_flags
 from app.services.intent_service import classify_intent
 from app.services.diet_service import clarification_response, extract_diet_profile, missing_diet_questions
+from app.services.knowledge_service import format_guidance, retrieve_guidance
 
 router = APIRouter()
 
@@ -71,10 +72,11 @@ async def chat_stream(request: Request, payload: ChatRequest):
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': 'উপরের তথ্যগুলো লিখে পাঠান।', 'intent': 'DIET_PLAN', 'needs_clarification': True}, ensure_ascii=False)}\n\n"
 
         return StreamingResponse(diet_events(), media_type="text/event-stream")
+    guidance = format_guidance(retrieve_guidance(latest_message + " " + intent.name))
 
     async def events():
         try:
-            async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name)):
+            async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name, guidance)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': ''}, ensure_ascii=False)}\n\n"
         except Exception as exc:

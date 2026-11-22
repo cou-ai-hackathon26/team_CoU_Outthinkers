@@ -18,3 +18,4 @@ class ChatResponse(BaseModel):
     intent: str = "GENERAL_INFORMATION"
     needs_clarification: bool = False
     clarifying_questions: list[str] = Field(default_factory=list)
+    sources: list[str] = Field(default_factory=list)
