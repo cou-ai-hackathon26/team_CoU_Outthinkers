@@ -8,9 +8,10 @@ import WorkerIntakeReview from './WorkerIntakeReview.tsx'
 import PatientRequests from './PatientRequests.tsx'
 import WorkerFollowUps from './WorkerFollowUps.tsx'
 import WorkerPatientCase from './WorkerPatientCase.tsx'
+import AdminPanel from './AdminPanel.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : window.location.pathname.startsWith('/worker/patient-case/') ? <WorkerPatientCase /> : window.location.pathname === '/patient/requests' ? <PatientRequests /> : window.location.pathname === '/worker/follow-ups' ? <WorkerFollowUps /> : <App />}
+    {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : window.location.pathname.startsWith('/worker/patient-case/') ? <WorkerPatientCase /> : window.location.pathname.startsWith('/admin/') ? <AdminPanel /> : window.location.pathname === '/patient/requests' ? <PatientRequests /> : window.location.pathname === '/worker/follow-ups' ? <WorkerFollowUps /> : <App />}
   </StrictMode>,
 )

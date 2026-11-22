@@ -47,4 +47,20 @@ router.get("/overview", async (_request, response) => {
   }
 });
 
+router.get("/staff", async (_request, response) => {
+  const staff = await prisma.user.findMany({ where: { role: { in: ["NURSE", "ADMIN"] } }, orderBy: { createdAt: "desc" }, select: { id: true, email: true, phone: true, role: true, status: true, createdAt: true, staffProfile: { select: { name: true, employeeId: true, address: true, upazila: { select: { nameBn: true } }, district: { select: { nameBn: true } } } } } });
+  response.json({ data: staff });
+});
+
+router.get("/patients", async (request, response) => {
+  const query = String(request.query.query || "").trim();
+  const patients = await prisma.user.findMany({ where: { role: "PATIENT", ...(query ? { OR: [{ publicId: { contains: query } }, { patientProfile: { name: { contains: query, mode: "insensitive" } } }] } : {}) }, orderBy: { createdAt: "desc" }, take: 100, select: { publicId: true, email: true, phone: true, status: true, createdAt: true, patientProfile: { select: { name: true, contactNumber: true, address: true, upazila: { select: { nameBn: true } }, district: { select: { nameBn: true } } } } } });
+  response.json({ data: patients });
+});
+
+router.get("/audit-logs", async (_request, response) => {
+  const logs = await prisma.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 100, select: { id: true, actorType: true, action: true, targetType: true, targetId: true, metadata: true, createdAt: true, actorUser: { select: { email: true, role: true } } } });
+  response.json({ data: logs });
+});
+
 export default router;
