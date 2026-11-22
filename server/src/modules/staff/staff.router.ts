@@ -81,6 +81,7 @@ router.get("/patients/:patientId/care-summary", async (request, response) => {
     select: {
       publicId: true, email: true, phone: true,
       patientProfile: { select: { name: true, contactNumber: true, emergencyContactNumber: true, address: true, division: { select: { nameBn: true } }, district: { select: { nameBn: true } }, upazila: { select: { nameBn: true } } } },
+      chatSessions: { orderBy: { updatedAt: "desc" }, take: 5, select: { id: true, title: true, updatedAt: true, messages: { orderBy: { createdAt: "asc" }, take: 30, select: { id: true, role: true, content: true, urgency: true, intent: true, sources: true, requiresNurseReview: true, createdAt: true } } } },
       pregnancyCases: { orderBy: { createdAt: "desc" }, select: {
         id: true, caseCode: true, status: true, createdAt: true, expectedDeliveryDate: true,
         careEvents: { orderBy: { occurredAt: "desc" }, select: { id: true, eventType: true, sourceType: true, verificationStatus: true, summary: true, occurredAt: true } },

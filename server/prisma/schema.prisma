@@ -483,6 +483,9 @@ model ChatMessage {
   role      ChatMessageRole
   content   String
   urgency   String?
+  intent    String?
+  sources   Json?
+  requiresNurseReview Boolean @default(false) @map("requires_nurse_review")
   createdAt DateTime        @default(now()) @map("created_at")
 
   session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)

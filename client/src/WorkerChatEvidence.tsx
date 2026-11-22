@@ -1,0 +1,6 @@
+import { MessageCircle } from "lucide-react";
+
+export default function WorkerChatEvidence({ sessions = [] }: { sessions?: any[] }) {
+  const messages = sessions.flatMap(session => session.messages || []).filter((message: any) => message.role === "ASSISTANT");
+  return <section className="review-panel worker-chat-evidence"><div className="section-heading"><h2><MessageCircle size={18} /> Patient AI conversation</h2><span>{messages.length}টি উত্তর</span></div>{messages.length === 0 && <p className="muted-copy">Patient-এর chatbot conversation নেই।</p>}{messages.slice(-10).map((message: any) => <article className="evidence-message" key={message.id}><small>{new Date(message.createdAt).toLocaleString("bn-BD", { dateStyle: "medium", timeStyle: "short" })} · {message.intent || "GENERAL_INFORMATION"}</small><p>{message.content}</p>{message.requiresNurseReview && <span className="status-pill rejected">Nurse review প্রয়োজন</span>}{message.sources?.length > 0 && <div className="evidence-sources"><strong>তথ্যসূত্র:</strong>{message.sources.map((source: string) => <a href={source.startsWith("http") ? source : undefined} target="_blank" rel="noreferrer" key={source}>{source}</a>)}</div>}</article>)}</section>;
+}

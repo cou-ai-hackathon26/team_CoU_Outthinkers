@@ -3,9 +3,10 @@ import type { FormEvent } from "react";
 import { ArrowRight, Bot, CheckCircle2, HeartPulse, Home, LogOut, MessageCircle, Mic, UserRound, X } from "lucide-react";
 import api from "./lib/api";
 
-type ChatMessage = { id?: string; role: "USER" | "ASSISTANT"; content: string; urgency?: string | null };
+type ChatMessage = { id?: string; role: "USER" | "ASSISTANT"; content: string; urgency?: string | null; sources?: string[] };
 
 function logout() { localStorage.removeItem("maternacare_token"); window.location.href = "/login"; }
+function sourceLabel(source: string) { try { return new URL(source).hostname; } catch { return source; } }
 
 export default function PatientChat() {
   const [sessionId, setSessionId] = useState("");
@@ -54,9 +55,9 @@ export default function PatientChat() {
       const processEvent = async (event: string) => {
         const line = event.split(/\r?\n/).find(item => item.startsWith("data:"));
         if (!line) return;
-        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string; message?: string };
+        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string; sources?: string[]; message?: string };
         if (data.type === "delta" && data.text) { for (const character of data.text) { rendered += character; setMessages(current => current.map(message => message.id === streamingId ? { ...message, content: rendered } : message)); await new Promise(resolve => window.setTimeout(resolve, 12)); } }
-        if (data.type === "done") { setRedFlags(data.red_flags || []); setSuggestedAction(data.suggested_action || ""); }
+        if (data.type === "done") { setRedFlags(data.red_flags || []); setSuggestedAction(data.suggested_action || ""); if (data.sources?.length) setMessages(current => current.map(message => message.id === streamingId ? { ...message, sources: data.sources } : message)); }
         if (data.type === "error") throw new Error(data.message || "Chat service unavailable");
       };
       while (true) { const chunk = await reader.read(); if (chunk.done) break; buffer += decoder.decode(chunk.value, { stream: true }); const events = buffer.split(/\r?\n\r?\n/); buffer = events.pop() || ""; for (const event of events) await processEvent(event); }
@@ -74,7 +75,7 @@ export default function PatientChat() {
       <div className="page-header"><div><span className="page-eyebrow">Bengali health assistant</span><h1>আপনার কথা বলুন</h1><p>আপনার সমস্যা সহজ ভাষায় লিখুন। আমি সাধারণ তথ্য ও পরবর্তী নিরাপদ পদক্ষেপ জানাতে পারি।</p></div><a className="secondary-action" href="/patient/voice-intake"><Mic size={16} /> voice intake</a></div>
       <section className="chat-shell"><div className="chat-intro"><span className="chat-avatar"><Bot size={24} /></span><div><h2>MaternaCare সহায়তা</h2><p>বাংলায় প্রশ্ন করুন · আপনার তথ্য গোপনীয়ভাবে সংরক্ষিত</p></div></div>
         <div className="chat-disclaimer">এটি চিকিৎসা নির্ণয় বা প্রেসক্রিপশন নয়। জরুরি লক্ষণ থাকলে AI-এর উত্তরের জন্য অপেক্ষা না করে নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।</div>
-        <div className="chat-messages">{loading && <div className="loading-card">সহায়তা প্রস্তুত হচ্ছে…</div>}{!loading && messages.length === 0 && <div className="chat-empty"><MessageCircle size={28} /><strong>কী জানতে চান?</strong><span>যেমন: গর্ভাবস্থায় কোমর ব্যথা হলে কী করা উচিত?</span></div>}{messages.map((message, index) => <div className={`chat-bubble ${message.role === "USER" ? "user" : "assistant"}`} key={message.id || `${message.role}-${index}`}><small>{message.role === "USER" ? "আপনি" : "MaternaCare AI"}</small><p>{message.content}</p></div>)}</div>
+        <div className="chat-messages">{loading && <div className="loading-card">সহায়তা প্রস্তুত হচ্ছে…</div>}{!loading && messages.length === 0 && <div className="chat-empty"><MessageCircle size={28} /><strong>কী জানতে চান?</strong><span>যেমন: গর্ভাবস্থায় কোমর ব্যথা হলে কী করা উচিত?</span></div>}{messages.map((message, index) => <div className={`chat-bubble ${message.role === "USER" ? "user" : "assistant"}`} key={message.id || `${message.role}-${index}`}><small>{message.role === "USER" ? "আপনি" : "MaternaCare AI"}</small><p>{message.content}</p>{message.sources?.length ? <div className="chat-sources"><small>তথ্যসূত্র</small>{message.sources.map(source => source.startsWith("http") ? <a href={source} target="_blank" rel="noreferrer" key={source}>{sourceLabel(source)}</a> : <span key={source}>{source}</span>)}</div> : null}</div>)}</div>
         {(redFlags.length > 0 || suggestedAction) && <div className="chat-alert"><div><X size={19} /><strong>জরুরি সতর্কতা</strong></div><p>{redFlags.length ? `উল্লেখিত লক্ষণ: ${redFlags.join(", ")}` : "আপনার কথায় সতর্কতার প্রয়োজন হতে পারে।"}</p><strong>{suggestedAction}</strong></div>}
         {error && <p className="inline-error">{error}</p>}
         <form className="chat-composer" onSubmit={send}><textarea value={text} onChange={event => setText(event.target.value)} placeholder="আপনার সমস্যা বা প্রশ্ন লিখুন…" rows={2} maxLength={4000} disabled={loading || busy} /><button className="primary-action" disabled={loading || busy || !text.trim()}>{busy ? "উত্তর তৈরি হচ্ছে…" : "পাঠান"} <ArrowRight size={16} /></button></form>

@@ -57,7 +57,7 @@ router.post("/chat/sessions/:id/messages", async (request, response) => {
   if (!session) { response.status(404).json({ error: "Chat session পাওয়া যায়নি।" }); return; }
   await prisma.chatMessage.create({ data: { sessionId: session.id, role: "USER", content } });
   const redFlags = findChatRedFlags(content);
-  let answer: { reply: string; urgency: string; red_flags: string[]; suggested_action: string };
+  let answer: { reply: string; urgency: string; red_flags: string[]; suggested_action: string; sources?: string[]; intent?: string; requires_nurse_review?: boolean };
   if (isIdentityQuestion(content)) {
     answer = { reply: "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।", urgency: "NORMAL", red_flags: [], suggested_action: "আপনার নির্দিষ্ট প্রশ্নটি লিখুন বা স্বাস্থ্যকর্মীর সঙ্গে কথা বলুন।" };
   } else if (redFlags.length) {
@@ -74,8 +74,8 @@ router.post("/chat/sessions/:id/messages", async (request, response) => {
       return;
     }
   }
-  const saved = await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: answer.reply, urgency: answer.urgency } });
-  response.status(201).json({ data: { message: { id: saved.id, role: saved.role, content: saved.content, urgency: saved.urgency, createdAt: saved.createdAt }, redFlags: answer.red_flags || [], suggestedAction: answer.suggested_action || "" } });
+  const saved = await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: answer.reply, urgency: answer.urgency, intent: answer.intent || null, sources: answer.sources || [], requiresNurseReview: answer.requires_nurse_review || answer.urgency !== "NORMAL" } });
+  response.status(201).json({ data: { message: { id: saved.id, role: saved.role, content: saved.content, urgency: saved.urgency, intent: saved.intent, sources: saved.sources, requiresNurseReview: saved.requiresNurseReview, createdAt: saved.createdAt }, redFlags: answer.red_flags || [], suggestedAction: answer.suggested_action || "" } });
 });
 
 router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
@@ -106,12 +106,12 @@ router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
 
     let buffer = "";
     let assistantText = "";
-    let metadata: { urgency?: string; red_flags?: string[]; suggested_action?: string } = {};
+    let metadata: { urgency?: string; red_flags?: string[]; suggested_action?: string; sources?: string[]; intent?: string; requires_nurse_review?: boolean } = {};
     const processEvent = (event: string) => {
       const line = event.split(/\r?\n/).find((item: string) => item.startsWith("data:"));
       if (!line) return;
       try {
-        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string };
+        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string; sources?: string[]; intent?: string; requires_nurse_review?: boolean };
         if (data.type === "delta" && data.text) assistantText += data.text;
         if (data.type === "done") metadata = data;
       } catch { /* Ignore incomplete or malformed upstream event. */ }
@@ -127,7 +127,7 @@ router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
     upstream.data.on("end", async () => {
       if (buffer.trim()) processEvent(buffer);
       try {
-        if (assistantText) await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: assistantText, urgency: metadata.urgency || "NORMAL" } });
+        if (assistantText) await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: assistantText, urgency: metadata.urgency || "NORMAL", intent: metadata.intent || null, sources: metadata.sources || [], requiresNurseReview: metadata.requires_nurse_review || metadata.urgency !== "NORMAL" } });
       } catch (error) { console.error("Failed to save streamed chatbot response", error); }
       response.end();
     });

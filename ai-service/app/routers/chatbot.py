@@ -73,12 +73,13 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
         return StreamingResponse(diet_events(), media_type="text/event-stream")
     guidance = format_guidance(retrieve_guidance(latest_message + " " + intent.name))
+    source_urls = [chunk.source for chunk in retrieve_guidance(latest_message + " " + intent.name)]
 
     async def events():
         try:
             async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name, guidance)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
-            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': ''}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': '', 'sources': source_urls, 'intent': intent.name, 'requires_nurse_review': False}, ensure_ascii=False)}\n\n"
         except Exception as exc:
             print(f"Chat stream failed: {type(exc).__name__}: {exc}")
             yield f"data: {json.dumps({'type': 'error', 'message': 'Chat service is temporarily unavailable'}, ensure_ascii=False)}\n\n"
