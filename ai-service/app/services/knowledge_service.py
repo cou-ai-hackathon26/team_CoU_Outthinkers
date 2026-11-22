@@ -1,6 +1,7 @@
 """Small, inspectable retrieval layer for clinician-reviewed guidance."""
 
 import re
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -16,6 +17,9 @@ class KnowledgeChunk:
 
 def _load_chunks() -> list[KnowledgeChunk]:
     chunks: list[KnowledgeChunk] = []
+    manifest_path = KNOWLEDGE_ROOT / "sources_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {"documents": []}
+    metadata = {item.get("text_file"): item for item in manifest["documents"] if item.get("text_file")}
     for path in sorted(KNOWLEDGE_ROOT.glob("*.md")):
         if path.name == "README.md":
             continue
@@ -27,6 +31,17 @@ def _load_chunks() -> list[KnowledgeChunk]:
             text = section.strip()
             if text:
                 chunks.append(KnowledgeChunk(title=title_match.group(1).strip() if title_match else path.stem, text=text, source=source_match.group(1).strip() if source_match else path.name))
+    for path in sorted((KNOWLEDGE_ROOT / "sources").glob("*.txt")):
+        item = metadata.get(f"sources/{path.name}", {})
+        paragraphs = [part.strip() for part in re.split(r"\n\s*\n", path.read_text(encoding="utf-8", errors="ignore")) if part.strip()]
+        current = ""
+        for paragraph in paragraphs:
+            if len(current) + len(paragraph) > 5000 and current:
+                chunks.append(KnowledgeChunk(title=item.get("title", path.stem), text=current, source=item.get("url", path.name)))
+                current = ""
+            current += ("\n\n" if current else "") + paragraph
+        if current:
+            chunks.append(KnowledgeChunk(title=item.get("title", path.stem), text=current, source=item.get("url", path.name)))
     return chunks
 
 
