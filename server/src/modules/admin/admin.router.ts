@@ -1,4 +1,6 @@
 import bcrypt from "bcryptjs";
+import { readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
 import { Request, Response, Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
@@ -20,6 +22,15 @@ function email(value: unknown) {
 
 function phone(value: unknown) {
   return clean(value).replace(/[\s-]/g, "");
+}
+
+function knowledgeManifestPath() {
+  return process.env.KNOWLEDGE_MANIFEST_PATH || path.resolve(process.cwd(), "..", "ai-service", "knowledge", "sources_manifest.json");
+}
+
+async function readKnowledgeManifest() {
+  const content = await readFile(knowledgeManifestPath(), "utf8");
+  return JSON.parse(content) as { documents: Array<Record<string, unknown>> };
 }
 
 async function createAccount(request: Request, response: Response, role: "NURSE" | "ADMIN") {
@@ -107,5 +118,41 @@ async function createAccount(request: Request, response: Response, role: "NURSE"
 
 router.post("/nurses", (request, response) => createAccount(request, response, "NURSE"));
 router.post("/admins", (request, response) => createAccount(request, response, "ADMIN"));
+
+router.get("/knowledge-documents", async (_request, response) => {
+  try {
+    const manifest = await readKnowledgeManifest();
+    response.json({ data: manifest.documents.map((document, index) => ({ ...document, index })) });
+  } catch (error) {
+    console.error("Knowledge manifest read failed", error);
+    response.status(500).json({ error: "Knowledge document list লোড করা যায়নি।" });
+  }
+});
+
+router.patch("/knowledge-documents/:index", async (request, response) => {
+  const index = Number(request.params.index);
+  const status = clean(request.body?.status).toUpperCase();
+  const reviewer = clean(request.body?.reviewer);
+  const notes = clean(request.body?.notes);
+  if (!Number.isInteger(index) || !["APPROVED", "REJECTED", "REVIEW_REQUIRED"].includes(status) || !reviewer) {
+    response.status(400).json({ error: "সঠিক review status এবং reviewer দিন।" });
+    return;
+  }
+  try {
+    const manifest = await readKnowledgeManifest();
+    const document = manifest.documents[index];
+    if (!document) { response.status(404).json({ error: "Document খুঁজে পাওয়া যায়নি।" }); return; }
+    document.review_status = status;
+    document.reviewed_by = reviewer;
+    document.reviewed_at = new Date().toISOString();
+    document.review_notes = notes;
+    await writeFile(knowledgeManifestPath(), JSON.stringify(manifest, null, 2) + "\n", "utf8");
+    await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: `KNOWLEDGE_${status}`, targetType: "KnowledgeDocument", targetId: String(document.file || document.title || index), metadata: { reviewer, notes } } });
+    response.json({ data: { ...document, index } });
+  } catch (error) {
+    console.error("Knowledge document review failed", error);
+    response.status(500).json({ error: "Document review সংরক্ষণ করা যায়নি।" });
+  }
+});
 
 export default router;
