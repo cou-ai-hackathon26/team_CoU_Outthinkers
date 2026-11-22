@@ -1,0 +1,2 @@
+def build_extraction_prompt(transcript: str) -> str:
+    return f"""You extract information from community health worker notes. The note may be in Bangla, Romanized Bangla, or English. Extract only explicitly reported information. Do not diagnose, prescribe, infer safety, invent dates, or turn uncertainty into facts. Return JSON with reported_symptoms, observations, dates, access_barriers, uncertain_fields. Original note:\n{transcript}"""
