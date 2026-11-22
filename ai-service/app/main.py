@@ -5,6 +5,18 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
+try:
+    from dotenv import load_dotenv
+except ImportError:  # pragma: no cover - optional for environments that inject env vars
+    load_dotenv = None
+
+
+# Load the AI service's local configuration when running it directly. Production
+# deployments can inject the same variables through the process environment.
+if load_dotenv:
+    load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+    load_dotenv(Path(__file__).resolve().parents[2] / "server" / ".env")
+
 # Keep model downloads out of the system drive. This is set before importing
 # Transformers/Hugging Face so every model lookup uses the project cache.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -45,6 +57,18 @@ av.open = _compatible_av_open
 # CONFIGURATION
 # ==========================================
 
+AI_EXTRACTION_PROVIDER = os.getenv(
+    "AI_EXTRACTION_PROVIDER",
+    "gemini" if (os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")) else "ollama",
+).strip().lower()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+GEMINI_BASE_URL = os.getenv(
+    "GEMINI_BASE_URL",
+    "https://generativelanguage.googleapis.com/v1beta",
+).rstrip("/")
+
 OLLAMA_URL = os.getenv(
     "OLLAMA_BASE_URL",
     "http://127.0.0.1:11434"
@@ -78,7 +102,11 @@ ASR_CPU_THREADS = int(
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     torch.set_num_threads(max(1, ASR_CPU_THREADS))
-    print(f"Ollama extraction configured: {OLLAMA_URL} / {OLLAMA_MODEL}")
+    if AI_EXTRACTION_PROVIDER == "gemini":
+        key_state = "configured" if GEMINI_API_KEY else "missing API key"
+        print(f"Gemini extraction configured: {GEMINI_MODEL} ({key_state})")
+    else:
+        print(f"Ollama extraction configured: {OLLAMA_URL} / {OLLAMA_MODEL}")
     app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
     app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
         ASR_MODEL,
@@ -258,7 +286,7 @@ async def transcribe(
 
 
 # ==========================================
-# INFORMATION EXTRACTION USING OLLAMA
+# INFORMATION EXTRACTION
 # ==========================================
 
 @app.post(
@@ -293,33 +321,49 @@ Original note:
 """
 
     try:
+        schema = ExtractedIntake.model_json_schema()
 
-        async with httpx.AsyncClient(timeout=120) as client:
+        if AI_EXTRACTION_PROVIDER == "gemini":
+            if not GEMINI_API_KEY:
+                raise RuntimeError("GEMINI_API_KEY is not configured")
 
-            response = await client.post(
-                f"{OLLAMA_URL}/api/generate",
-                json={
-                    "model": OLLAMA_MODEL,
-                    "prompt": prompt,
-                    "stream": False,
-                    "format": ExtractedIntake.model_json_schema()
-                }
-            )
+            async with httpx.AsyncClient(timeout=120) as client:
+                response = await client.post(
+                    f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:generateContent",
+                    headers={"x-goog-api-key": GEMINI_API_KEY},
+                    json={
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "temperature": 0.1,
+                            "responseMimeType": "application/json",
+                            "responseSchema": schema,
+                        },
+                    },
+                )
+                response.raise_for_status()
+                result = response.json()
+                parts = result.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+                response_text = "".join(part.get("text", "") for part in parts).strip()
+                if not response_text:
+                    raise RuntimeError("Gemini returned an empty extraction response")
+        elif AI_EXTRACTION_PROVIDER == "ollama":
+            async with httpx.AsyncClient(timeout=120) as client:
+                response = await client.post(
+                    f"{OLLAMA_URL}/api/generate",
+                    json={
+                        "model": OLLAMA_MODEL,
+                        "prompt": prompt,
+                        "stream": False,
+                        "format": schema,
+                    },
+                )
+                response.raise_for_status()
+                response_text = response.json()["response"]
+        else:
+            raise RuntimeError(f"Unsupported AI_EXTRACTION_PROVIDER: {AI_EXTRACTION_PROVIDER}")
 
-            response.raise_for_status()
-
-        result = response.json()
-
-        extracted = json.loads(
-            result["response"]
-        )
-
-        validated = ExtractedIntake.model_validate(
-            extracted
-        )
-
-        return validated
+        return ExtractedIntake.model_validate(json.loads(response_text))
 
     except Exception as exc:
-        print(f"Extraction error; using safe fallback: {exc}")
+        print(f"{AI_EXTRACTION_PROVIDER.title()} extraction error; using safe fallback: {exc}")
         return fallback_extract(request.transcript)
