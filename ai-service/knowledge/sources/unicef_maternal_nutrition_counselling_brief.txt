@@ -1,0 +1,1218 @@
+1
+Counselling to improve maternal nutrition
+COUNSELLING TO IMPROVE 
+MATERNAL NUTRITION
+Considerations for programming 
+with quality, equity and scale
+A TECHNICAL BRIEF 
+
+2
+Counselling to improve maternal nutrition
+Acknowledgements 
+This publication was prepared by the Nutrition and Child Development 
+Section at the UNICEF Programme Group in New York. 
+Lead authors: Harriet Torlesse, Nita Dalmiya, Vilma Tyler and Victor Aguayo. 
+Design: Nona Reuter; Editing: Julia D’Aloisio 
+This report was funded by contributions from the Bill & Melinda Gates 
+Foundation through the Regional Initiatives for Sustained Improvements 
+in Nutrition and Growth (RISING) partnership.  
+Suggested citation: United Nations Children’s Fund. UNICEF Technical Brief. 
+Counselling to Improve Maternal Nutrition. Considerations for programming with 
+quality, equity and scale. New York: UNICEF, 2021. 
+January 2022
+Photography credits: : Cover: © UNICEF/UN0294299/Ralaivita
+
+3
+Counselling to improve maternal nutrition
+Summary
+Women’s nutritional status is 
+important for their health and well-
+being and for the birthweight, growth 
+and development of their infants. 
+Nutritious diets, essential nutrition 
+services and optimal nutrition 
+practices are essential to prevent 
+all forms of malnutrition before 
+and during pregnancy and while 
+breastfeeding.
+Maternal nutrition counselling helps 
+a woman and her family members 
+make decisions and take action to 
+improve nutrition. This includes 
+decisions and actions on the types, 
+diversity and amounts of food a 
+woman should eat to meet her 
+dietary requirements, the amount of 
+physical activity she needs, and her 
+consumption of dietary supplements. 
+Many women do not receive quality 
+nutrition counselling, even though 
+this service is a recommended 
+component of health care. This 
+programme brief aims to provide 
+UNICEF country offices and their 
+partners with guidance on how 
+to improve the coverage, quality 
+and equity of maternal nutrition 
+counselling in low- and middle-
+income countries. It covers 
+adolescent girls and women aged 
+15–49 years during three periods: 
+preconception (for those planning a 
+pregnancy); pregnancy; and postnatal 
+(at least six months after delivery).  
+This programme brief describes 
+a set of approaches to strengthen 
+maternal nutrition counselling. This 
+begins with an understanding of 
+the context, including the barriers 
+and enablers to maternal nutrition 
+counselling services and the adoption 
+of optimal nutrition practices. 
+It then outlines: approaches to 
+improve the enabling environment 
+for maternal nutrition counselling; 
+key considerations for the design 
+of counselling services; strategies 
+for strengthening service delivery 
+platforms and building the capacity 
+of health workers and community 
+health workers; complementary 
+actions to improve women’s access 
+to dietary supplements and nutritious 
+and affordable diets; strategies 
+for delivering maternal nutrition 
+counselling services in humanitarian 
+contexts; and approaches to 
+monitoring maternal nutrition 
+counselling services.
+The evidence base on how to improve 
+the coverage, quality and equity of 
+maternal nutrition counselling is 
+still developing, so this programme 
+guidance should be considered a 
+living document. Countries should 
+invest in research to further build 
+the evidence of how to strengthen 
+the coverage, quality and equity of 
+counselling in different settings. 
+COUNSELLING TO IMPROVE 
+MATERNAL NUTRITION
+Considerations for programming 
+with quality, equity and scale 
+
+4
+Counselling to improve maternal nutrition
+1. Introduction
+Women’s nutritional status is important for their health 
+and well-being, especially before and during pregnancy 
+and while breastfeeding. Women are more likely to 
+experience a healthy pregnancy and are less likely to 
+experience life-threatening complications if they are 
+free from all forms of malnutrition when they become 
+pregnant, and if they have nutritious diets, access 
+essential nutrition services and adopt optimal dietary 
+practices during pregnancy. In addition, infants of well-
+nourished mothers are more likely to be born with an 
+adequate birthweight and to grow and develop to their 
+potential in early childhood. Following delivery, good 
+nutritional care is essential to meet women’s nutrient 
+requirements – which are highest among breastfeeding 
+mothers – and to restore their body nutrient stores.  
+In recognition of the crucial role of maternal nutrition, 
+the World Health Assembly set targets to reduce 
+the prevalence of anaemia in women of reproductive 
+age by 50 per cent and to reduce the prevalence of 
+low birthweight by 30 per cent by 2025. Because 
+maternal nutrition directly impacts the nutritional 
+status of children, progress towards these targets can 
+contribute to global efforts to achieve the Sustainable 
+Development Goal targets to reduce child stunting, 
+wasting and overweight. 
+Progress is currently too slow to meet the World 
+Health Assembly targets on maternal anaemia and low 
+birthweight.1 In 2019, anaemia affected an estimated 
+571 million women of reproductive age (30 per cent), 
+2 while the prevalence of low birthweight remained 
+at 15 per cent between 2012 and 2015. 3 Maternal 
+underweight (thinness) also continues to be a public 
+health problem, affecting 170 million women (9 per 
+cent) in 2016.2 Poor quality diets, insufficient access to 
+essential nutritious services and suboptimal practices 
+continue to hold back progress. 
+At the same time, overweight and obesity are rising 
+among women in many settings, including in low- and 
+middle-income countries, and affect about 610 million 
+women of reproductive age (33 per cent) according 
+to the most recent 2016 estimates.2 The rise in 
+overweight and obesity reflects broader changes in 
+dietary patterns, as communities leave behind more 
+healthy, traditional diets in favour of modern diets that 
+are frequently high in energy, sugar, salt and fat, low in 
+essential micronutrients and often highly processed.4 
+Maternal nutrition counselling
+The achievement of all global targets on maternal and 
+child nutrition are unlikely to be met unless greater 
+attention is given to improving maternal nutrition.
+The UNICEF Nutrition Strategy 2020–2030 describes 
+UNICEF’s programmatic priorities to prevent all forms 
+of malnutrition during pregnancy and breastfeeding 
+(underweight, micronutrient deficiencies and 
+overweight) and prevent low birthweight in newborns.5 
+UNICEF works with partners to improve women’s 
+access to nutritious diets and essential nutrition 
+services and promote the uptake of positive nutrition 
+practices. 
+One of UNICEF’s programmatic priorities is to improve 
+the coverage and quality of nutrition counselling 
+before and during pregnancy and while breastfeeding. 
+Counselling is a form of interpersonal communication 
+that helps to influence individuals to adopt and maintain 
+positive practices. The word ‘counselling’ is often used 
+interchangeably with ‘information’ and ‘education’. 
+However, counselling should do more than inform 
+and educate. Counselling for maternal nutrition is an 
+interactive process between a service provider and 
+a woman and her family during which information is 
+exchanged and support is provided so that the woman 
+and her family can make decisions and take action to 
+improve her nutrition. 
+Maternal nutrition counselling is included in the World 
+Health Organization (WHO) Preconception Care 
+Policy Brief (2013),6 Recommendations on Antenatal 
+Care for a Positive Pregnancy (2016 and 2020)7-8 
+and Recommendations on the Postnatal Care of the 
+Mother and Newborn (2013).9 These recommendations 
+cover counselling on dietary intake, physical activity, 
+adherence with micronutrient and energy-protein 
+supplements and restriction of caffeine intake (see 
+Box 1). In addition, the WHO guidelines on iron 
+supplementation and iron and folic acid supplementation 
+in non-pregnant adolescent girls and women refer 
+to the need for behaviour change communication 
+to improve the acceptability of and adherence to 
+supplementation.10 -11
+While maternal nutrition counselling is a recommended 
+component of health care, many women do not receive 
+quality nutrition counselling services. The barriers 
+to maternal nutrition counselling vary according to 
+the context, but there are several common issues in 
+low- and middle-income countries. 7,12-14 First, maternal 
+nutrition counselling is often not adequately integrated 
+into primary health care services due to a lack of policy 
+
+5
+Counselling to improve maternal nutrition
+commitment or financial resources. Second, women’s 
+access to health services is suboptimal, particularly 
+in settings that are underserved for primary health 
+care services and where community-based delivery 
+platforms are absent or weak. Third, health workers and 
+community health workers have insufficient knowledge, 
+competencies, motivation or time to provide quality 
+counselling on maternal nutrition, often due to gaps in 
+their numbers, distribution, training and supervision. 
+Fourth, counselling approaches, materials and messages 
+are not adapted to the local setting – including the 
+economic context, social norms and sociocultural 
+practices that influence maternal nutrition practices. 
+Fifth, programmes often lack clear counselling targets 
+and are not monitored to measure progress and hold 
+managers, health workers and community health workers 
+to account.
+The evidence base on how to address these barriers 
+and improve the coverage and quality of maternal 
+nutrition counselling is developing, but gaps remain.14 
+Nevertheless, it is essential to act now to strengthen 
+maternal nutrition counselling, whilst continuing to invest 
+in research to further build the evidence.
+Box 1: WHO recommendations on preconception, antenatal and postnatal care related to maternal nutrition 
+counselling
+Policy brief. Preconception care: maximizing the gains for maternal and child health6
+A preconception care package for women should include information, education and counselling on nutrition, 
+promotion of exercise, iron and folic acid supplementation, and energy- and nutrient-dense food 
+supplementation. 
+Recommendations on antenatal care for a positive pregnancy7-8
+Counselling about healthy eating and keeping physically active is recommended for pregnant women to stay healthy 
+and to prevent excessive weight gain during pregnancy in all contexts. A healthy diet during pregnancy contains adequate 
+energy, protein, vitamins and minerals, obtained through the consumption of a variety of locally available nutritious foods, 
+including green and orange vegetables, meat, fish, beans, nuts, pasteurized dairy products, fruit and fortified foods. 
+Counselling should be women-centred and delivered in a non-judgmental manner. 
+In undernourished populations,* nutrition education on increasing daily energy and protein intake is recommended 
+to reduce the risk of low birthweight newborns, and balanced energy and protein dietary supplementation is 
+recommended to reduce the risk of stillbirths and small-for-gestational-age newborns. 
+Daily oral iron and folic acid supplementation with 30–60 mg of elemental iron and 400 µg of folic acid is 
+recommended in all contexts to prevent maternal anaemia, puerperal sepsis, low birthweight and preterm birth.
+Intermittent oral iron and folic acid supplementation with 120 mg of elemental iron and 2800 µg of folic acid once 
+weekly is recommended to improve maternal and neonatal outcomes if daily iron is not acceptable due to side-effects, and 
+in populations with an anaemia prevalence among pregnant women of <20 per cent.
+Antenatal multiple micronutrient supplements that include iron and folic acid are recommended in the context of 
+rigorous research and during emergencies where access to nutritious foods is in jeopardy.
+Daily calcium supplementation (1.5–2.0 g oral elemental calcium) is recommended to reduce the risk of pre-eclampsia in 
+populations with low dietary calcium intake.
+Vitamin A supplementation is only recommended to prevent night blindness in areas where vitamin A deficiency is a 
+severe public health problem.
+Lowering daily caffeine intake is recommended for pregnant women with high daily caffeine intake (>300 mg per day) to 
+reduce the risk of pregnancy loss and low birthweight newborns.
+Recommendations on the postnatal care of the mother and newborn9
+All women should be counselled on nutrition as part of postnatal care.  
+Iron and folic acid supplementation should be provided for at least three months postpartum. 
+* Undernourished populations are usually defined by the prevalence of underweight (body mass index <18.5 kg/m2). An underweight prevalence of 
+20 to 39 per cent in non-pregnant women is considered high, and an underweight prevalence of ≥40 per cent is considered very high.
+
+6
+Counselling to improve maternal nutrition
+Objective and scope of the brief
+The objective of this brief is to provide UNICEF country 
+offices and their partners with guidance on how to 
+improve the coverage, quality and equity of maternal 
+nutrition counselling in low- and middle-income countries. 
+It draws on global recommendations and guidelines, 
+published research, and the programme experiences of 
+low- and middle-income countries on maternal nutrition 
+counselling. It also applies evidence from other areas of 
+nutrition counselling, including counselling on infant and 
+young child feeding. 
+The scope of the brief covers adolescent girls and women 
+aged 15-49 years (hereafter referred to as ‘women’ for 
+brevity) during three periods: preconception (women 
+planning a pregnancy), pregnancy and postnatal (at least 
+six months after delivery). The focus is primarily on 
+maternal nutrition counselling provided by health workers 
+and community health workers* in health facilities and 
+in the community. A list of key resource documents is 
+provided in Annex 1.
+2. Approaches to strengthen maternal nutrition 
+counselling
+2.1 Understanding the context
+Efforts to design or strengthen maternal nutrition 
+counselling services should be grounded in a context-
+specific understanding of the status of maternal 
+malnutrition, and the barriers and enablers to nutritious 
+diets, maternal nutrition counselling services and adoption 
+of positive nutrition practices. This may involve the primary 
+collection of data and/or secondary analysis of existing data.
+Key considerations:
+  Assess the nutritional status and causes of 
+malnutrition in women and the population groups 
+at greater risk. The nutritional characteristics of 
+populations are changing, so data on the nutritional 
+status of women should be collected every five 
+years to ensure that counselling interventions remain 
+relevant. For example, mean body mass index is rising 
+among women in many countries, and counselling to 
+increase energy and protein intake during pregnancy 
+may no longer be justified in some settings.
+* In this document, community health workers are defined as health and/or nutrition workers who have received some training but do not possess 
+a formal professional certificate. It encompasses a wide range of health and nutrition workers, paid and unpaid, including village health or nutrition 
+workers, lay workers, peer supporters, community volunteers and extension workers. Community health workers are often from and live in the 
+communities they serve.
+  Compile and review evidence on maternal nutrition 
+practices, including barriers, enablers and key 
+influencers. Literature reviews and formative research 
+should be conducted to identify the priority maternal 
+nutrition practices to change and the context-specific 
+barriers and enablers to positive practices – such as 
+household access to nutritious and affordable foods, 
+social and gender norms and sociocultural practices. This 
+information can strengthen the design and effectiveness 
+of counselling interventions. 
+  Identify barriers to the development and 
+implementation of policies on maternal nutrition 
+counselling services. Bottleneck analyses can help 
+identify the barriers that prevent quality nutrition 
+counselling services from reaching women at scale and 
+with equity. These analyses should examine barriers 
+that affect leadership, adoption of policies, financing, 
+supplies, the counselling workforce, information 
+systems, service delivery packages and platforms, 
+and the availability and quality of services, including at 
+community level. 
+2.2. Enabling environment 
+Actions to improve the coverage and quality of maternal 
+nutrition counselling are more likely to be effective and 
+sustained if the enabling environment (policies, plans, 
+budgets and coordination structures) are supportive.
+Key considerations
+  Ensure maternal nutrition counselling is 
+identified as a key component of primary health 
+care services, and that policies, strategies and 
+implementation guidance are aligned with 
+relevant global recommendations. Maternal nutrition 
+counselling should be fully integrated into maternal, 
+newborn and child health and nutrition services, and 
+included in the benefit package for universal health 
+coverage schemes, where they exist.
+  Formulate targets, plans and budgets to expand 
+the coverage, quality and equity of maternal 
+nutrition counselling services. These targets, plans 
+and budgets should be based on a realistic assessment 
+of the financial and human resources that are available 
+and/or can be mobilized to support scale-up.
+
+7
+Counselling to improve maternal nutrition
+  Establish and maintain coordination mechanisms 
+to maximize opportunities to build synergies and 
+harmonize services for women. Where possible, 
+utilize existing coordination mechanisms to support 
+the integration of maternal nutrition counselling with 
+other relevant health and nutrition services within 
+the health sector (e.g., between the departments 
+responsible for preconception, antenatal, postnatal and 
+child health within ministries of health). In addition, 
+coordination mechanisms are needed to support 
+coordination between sectors (e.g., between health and 
+social protection); between national and subnational 
+levels; and between stakeholders (e.g., government, 
+development partners, civil society and the private 
+sector). 
+2.3. Counselling design
+This section describes key considerations for 
+strengthening the design of maternal nutrition counselling 
+services, including target audiences, counselling content 
+and materials, and the modes, timing and frequency 
+of counselling. 
+Target audiences 
+The primary target audiences for maternal nutrition 
+counselling are women planning to conceive, pregnant 
+women and postpartum women (between birth and at 
+least six months after delivery). While all women should 
+have access to counselling services, it is important for 
+countries to identify nutritionally-at-risk women who may 
+require more intensive support, as well as the contexts in 
+which the woman’s family members or other community 
+members should also be targeted for counselling.
+Reaching women during the preconception period is a 
+challenge because about 40 per cent of pregnancies are 
+unplanned15 and non-pregnant women are less likely to be 
+in regular contact with health services. In most contexts, 
+it is not practical to counsel all non-pregnant women of 
+reproductive age; moreover, those who are not planning 
+a pregnancy may be less receptive to maternal nutrition 
+counselling. A rational approach is to target preconception 
+counselling to women who are planning a pregnancy 
+and those at a high likelihood of becoming pregnant 
+for the first time, such as premarital or newlywed 
+couples. Other women can be reached through mass 
+communication efforts.
+Key considerations:
+  Prioritize women at higher risk of poor nutrition 
+and new or inexperience mothers for more 
+intensive counselling support. Women at higher 
+risk are those with any form of malnutrition (e.g., 
+short stature, underweight, overweight, obesity and 
+anaemia), all pregnant or breastfeeding adolescent girls 
+(<20 years of age) and women who are pregnant or 
+breastfeeding for the first time. Other at-risk groups 
+include women with disabilities, chronic diseases (e.g., 
+HIV and tuberculosis), mental health problems, and 
+those affected by the harmful use of drugs or alcohol. 
+Depending on the context, these women may require 
+more frequent individual counselling support, including 
+home visits, and/or referral for appropriate care.
+  Target family members in contexts where they 
+influence decisions about women’s diets, use of 
+essential nutrition services and nutrition practices. 
+This includes contexts where women do not have full 
+autonomy to take these decisions and/or need the 
+encouragement and support of other family members 
+such as their husbands and partners, mothers, 
+mothers-in-law and household heads.  
+Counselling content and materials
+Women need information and counselling on dietary 
+intake, physical activity, dietary supplementation 
+(micronutrient and food supplements) and hygiene 
+practices (see Table 1). While not a focus of this brief, 
+women also need advice and counselling on appropriate 
+breastfeeding practices during the third trimester of 
+pregnancy and the postnatal period. 
+Key considerations:
+  Ensure that the content of counselling materials 
+reflects locally prevalent forms of malnutrition, 
+the causes of malnutrition, and the barriers and 
+enablers to positive maternal nutrition practices. 
+Countries should review and update the content of 
+counselling messages and materials to ensure they 
+focus on locally prevalent forms of malnutrition and 
+align with recommended dietary supplementation 
+interventions. If the forms and causes of malnutrition 
+vary substantially within a country, these messages 
+and materials may need to be adapted to the local 
+context. Barriers and enablers include social norms, 
+sociocultural beliefs and practices, access to nutritious 
+and affordable foods, physical activity and adherence 
+to dietary supplementation. It may be necessary to 
+develop specific messages and counselling materials 
+to target other family members in contexts where 
+they influence women’s access to health services and 
+nutritious diets.
+
+8
+Counselling to improve maternal nutrition
+  Include maternal nutrition in counselling materials 
+or packages that target women before and 
+during pregnancy and while breastfeeding. These 
+may include counselling materials or packages on 
+reproductive health, preconception care, antenatal 
+care, postnatal care, newborn and child health, infant 
+and young child feeding, and mental health and 
+psychosocial support. 
+  At the individual level, tailor counselling 
+content to a woman’s nutritional status and 
+her circumstances. Counselling should anticipate 
+and address important challenges that may affect a 
+woman’s capacity to adopt positive practices, including 
+her age, experience, and sociocultural and economic 
+context. 
+  Focus on small doable actions that a woman and 
+her family members can take: Health workers and 
+community health workers should not try to change too 
+many practices at once. Instead, they should focus on 
+small doable actions that a woman can take, as well as 
+concrete actions that other individuals (e.g., husbands/
+partners, grandmothers, etc.) can take to support the 
+woman’s actions. 
+Table 1: Key content for the nutritional counselling of women and adolescent girls during preconception, pregnancy and 
+postnatal care 6 -7,9,16
+Content Preconception Pregnancy Postnatal
+Dietary intake
+Healthy eating and physical activity to stay healthy, attain or maintain a 
+healthy weight and/or prevent excessive weight gain r r r
+Increase daily energy and protein intake to increase body mass index and/or 
+reduce the risk of low birthweight infants in undernourished populations r r r
+Diverse diet, including locally available and affordable nutritious foods and 
+fortified foods (iodized salt and fortified foods) r r r
+Avoid drinking tea or coffee with meals and limit the amount of coffee 
+during pregnancy in contexts where tea or coffee are commonly consumed r r r
+Adequate rest and reducing heavy workloads r r
+Dietary supplementation
+Continued and consistent use of iron-containing supplements, including 
+how to take supplements and manage side-effects r r r
+Continued and consistent use of calcium supplements in countries with low 
+calcium intake, including how to take supplements and manage side-effects r
+Continued and consistent use of balanced energy-protein supplements in 
+undernourished populations r r r
+Breastfeeding
+Breastfeeding (initiation immediately after delivery, providing colostrum, not 
+giving prelacteal feeds, exclusive breastfeeding, continued breastfeeding, 
+managing breastfeeding problems)
+r r
+Hygiene
+Handwashing practices at critical times and food hygiene practices (safe 
+handling, preparation and storage of food) r r r
+
+9
+Counselling to improve maternal nutrition
+Counselling modes
+There are two main modes of counselling – individual 
+and group counselling – and each has advantages and 
+disadvantages (see Box 2). In recent years, remote 
+approaches to counselling have gained popularity, 
+including the use of telephone helplines and digital media 
+(e.g., websites, social media, text messages).
+Key considerations:
+  Provide both individual and group counselling 
+modalities. Individual counselling is better suited 
+to an individual’s counselling needs but is time-
+intensive for health providers. In resource-constrained 
+settings, individual counselling may need to be 
+prioritized to women at nutritional risk (e.g., women 
+with underweight or obesity); women who are 
+pregnant for the first time; women attending their first 
+preconception, antenatal or postnatal care contact; and 
+other women deemed in need by the health worker or 
+community health worker. Group counselling can be 
+provided to those at lower risk of nutrition challenges. 
+  Use remote counselling modalities to complement 
+rather than replace face-to-face counselling. 
+Remote approaches, such as telephone helplines 
+and digital media, can help increase coverage in 
+contexts where face-to-face counselling capacity or 
+access is limited or absent. However, these modes 
+should complement rather than replace face-to-face 
+counselling because they are not available to all women 
+and more evidence is needed on their effectiveness in 
+different contexts. 
+Timing, frequency and duration of counselling
+The timeliness, frequency and duration of counselling are 
+all important considerations, however, there are a lack 
+of standards and evidence to guide countries on what is 
+appropriate in different settings. Timeliness encompasses 
+both when counselling begins (e.g., gestational age 
+of the first counselling session during pregnancy) and 
+the relevance of the content according to the woman’s 
+physiological status (e.g., pre-pregnant versus pregnant) or 
+trimester of pregnancy. Counselling should begin at least 
+three months before a woman is planning a pregnancy 
+and as early as possible in pregnancy; this is because the 
+earlier counselling begins, the longer the period to adopt 
+positive practices and for these practices to translate 
+into a meaningful improvement in maternal nutritional 
+status. Better counselling outcomes are also expected 
+with higher frequency and longer duration counselling 
+contacts. However, decisions on the frequency and 
+Box 2: Individual and group counselling 
+Individual counselling 
+Individual counselling allows a health worker or community health worker to focus on the specific problems and 
+needs of a woman and is generally considered the most effective form of counselling. It is usually delivered face-
+to-face at a health facility, in the community or at the client’s home. Individual counselling can be time-consuming 
+and, in some settings, it is challenging to provide the physical space and privacy needed.
+In recent years, remote approaches have gained popularity, including the use of telephone helplines, mobile 
+phones and internet telephony. These approaches can help in contexts where face-to-face counselling capacity or 
+access may be limited or absent. However, they are not available and accessible to all women and more research 
+is needed to understand their effectiveness in different contexts. WHO recommends that individual face-to-face 
+counselling on breastfeeding may be complemented but not replaced by telephone counselling and/or other 
+technologies,17 and it is reasonable to apply this to maternal nutrition counselling, unless and until new evidence 
+suggests otherwise. 
+Group counselling 
+Group counselling is facilitated by a health worker, a community health worker or lay person (e.g., mother support 
+group member) at the facility or community level. Group counselling is most effective when group members have 
+similar issues, problems and sociocultural backgrounds. It may increase efficiency because it allows interaction 
+with multiple clients simultaneously.18 The participants can benefit from sharing their experiences with one 
+another and building socially supportive relationships.19 However, group counselling may not cater to the specific 
+needs of individuals (including women at nutritional risk), or provide an environment in which all adolescent girls 
+and women feel comfortable sharing their problems – especially in settings where there are perceived differences 
+between group members, such as age, ethnicity, caste or sociocultural background.
+
+10
+Counselling to improve maternal nutrition
+duration of counselling are ultimately a trade-off between 
+what is desirable and what is feasible, given the delivery 
+platforms available and the numbers and workload of 
+health providers. 
+Key considerations:
+  Commence maternal nutrition counselling as soon 
+as a woman plans a pregnancy. Women should be 
+encouraged to seek preconception care at least three 
+months before trying to conceive so that problems and 
+needs are identified early and there is sufficient time to 
+improve nutritional status before becoming pregnant. 
+Because it can be challenging to reach women during 
+this short window before pregnancy, premarital or 
+newlywed couples should be targeted for counselling in 
+contexts where it is common for women to have their 
+first pregnancy within one or two years of marriage. 
+  Provide maternal nutrition counselling at all 
+antenatal care contacts, beginning in the first 
+trimester. WHO recommends a minimum of eight 
+antenatal care contacts* during pregnancy: one in the 
+first trimester (12 weeks), two in the second trimester 
+(20 and 26 weeks) and five in the third trimester (30, 
+34, 36, 38 and 40 weeks). Antenatal care contacts up 
+to the start of the third trimester should be used to 
+influence dietary intake, physical activity, adherence to 
+supplementation regimens and hygiene to maximize 
+the time for these practices to take effect. Contacts 
+towards the end of pregnancy should be prioritized for 
+breastfeeding counselling, in preparation for the birth. 
+Counselling contacts should be used to follow-up on 
+agreed actions during earlier contacts, as well as to 
+discuss new challenges and actions.
+  Continue maternal nutrition counselling at all 
+contacts with health workers and community 
+health workers for at least six months following 
+the birth. WHO recommends a minimum of 
+four postnatal care contacts in the first six weeks 
+postpartum (within 24 hours, 48–72 hours, days 7–13 
+and 6 weeks after birth). Beyond this period, maternal 
+nutrition counselling can be linked with nutrition and 
+health services for infants and young children (e.g., 
+immunization contacts, monthly growth monitoring 
+and promotion, sick child visits and other community-
+based nutrition platforms). Each contact with a health 
+worker or community health worker should be used 
+to counsel on healthy dietary intake and adherence 
+with dietary supplements to replenish nutrient stores 
+following pregnancy, meet nutrient requirements during 
+breastfeeding, and attain and maintain a healthy weight.
+* Countries are at various stages of transitioning from the prior recommendation of at least four antenatal care visits to the new recommendation of 
+at least eight antenatal care contacts. The number of possible contacts for maternal nutrition counselling may therefore be less than eight in some 
+countries. These contacts may be with health worker or community health worker at a healthy facility or in the community. 
+  2.4. Service delivery platforms and expanding reach
+The health system has delivery platforms for pregnant 
+and postnatal women, including antenatal care contacts 
+for pregnant women, and postnatal, child immunization 
+and child growth monitoring services for women during 
+the postnatal period (see Box 3). However, these 
+platforms are often not used optimally to support the 
+delivery of maternal nutrition counselling. Service delivery 
+platforms are not as well established for women during 
+the preconception period; however, women planning 
+to become pregnant should be encouraged to seek 
+preconception care. In addition, women who are likely to 
+become pregnant for the first time should be identified, 
+where possible. For example, in some contexts, premarital 
+or newlywed couples can be identified through faith-
+based organizations.16,21 Women who are not planning a 
+pregnancy can be targeted through other communication 
+channels, as described below.
+Key considerations:
+  Ensure that counselling services make use of 
+existing health delivery platforms at facility and 
+community level that are nationwide in coverage 
+or have the potential to reach scale. Community-
+based services tend to offer better opportunities 
+to reach women and close equity gaps in coverage 
+because they are located closer to households and are 
+usually delivered by community-based health workers 
+who are often known and trusted members of the 
+community. Where needed, advocate for the expansion 
+of the community health workforce, and for appropriate 
+remuneration, incentives and support. Identify how to 
+integrate maternal nutrition counselling into existing 
+workflows for preconception, antenatal and postnatal 
+care at facility and community levels.
+  Develop strategies to identify, sensitize and 
+mobilize women from hard-to-reach, marginalized 
+and vulnerable families. These women may not be 
+willing or able to participate regularly in preconception, 
+antenatal or postnatal care services due to a lack of 
+family support, work, remote location or low demand. 
+To encourage the utilization of services by these 
+women, strategies such as outreach services, flexible 
+appointment systems, and engagement with family 
+members and other key influencers in the community 
+may be needed.
+
+11
+Counselling to improve maternal nutrition
+  Establish referral linkages for women to 
+other health and nutrition services and to 
+complementary services delivered by other 
+systems. Counselling services should be used to 
+identify and refer women to health and nutrition 
+services to address underlying conditions (e.g., 
+underweight, disease and mental health problems). 
+Referrals may also be made to other services needed 
+to address barriers to the adoption of positive nutrition 
+practices (e.g., social protection programmes for very 
+low-income households).
+  Use other communication channels and platforms 
+to reinforce messages on positive maternal 
+nutrition practices for all women and their families. 
+The use of multiple communication channels and 
+platforms increases opportunities to influence nutrition 
+practices. Communication channels include mass 
+media (radio, television, websites and social media); 
+mobile text messaging; community mobilization and 
+community media (e.g., local theatre); and information 
+and education through social protection programmes, 
+agricultural extension programmes and workplace 
+programmes. Countries can also consider creating a 
+‘social movement’ that appeals to people’s positive 
+emotions to improve women’s dietary intake before, 
+during and after pregnancy.22 
+Box 3: Delivery platforms for counselling of women and 
+adolescent girls before, during and after pregnancy
+Preconception
+• Pre-pregnancy iron and/or folic acid supplementation 
+programmes
+• Family planning contacts
+• Premarital or newlywed couples counselling
+During pregnancy
+• Antenatal care contacts
+Postnatal
+• Postnatal care contacts
+• Child immunization services
+• Child growth monitoring services
+• Sick child visits, including treatment of childhood illnesses 
+and severe wasting
+2.5. Capacity to counsel women
+Health workers and community health workers should 
+be assigned the responsibility to counsel on maternal 
+nutrition, given the necessary resources (knowledge, 
+skills, competencies, job aids and time), and be motivated 
+to do so. WHO recommends task shifting the promotion 
+of nutrition practices to a range of health worker cadres,7 
+according to the context and national health care 
+system.17 Many low- and middle-income countries have 
+shortages of doctors, midwives and nurses, and rely on 
+community health workers to increase access to primary 
+health care services, particularly at community level. 
+These community health workers have been shown to 
+successfully provide counselling on maternal nutrition, 
+increase the coverage and consumption of micronutrient 
+supplements, and encourage antenatal care attendance 
+in a range of settings.14,23-25 However, it is important to be 
+realistic about the capacity of community health workers, 
+especially volunteers. Community health workers should 
+be integrated into the health workforce and work together 
+with other health workers in a team approach, with clearly 
+defined responsibilities, training and supervision for each 
+cadre.
+Key considerations:
+  Include responsibilities for the provision and 
+supportive supervision of maternal nutrition 
+counselling in the job descriptions of relevant 
+health workers, community health workers and 
+supervisors at all levels. Where possible, shift 
+responsibilities for counselling services to a lower level 
+of health care (e.g., community health workers) to 
+reduce the workload burden on health facility staff and 
+to improve coverage.
+  Develop and/or update competency frameworks, 
+training curricula and job aids on maternal 
+nutrition counselling for health workers and 
+community health workers. Education and training 
+programmes should build the skills and competencies 
+to counsel mothers effectively, as well as improve 
+knowledge on maternal nutrition practices. The curricula 
+and training packages should also address common 
+social norms and sociocultural beliefs that community 
+members (including health workers and community 
+health workers) may hold regarding maternal dietary 
+intake. 
+  Integrate maternal nutrition counselling into 
+pre-service training and continuing education 
+programmes for health workers and community 
+health workers and/or provide training to those 
+already in service. Cascade training models for in-
+service training remain common in most countries – it is 
+important to ensure quality training at all levels. It is also 
+crucial to allow time during training to practice these 
+skills and competencies, preferably in a community 
+setting. 
+  Strengthen supportive supervision and mentoring 
+to boost the knowledge and performance of 
+health workers and community health workers 
+on maternal nutrition counselling. Supportive 
+supervision should focus on improving performance and 
+solving problems that health workers and community 
+health workers may be experiencing. Supervisors 
+should observe health workers and community health 
+workers providing counselling to women, help them 
+
+12
+Counselling to improve maternal nutrition
+to review and interpret data on service coverage, and 
+jointly identify corrective actions.  
+2.6. Access to nutritious and affordable diets and 
+dietary supplements
+In low- and middle-income countries, many poor 
+households struggle with poverty and household food 
+insecurity. In these contexts, counselling on dietary 
+practices and adherence to dietary supplements is unlikely 
+to be effective if women struggle to afford nutritious 
+foods or do not have access to free dietary supplements. 
+These barriers need to be addressed to close equity gaps 
+in the adoption of positive maternal nutrition practices.
+Key considerations:
+  Provide micronutrient supplements and other 
+dietary supplements at no cost. In countries with 
+universal health care coverage, these supplements 
+should be included in the benefit package for women 
+before and during pregnancy and while breastfeeding.
+  Advocate for the expansion of social protection 
+programmes among low-income families with 
+women of reproductive age to alleviate the 
+financial barriers to nutritious and diverse foods. 
+Social protection programmes can improve families’ 
+physical or financial access to nutritious diets by 
+providing social transfers (food, cash and/or vouchers). 
+Social transfers should be combined with nutrition 
+education and counselling, either through the social 
+protection programme or by health services, to increase 
+the likelihood that transfers are used to improve 
+women’s access to nutritious diets.  
+  Coordinate and collaborate with other 
+programmes that aim to increase household 
+access to nutritious and diverse foods and 
+promote women’s empowerment. For example, 
+homestead food production, income generation, and 
+savings and loan programmes can improve household 
+food security and women’s empowerment, provided 
+they are gender-responsive and do not overwhelm 
+women with additional responsibilities. Where nutrient-
+poor diets and micronutrient deficiencies are common, 
+support for the mandatory fortification of staple foods 
+is also important. 
+2.7. Maternal nutrition counselling in humanitarian 
+contexts
+In humanitarian contexts, adolescent girls and women are 
+particularly vulnerable to undernutrition because access 
+to nutritious and affordable foods, safe water, sanitary 
+facilities, and functioning health, education and social 
+protection services are often disrupted. The UNICEF 
+Core Commitments for Children in Humanitarian Action 
+include the “prevention of undernutrition, micronutrient 
+deficiencies and anaemia in pregnant women and 
+breastfeeding mothers”.25 Pregnant women and 
+breastfeeding mothers should have access to a package 
+of interventions that includes nutrition counselling, weight 
+gain monitoring, iron and folic acid supplementation or 
+multiple micronutrient supplementation, and balanced 
+energy-protein supplementation, according to the context.
+Key considerations:
+  Include maternal nutrition counselling as a core 
+nutrition intervention in all emergencies. Countries 
+should include maternal nutrition counselling in 
+emergency preparedness plans and actions, develop 
+capacities to manage and deliver maternal nutrition 
+counselling services in emergencies, and ensure 
+maternal nutrition counselling is prioritized from the 
+onset of emergency response actions. Alternative 
+approaches to providing counselling and advice can 
+be considered where restrictions on movement 
+interrupt routine services, such as telephone and online 
+counselling and advice. Special attention should be 
+given to pregnant adolescent girls and other nutritionally 
+at-risk mothers.
+  Coordinate and collaborate with other clusters 
+and sectors to provide pregnant and breastfeeding 
+women with services to improve their access to 
+nutritious, safe and affordable diets. Counselling 
+and advice will be insufficient unless they are combined 
+with interventions to increase women’s physical and 
+financial access to safe and nutritious food. Households 
+with pregnant and breastfeeding women should 
+be prioritized for social transfers (food, cash and/or 
+vouchers), water, sanitation and hygiene interventions, 
+mental health and psychosocial support and other 
+supportive interventions.
+
+13
+Counselling to improve maternal nutrition
+2.8. Monitoring
+Programme managers need data to assess the quality 
+and coverage of maternal nutrition counselling services 
+in order to take corrective action. While the monitoring of 
+maternal nutrition counselling services has lagged behind 
+other maternal health and nutrition interventions, there 
+have been several important developments. 
+Global partners are examining how to integrate maternal 
+nutrition services into global frameworks and standards 
+for quality improvement of maternal and newborn care. 
+A set of standardized indicators on maternal counselling 
+for routine health information systems is currently under 
+development and is expected to be finalized in 2022.*  
+Health facility Service Provision Assessment surveys 
+include indicators on whether a pregnant woman has 
+discussed nutrition (the quantity or quality of food to 
+eat) and iron supplements (their purpose, potential side-
+effects and how to take them) with a health worker. 
+The questionnaires are available online;26 however, the 
+indicators are in the process of being identified and field 
+tested.§ 
+The Demographic and Health Survey (Phase-8) 
+questionnaires27 include questions to assess the coverage 
+of antenatal counselling on dietary intake, breastfeeding 
+and women’s minimum dietary diversity (see Box 4).  
+These indicators can be integrated into other facility or 
+household surveys.
+Box 4: Demographic and Health Survey (Phase-8) 
+indicators on maternal nutrition services
+• Percentage of women who received counselling on 
+which foods to eat during their most recent pregnancy 
+in the last five years
+• Percentage of women with the minimum dietary 
+diversity
+Key considerations:
+  Include maternal nutrition counselling in national 
+standards for assessing, monitoring and improving 
+the quality of maternal care. Standards should 
+explicitly define what is required to achieve high-quality 
+counselling on maternal nutrition for women.
+  Integrate indicators on the provision of maternal 
+nutrition counselling into routine health 
+information systems and periodic population 
+surveys. These data should be regularly reviewed and 
+used to track progress and take corrective action. 
+*  Contact the UNICEF Headquarters Nutrition and Child Development Programme Group for updates on the process.
+3. Knowledge agenda on maternal nutrition 
+counselling
+The evidence on approaches to strengthen maternal 
+nutrition counselling is currently limited. It is therefore 
+essential that countries invest in research to better 
+understand how to strengthen the coverage, quality and 
+equity of counselling in different settings. 
+Each country should identify its evidence gaps and 
+research priorities on maternal nutrition counselling;  
+mobilize resources and partnerships to conduct research; 
+disseminate new evidence both within the country and 
+with international audiences; and utilize the evidence 
+to strengthen the design and implementation of 
+national policies and programmes on maternal nutrition 
+counselling. 
+Research gaps include – but are not limited to – the 
+following: 
+• Modes, timing, frequency and duration of maternal 
+nutrition counselling that best support specific 
+population groups, including women at nutritional risk.
+• Approaches to prioritize individual counselling to women 
+in greatest need, and to reach lower-risk women with 
+information and education through other communication 
+channels. 
+• Effects, feasibility and acceptability of counselling on 
+healthy eating and exercise interventions to prevent 
+excessive weight gain, including in contexts where 
+maternal underweight remains a public health concern. 
+• Effectiveness of innovative approaches to counsel 
+women, including the use of digital media
+• Approaches to build and sustain the knowledge, skills 
+and competencies of health workers and community 
+health workers to counsel women.
+
+14
+Counselling to improve maternal nutrition
+Annex 1: Resource documents
+Maternal nutrition
+Preconception care: Maximizing gains for maternal 
+and child health. Policy brief. Geneva: World Health 
+Organization; 2013. https://apps.who.int/iris/
+handle/10665/340533
+Meeting to develop a global consensus on preconception 
+care to reduce maternal and childhood mortality and 
+morbidity. Geneva: World Health Organization; 2013. 
+https://apps.who.int/iris/handle/10665/78067
+WHO recommendations on antenatal care for 
+positive pregnancy experience. Geneva: World 
+Health Organization, 2016. https://apps.who.int/iris/
+handle/10665/250796
+WHO recommendations on antenatal care for positive 
+pregnancy experience. Nutritional interventions update: 
+Multiple micronutrient supplements during pregnancy. 
+Geneva: World Health Organization, 2020. https://apps.
+who.int/iris/handle/10665/333561
+Recommendations on postnatal care for the mother and 
+newborn. Geneva: World Health Organization; 2013. 
+https://apps.who.int/iris/handle/10665/97603
+Intermittent iron and folic acid supplementation in 
+menstruating women. Guideline. Geneva: World 
+Health Organization; 2011. https://apps.who.int/iris/
+handle/10665/44649
+Daily iron supplementation in adult women and adolescent 
+girls. Guideline. Geneva: World Health Organization; 2016. 
+https://apps.who.int/iris/handle/10665/204761
+Recommendations on community mobilization through 
+facilitated participatory learning and action cycles with 
+women’s groups for maternal and newborn health. 
+Geneva: World Health Organization; 2014. https://apps.
+who.int/iris/handle/10665/127939
+Healthy Diet Fact Sheet. Geneva: World Health 
+Organization; April 2020. https://www.who.int/news-
+room/fact-sheets/detail/healthy-diet
+How to scale up maternal nutrition: A successful 
+operational approach based on WHO’s antenatal 
+care guidelines and Alive & Thrive’s Implementation 
+Framework. Alive & Thrive; 2017.  https://www.
+aliveandthrive.org/wp-content/uploads/2018/07/How-to-
+scale-up-maternal-nutrition-brief.pdf 
+Maternal depression: The potential role of nutrition in 
+prevention and treatment. Technical brief. Washington, 
+DC: Alive & Thrive; 2020. https://www.aliveandthrive.
+org/sites/default/files/attachments/Maternal-
+Depression-Technical-Brief_v12.pdf
+Infant and young child feeding counselling
+Counselling of women to improve breastfeeding practices. 
+Guideline. Geneva: World Health Organization; 2018. 
+https://apps.who.int/iris/handle/10665/280133
+Community Infant and Young Child Feeding Counselling 
+Package. Facilitator’s Guide. New York: UNICEF, 2012.
+Community Infant and Young Child Feeding Counselling 
+Package. Planner’s Guide. New York: UNICEF, 2013.
+Infant and young child feeding counselling: an integrated 
+course: director’s guide, 2nd edition. Geneva: World 
+Health Organization; 2021. https://apps.who.int/iris/
+handle/10665/343572.
+Small doable actions in Ethiopia. Alive & Thive; 2015. 
+https://www.aliveandthrive.org/sites/default/files/
+attachments/Small-doable-actions_Ethiopia1.pdf
+Humanitarian action
+Core commitments for children in humanitarian action. 
+New York: United Nations Children’s Fund; 2020. https://
+www.unicef.org/emergencies/core-commitments-
+children
+Maternal nutrition: Programming in emergencies. Short 
+online course. https://agora.unicef.org/course/info.
+php?id=28650
+Operational guidance: Breastfeeding counselling in 
+emergencies. Emergency Nutrition Network, Infant 
+Feeding in Emergencies Core Group; 2021. https://www.
+ennonline.net/attachments/4024/Breastfeeding-In-
+Emergencies_.pdf
+
+15
+Counselling to improve maternal nutrition
+References
+1. Development Initiatives. (2020). 
+2020 Global Nutrition Report: Action 
+on equity to end malnutrition. 
+Development Initiatives, Bristol. 
+https://globalnutritionreport.org/
+reports/2020-global-nutrition-
+report/.
+2. United Nations Children’s Fund. (2020). 
+Global Nutrition Database. 
+3. United Nations Children’s Fund, & 
+World Health Organization (2019). 
+UNICEF-WHO low birthweight 
+estimates: Levels and trends 2000–
+2015. World Health Organization, 
+Geneva. https://www.unicef.org/
+sites/default/files/2019-12/SOWC-
+2019.pdf.
+4. United Nations Children’s Fund. (2019). 
+The State of the World’s Children 2019. 
+Children, food and nutrition: Growing 
+well in a changing world. UNICEF, New 
+York. https://www.unicef.org/sites/
+default/files/2019-12/SOWC-2019.pdf.
+5. United Nations Children’s Fund. (2020). 
+Nutrition, for every child. UNICEF 
+Nutrition Strategy 2020–2030. UNICEF, 
+New York. https://www.unicef.org/
+reports/nutrition-strategy-2020-2030.
+6. World Health Organization. (2013). 
+Preconception care policy brief: 
+Maximizing gains for maternal and child 
+health. WHO, Geneva. https://apps.
+who.int/iris/handle/10665/340533.
+7. World Health Organization. 
+(2016). WHO recommendations 
+on antenatal care for a positive 
+pregnancy experience. WHO, 
+Geneva. https://apps.who.int/iris/
+handle/10665/250796.
+8. World Health Organization. (2020). 
+WHO recommendations on antenatal 
+care for a positive pregnancy 
+experience. Nutritional interventions 
+update: Multiple micronutrient 
+supplements during pregnancy. WHO, 
+Geneva. https://apps.who.int/iris/
+handle/10665/333561. 
+9. World Health Organization. (2013). 
+Recommendations on the postnatal 
+care of the mother and newborn. WHO, 
+Geneva. https://apps.who.int/iris/
+handle/10665/340533.
+10. World Health Organization. (2011). 
+Guideline: Intermittent iron and folic 
+acid supplementation in menstruating 
+women. WHO, Geneva. https://apps.
+who.int/iris/handle/10665/44649.
+11. World Health Organization. (2016). 
+Guideline: Daily iron supplementation 
+in adult women and adolescent girls. 
+WHO, Geneva. https://apps.who.int/
+iris/handle/10665/204761.
+12. Kavle, J. A., & Landry, M. (2018). 
+Addressing barriers to maternal 
+nutrition in low- and middle-income 
+countries: A review of the evidence and 
+programme implications. Maternal & 
+Child Nutrition, 14(1), e12508. https://
+doi.org/10.1111/mcn.12508.
+13. World Health Organization. (2018). 
+Global nutrition policy review 2016-2017: 
+Country progress in creating enabling 
+policy environments for promoting 
+healthy diets and nutrition. WHO, 
+Geneva. https://apps.who.int/iris/
+handle/10665/275990.
+14. Goudet, S., Murira, Z., Torlesse, 
+H., Hatchard, J., & Busch-Hallen, J. 
+(2018). Effectiveness of programme 
+approaches to improve the coverage 
+of maternal nutrition interventions in 
+South Asia. Maternal & Child Nutrition, 
+14 (Suppl. 4), e12699. https://doi.
+org/10.1111/mcn.12699.
+15. Singh, S., Sedgh, G., & Hussain, 
+R. (2010). Unintended pregnancy: 
+Worldwide levels, trends, and 
+outcomes, 2010. Studies in Family 
+Planning, 41(4), 241–250. https://doi.
+org/10.1111/j.1728-4465.2010.00250.x.
+16. World Health Organization. (2013). 
+Meeting to develop a global consensus 
+on preconception care to reduce 
+maternal and childhood mortality and 
+morbidity. WHO, Geneva. https://apps.
+who.int/iris/handle/10665/78067.
+17. World Health Organization. (2018).  
+Guideline: Counselling of women to 
+improve breastfeeding practices. WHO, 
+Geneva.  https://apps.who.int/iris/
+handle/10665/280133.
+18. Jafari, F., Eftekhar, H., Fotouhi, A., 
+Mohammad, K., & Hantoushzadeh, 
+S. (2010). Comparison of maternal 
+and neonatal outcomes of group 
+versus individual prenatal care: 
+a new experience in Iran. Health 
+Care for Women International, 
+31(7), 571–584. https://doi.
+org/10.1080/07399331003646323.
+19. Downe, S., Finlayson, K., Tunçalp, Ö., 
+& Gülmezoglu, A. M. (2019). Provision 
+and uptake of routine antenatal 
+services: a qualitative evidence 
+synthesis. Cochrane Database of 
+Systematic Reviews, 6. https://doi.
+org/10.1002/14651858.CD012392.
+pub2.
+20. World Health Organization (2013). 
+Meeting to develop a global consensus 
+on preconception care to reduce 
+maternal and childhood mortality and 
+morbidity. WHO, Geneva. https://apps.
+who.int/iris/handle/10665/78067.
+21. World Bank. (2005). The Bangladesh 
+Integrated Nutrition Project. 
+Effectiveness and lessons. Bangladesh 
+Development Series, 8. World Bank 
+Office, Dhaka. https://apps.who.int/
+iris/handle/10665/78067.
+22. Barker, M., Dombrowski, S. U., 
+Colbourn, T., et al. (2018). Intervention 
+strategies to improve nutrition and 
+health behaviours before conception. 
+Lancet, 391(10132), 1853–1864. 
+https://doi.org/10.1016/S0140-
+6736(18)30313-1
+23. Kavle, J., Picolo, M., & Dillaway, C. 
+(2019). Maternal nutrition operational 
+guidance: Program considerations for 
+low and middle income countries. 
+https://www.mcsprogram.org/
+resource/maternal-nutrition-
+operational-guidance-program-
+considerations-for-low-and-middle-
+income-countries/.
+24. Torlesse, H., Benedict, R. K., Craig, H. 
+C., & Stoltzfus, R. J. (2021). The quality 
+of maternal nutrition and infant feeding 
+counselling during antenatal care in 
+South Asia. Maternal & Child Nutrition, 
+e13153. https://doi.org/10.1111/
+mcn.13153.
+25. United Nations Children’s Fund. (2020). 
+Core commitments for children in 
+humanitarian action. UNICEF, New 
+York. https://www.unicef.org/
+emergencies/core-commitments-
+children.
+26. https://www.dhsprogram.com/
+Methodology/Survey-Types/SPA-
+Questionnaires.cfm.
+27. The DHS Program. (2019). DHS Model 
+Questionnaire- Phase 8. October 
+2019. https://dhsprogram.com/
+publications/publication-dhsq8-dhs-
+questionnaires-and-manuals.cfm.
+
+16
+Counselling to improve maternal nutrition
+© United Nations Children’s Fund (UNICEF)
+January 2022
+Permission is required to reproduce any part of this publication. 
+Permissions will be freely granted to educational or non-profit 
+organizations. 
+Published by:
+UNICEF 
+Nutrition and Child Development Section, Programme Group
+3 United Nations Plaza
+New York, NY 10017
+USA 

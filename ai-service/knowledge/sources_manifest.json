@@ -1,0 +1,57 @@
+{
+  "documents": [
+    {
+      "file": "sources/unicef_maternal_nutrition_programming_2021.pdf",
+      "text_file": "sources/unicef_maternal_nutrition_programming_2021.txt",
+      "title": "UNICEF Programming Guidance: Maternal Nutrition",
+      "publisher": "UNICEF",
+      "published": "2021",
+      "url": "https://www.unicef.org/media/115361/file/Maternal%20Nutrition%20Programming%20Guidance.pdf",
+      "license_note": "Official UNICEF publication; preserve attribution and verify licensing before redistribution.",
+      "sha256": "6F89D6BAFCF106A58EAE159C2D35F985D4C9A58E5942D244071E6837C368B54C",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "file": "sources/unicef_maternal_nutrition_counselling_brief.pdf",
+      "text_file": "sources/unicef_maternal_nutrition_counselling_brief.txt",
+      "title": "UNICEF Maternal Nutrition Counselling Brief",
+      "publisher": "UNICEF",
+      "published": "2021",
+      "url": "https://www.unicef.org/media/114566/file/Maternal%20Nutrition%20Counselling%20Brief.pdf",
+      "license_note": "Official UNICEF publication; preserve attribution and verify licensing before redistribution.",
+      "sha256": "CD989145BB0EF1F52BBF2D4E8FF34261B3A17C5A2DF42A556DC930F435C3DD3E",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "file": "sources/unicef_bangladesh_maternal_nutrition_kap.pdf",
+      "text_file": "sources/unicef_bangladesh_maternal_nutrition_kap.txt",
+      "title": "Knowledge, Attitudes and Practices: Maternal Nutrition in Bangladesh",
+      "publisher": "UNICEF Bangladesh",
+      "published": "2024",
+      "url": "https://www.unicef.org/bangladesh/en/media/10491/file/KAPs%20MCBP%20Aug%202024.pdf.pdf",
+      "license_note": "Official UNICEF Bangladesh publication; preserve attribution and verify licensing before redistribution.",
+      "sha256": "B997D11DC575F30B050DD8ED99F302BF2FA460CABFF9D4608A0BC69489385D4F",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "file": null,
+      "text_file": null,
+      "title": "WHO recommendations on antenatal care for a positive pregnancy experience",
+      "publisher": "WHO",
+      "published": "2016",
+      "url": "https://www.who.int/publications/i/item/9789241549912",
+      "license_note": "WHO source page; PDF download was unavailable from the current environment.",
+      "review_status": "SOURCE_REFERENCE_ONLY"
+    },
+    {
+      "file": null,
+      "text_file": null,
+      "title": "WHO nutrition counselling during pregnancy",
+      "publisher": "WHO",
+      "published": "2023",
+      "url": "https://www.who.int/tools/elena/interventions/nutrition-counselling-pregnancy",
+      "license_note": "WHO source page; use official page for current recommendations.",
+      "review_status": "SOURCE_REFERENCE_ONLY"
+    }
+  ]
+}

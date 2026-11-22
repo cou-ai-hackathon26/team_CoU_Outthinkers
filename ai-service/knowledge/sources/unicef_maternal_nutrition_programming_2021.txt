@@ -1,0 +1,4161 @@
+NUTRITION GUIDANCE SERIES
+UNICEF
+PROGRAMMING
+GUIDANCE
+Maternal Nutrition
+Prevention of malnutrition in women 
+before and during pregnancy and 
+while breastfeeding
+
+2  UNICEF Programming Guidance
+Acknowledgements 
+This publication was prepared by the Nutrition and Child Development 
+Group at UNICEF Programme Division in New York.
+Lead authors: Nita Dalmiya, Roland Kupka, Vilma Tyler and Victor Aguayo. 
+Technical reviewers and contributors: Maaike Arts, Jessica Blankenship, 
+Elizabeth Fox, Tedbabe Degefie Hailegebriel, Shreyasi Jha, Justine Kavle, 
+Erin McLean, Zivai Murira, Siméon Nanema, John Ntambi, Rebecca Olson, 
+Christiane Rudert, Fanny Sandalinas, Sagri Singh, Harriet Torlesse, 
+Marjorie Volege, Amirhossein Yarparvar, and Charity Zvandaziva. 
+Design: Nona Reuter; Editing: Julia D’Aloisio 
+This publication is based on research funded in part by the Bill & Melinda 
+Gates Foundation. The findings and conclusions contained within are 
+those of the authors and do not necessarily reflect positions or policies of 
+the Bill & Melinda Gates Foundation
+Suggested citation: United Nations Children’s Fund. UNICEF Programming 
+Guidance. Prevention of malnutrition in women before and during pregnancy and 
+while breastfeeding. New York: UNICEF, 2021.
+January 2022
+Photography credits: : Cover: © UNICEF/UNI338812; page 8: page 12: 
+© UNICEF/UN0212548/Noorani; page 16: © UNICEF/UN0294302/Ralaivita; 
+page 18: © UNICEF/UN0267739/Frazier; page 24: © UNICEF/UN0288732/
+Viet Hung; page 27: © UNICEF/UN0187556/Njiokiktjien VII Photo; page 30: 
+© UNICEF/UN0207236/Sibiloni; page 32: © UNICEF/UN0520286/Arcos; page 
+37: © UNICEF/UN0270488/van Oorsouw; page 39:© UNICEF/UN0563585/
+Abdul; page 41: © UNICEF/UN0491508/Vishwanathan; page 43: © UNICEF/
+UN0205327; page 45: © UNICEF/UN0205719/Njiokiktjien VII Photo; page 48: 
+© UNICEF/UN0383981/Ralaivita; page 52: © UNICEF/UNI290285/Narain 
+
+Maternal Nutrition  3
+Contents
+Abbreviations 4
+Key definitions 5
+Executive summary  6
+About this guidance 7
+1. Introduction  8
+Why women’s nutrition matters 9
+Global prevalence of malnutrition in women 10
+Consequences of malnutrition in women and children 10
+Causes of poor nutrition in women  12
+Global goals and targets on women’s nutrition 14
+Existing global guidance and recommendations on women’s nutrition 15
+2. Strategic framework: Preventing all forms of malnutrition in women  16
+3. Programmatic priorities  18
+Five programming priorities 19
+Maternal nutrition interventions across the life course 20
+Programmatic priority 1. Women’s nutrition before pregnancy  21
+Programmatic priority 2. Women’s nutrition during pregnancy 22
+Programmatic priority 3. Women’s nutrition while breastfeeding  31
+Programmatic priority 4. Nutrition of adolescent mothers and nutritionally at-risk women 33
+Programmatic priority 5. Innovations for maternal nutrition 36
+4. Programming principles  37
+5. A systems approach to preventing all forms of malnutrition in women 39
+6. Programming, partnerships and coordination  41
+7. Monitoring and reporting  48
+Annexes 52
+Endnotes 58
+
+4  UNICEF Programming Guidance
+Abbreviations
+ANC Antenatal care
+BEP Balanced energy-protein supplements
+BMI Body mass index
+Hb Haemoglobin
+HIC High-income countries
+HMIS Health management information system
+IFA Iron and folic acid 
+LBW Low birthweight
+LMICs Low- and middle-income countries
+MMS Multiple micronutrient supplements
+MUAC Mid-upper arm circumference 
+SBCC Social and behaviour change communication
+SDG Sustainable Development Goal
+SGA Small-for-gestational age
+Sq-LNS Small-quantity lipid-based nutrient supplement
+UNICEF United Nations Children’s Fund
+UNIMMAP United Nations International Multiple Micronutrient Antenatal Preparation
+WFP World Food Programme
+WHO World Health Organization
+
+Maternal Nutrition  5
+Key definitions
+Adolescent An individual aged 10–19 years. 
+Anaemia A pathological condition characterized by low levels of haemoglobin 
+or poor oxygen carrying capacity of the red blood cells. Anaemia is an 
+indicator of poor nutrition, health and wellbeing. 
+Body mass index An individual’s weight in kilograms divided by the square of height in 
+metres. Body mass index is used to classify non-pregnant women (or 
+pregnant women within 12 weeks of pregnancy) as follows: underweight 
+(≤18.5 kg/m2), normal weight (18.5 kg/m2 – 24.9 kg/m2), overweight 
+(25 kg/m2 – 29.9 kg/m2) and obese ≥30 kg/m2). 
+Iron deficiency anaemia A form of nutritional anaemia that results when iron intake is insufficient 
+to meet the demands for synthesis of haemoglobin and erythrocytes. 
+Iron deficiency is the most common cause of anaemia among non-
+pregnant and pregnant women. 
+Large for gestational age: An infant born above the 90th percentile of a birthweight for a given 
+gestational age.
+Low birthweight Weight of an infant of less than 2.5 kg at birth, regardless of gestational 
+age. 
+Macrosomia An infant with a birth weight greater than 4,000 to 4,500 g, regardless of 
+gestational age.
+Short maternal stature A woman’s height ranging from <145 cm to <155 cm. 
+Small-for-gestational-age An infant born below the tenth percentile of a birthweight-for-gestational-
+age.
+Preterm birth An infant born alive before 37 weeks of pregnancy are completed.
+Woman of reproductive age An adolescent girl or woman aged 15–49 years. 
+
+6  UNICEF Programming Guidance
+Executive summary 
+Women’s nutrition matters. Not only is it a human 
+right; it is also essential for women’s survival, 
+well-being and participation. Women’s nutrition 
+– especially during the nutritionally vulnerable 
+period of pregnancy and breastfeeding – is also 
+an important determinant of children’s nutrition, 
+growth, health and development outcomes during 
+the 1,000-day window from conception to age 2, 
+and beyond. 
+Despite this recognition, global progress in 
+reducing all forms of malnutrition among women 
+of reproductive age (henceforth referred to as 
+‘women’) is lagging against global goals and targets. 
+Although the prevalence of underweight among 
+women has improved in low- and middle-income 
+countries (LMICs), the prevalence of overweight and 
+obesity among women has increased around the 
+world. An estimated 170 million women worldwide 
+suffer from underweight, while three times as many 
+women (610 million) are living with overweight.1 And 
+while the prevalence of anaemia among women has 
+declined slightly, about 571 million women (29.9 per 
+cent) worldwide are still affected.1 Global trends in 
+short maternal stature show some improvements; 
+however, short stature still affects 7 per cent of 
+women (aged 20–49 years) in LMICs, particularly in 
+South Asia and Southeast Asia.2, 3 
+Malnutrition in women is the result of poor diets 
+and poor care services and practices. These factors 
+increase women’s risk of illness, death and poor 
+pregnancy outcomes, and put their children at 
+risk of undernutrition in early childhood (including 
+wasting, stunting and micronutrient deficiencies) 
+with long-term negative consequences for school 
+readiness, enrolment and learning performance. 
+These consequences can translate into poverty in 
+adulthood due to limited employment opportunities 
+and lower productivity and wages, ultimately 
+perpetuating malnutrition across generations. 
+This guidance is intended to support the 
+implementation of UNICEF’s vision for maternal 
+nutrition programming as outlined in the UNICEF 
+Nutrition Strategy 2020–2030.4 In doing so, the 
+guidance aims to accelerate progress towards the 
+Sustainable Development Goals (SDGs) and the 
+nutrition targets set by the World Health Assembly 
+across countries and regions. 
+
+Maternal Nutrition  7
+About this guidance
+This document aims to provide UNICEF country 
+teams and their partners with guidance to 
+design, implement and monitor evidence-
+based programmes to improve the nutrition of 
+women before and during pregnancy and while 
+breastfeeding. The guidance supports UNICEF’s 
+vision for improving the diets, services and practices 
+of women as described in the UNICEF Nutrition 
+Strategy 2020–2030. Specifically, this guidance 
+supports the implementation of Results Area 3 on 
+the prevention of all forms of malnutrition in women 
+across the life course. 
+Chapter 1 describes the importance of addressing 
+malnutrition in women and highlights the global 
+magnitude of the problem, including its causes and 
+consequences. This chapter also outlines global 
+goals and guidance for the prevention of malnutrition 
+among women. 
+Chapter 2 describes UNICEF’s strategic approach to 
+preventing malnutrition in women before and during 
+pregnancy and while breastfeeding. 
+Chapter 3 outlines UNICEF’s programmatic 
+priorities: 1) women’s nutrition before pregnancy; 
+2) women’s nutrition during pregnancy; 3) women’s 
+nutrition while breastfeeding; 4) nutrition of 
+adolescent mothers and other nutritionally at-risk 
+women; and 5) innovations for maternal nutrition.
+Chapter 4 sets forth the programming principles 
+that will guide UNICEF’s approach to women’s 
+nutrition across the life course.
+Chapter 5 describes the role of five systems – food, 
+health, water and sanitation, education, and social 
+protection – with the greatest potential to deliver 
+nutrition results for women. 
+Chapter 6 covers the programmatic approaches, 
+coordination and partnerships that are needed to 
+improve women’s nutrition. 
+The guidance ends with a list of resources and 
+suggestions for further reading.
+Finally, this guidance is intended to be used in 
+conjunction with other UNICEF guidance documents 
+to improve nutrition in early childhood, middle 
+childhood and adolescence. It is also intended 
+to be used alongside thematic guidance for the 
+prevention, early detection and treatment of child 
+wasting and the prevention of overweight and 
+obesity in childhood and adolescence, and is aligned 
+with the UNICEF Gender Action Plan and Core 
+Commitments for Children in Humanitarian Action.5-9 
+
+8  UNICEF Programming Guidance
+1.
+Introduction 
+
+Maternal Nutrition  9
+Overview of the nutritional situation of 
+women 
+Why women’s nutrition matters
+Securing access to nutritious, safe, affordable 
+and sustainable diets, along with essential 
+nutrition services and positive nutrition practices, 
+is fundamental to women’s survival, health and 
+well-being.10 Women’s nutrition is also associated 
+with the nutrition status, health, growth and 
+development of their children.11 Protecting women’s 
+nutrition at each phase of the life course is therefore 
+extremely important – especially before and during 
+pregnancy and while breastfeeding, when nutritional 
+vulnerability is greatest (Figure 1). 
+For women who are about to become mothers, 
+adequate diets preconception help establish 
+sufficient nutrient reserves to support pregnancy. 
+During adolescence, it is important that girls 
+consume adequate diets to meet their energy, 
+protein and micronutrient needs and support 
+physical growth and development. 
+For adolescents who become pregnant, nutritious 
+diets also prepare them for the nutritional demands 
+of pregnancy and breastfeeding.12 
+During pregnancy, women have increased dietary 
+requirements to support changes in maternal 
+tissues, metabolism, and foetal growth and 
+development. Compared with pre-pregnancy, 
+energy requirements increase by an average of 300 
+kcal/day during pregnancy.13 In addition, pregnancy 
+also increases women’s need for protein, vitamins 
+and minerals such as iron, folic acid and calcium.14 
+Women who are breastfeeding also have increased 
+energy needs compared with non-pregnant 
+and non-lactating women.15, 16 Indeed, energy  
+requirements increase by 640 kcal/day during the 
+first six months postpartum among women who 
+breastfeed exclusively.13 Although infant demand 
+is a key condition for stimulating milk production, 
+better diets can also improve the lactation capacity 
+of women who are undernourished.16, 17 
+ 
+Figure 1 Women’s nutrition across the life course
+Adolescence Preconception Pregnancy Breastfeeding
+During pregnancy, nutritious 
+diets support foetal growth and 
+development and help meet 
+women’s energy needs, which 
+increase by an average of 300 
+kcal/day during this time
+Nutritious diets are critical 
+during the ﬁrst six months 
+postpartum when dietary 
+requirements increase by 640 
+kcal/day among exclusively 
+breastfeeding women
+Before pregnancy, women 
+need nutritious diets to 
+protect their health and 
+establish sufﬁcient nutrient 
+reserves to support 
+pregnancy
+Adolescents need nutritious 
+diets with high amounts of 
+energy, protein and 
+micronutrients to fuel rapid 
+physical growth and 
+development
+Adolescent Adult
+
+10  UNICEF Programming Guidance
+Global prevalence, consequences and 
+causes of malnutrition in women 
+Global prevalence of malnutrition in women
+Despite recognition of the importance of women’s 
+nutrition, the prevalence of malnutrition in 
+women – in all its forms – is unacceptably high. 
+Malnutrition, including underweight, short stature, 
+anaemia and overweight, affects millions of women 
+around the world (Figure 2), including during the 
+nutritionally demanding periods of pregnancy and 
+breastfeeding.1 Globally, approximately 170 million 
+women (9.1 per cent) are underweight, while three 
+times as many women (610 million or 32.5 per cent) 
+are overweight.1 While there have been important 
+reductions in the prevalence of underweight in 
+LMICs, progress has been uneven across regions 
+and within countries; prevalence is still high in sub-
+Saharan Africa and South Asia, and low-income 
+women within countries are most impacted.2 At 
+the same time, the prevalence of overweight and 
+obesity among women has increased over the past 
+three decades and now affects more than half a 
+billion (610 million) women.1 
+Globally, the mean body mass index (BMI) in 
+women is 24.4 kg/m², which is the cusp of the 
+global cut-off for overweight.2 This reflects the 
+trend of increasing overweight in women.2,18 Short 
+stature, an indicator of intergenerational and chronic 
+malnutrition, has shown some improvements. Still, 
+7 per cent of women (aged 20–49 years) in LMICs 
+are affected by short stature.2 In South Asia and 
+Southeast Asia, short stature affects as many as 
+32–35 per cent of all women.3 
+While global estimates on micronutrient deficiencies 
+and dietary quality among women are limited, 
+available evidence suggests that women’s diets are 
+poor, and deficiencies of key micronutrients (e.g., 
+iron, folate, vitamins B12 and D, iodine, and zinc) are 
+widely prevalent, irrespective of whether women 
+are underweight, normal weight or overweight.19,20 
+Anaemia affects slightly fewer than one-third (29.9 
+per cent) or 571 million women worldwide.1 These 
+contrasting forms of malnutrition affect women 
+across all regions and settings and often overlap in 
+the same countries. 
+Consequences of malnutrition in women 
+and children
+All forms of malnutrition in women – underweight, 
+short stature, anaemia and overweight — have 
+serious consequences for women’s health, 
+well-being and participation. Women who are 
+underweight or overweight before pregnancy face 
+additional risk factors when they become pregnant, 
+such as gestational diabetes, hypertension, pre-
+eclampsia and caesarean section, as well as 
+poor pregnancy and breastfeeding outcomes.21 
+During pregnancy, gestational weight gain less 
+than or greater than guideline recommendations 
+Figure 2. Global prevalence of malnutrition in women and low birthweight.1
+Approximately
+170 million
+women (9.1%) are  
+underweight
+(BMI <18.5 kg/m2)  
+Nearly 
+610 million
+women (32.5%) 
+are affected by 
+overweight
+(BMI ≥25 kg/m2) 
+Anaemia affects
+520 million 
+women (32.8%) 
+Annually,
+20.5 million 
+babies (14.6%) are 
+born with low 
+birthweight
+ (<2,500 g)
+7 % 
+of women aged 
+20–49 years in 
+LMICs have short 
+stature (<145 cm)
+
+Maternal Nutrition  11
+increases the risk of adverse maternal and infant 
+outcomes (such as small-for-gestational-age (SGA) 
+or large-for-gestational age births, preterm births, 
+macrosomia and caesarean delivery) and may also 
+lead to postnatal weight retention.22,23 Anaemia in 
+pregnancy, much of which has nutritional causes, is 
+associated with increased morbidity, mortality and 
+adverse birth outcomes.24,25 
+Malnutrition in the period following childbirth 
+presents its own unique risks for women. Women 
+suffering from anaemia in the third trimester may 
+continue to suffer from anaemia in the postnatal 
+period, especially if they experience excessive 
+blood loss during delivery and/or if they had multiple 
+births.26-28 Breastfeeding also increases the need 
+for increased dietary energy intake. In some 
+cases, among women who are undernourished, 
+maintaining breastmilk supply throughout the 
+recommended breastfeeding period may come at 
+the expense of a woman’s nutritional reserves.15 
+The consequences of maternal malnutrition for 
+newborns are equally serious.3, 29, 30 Each year, about 
+20 million babies are born with low birthweight 
+(LBW), an early form of malnutrition that is closely 
+linked to the nutritional status of women before 
+and during pregnancy.31 Malnutrition before and 
+during pregnancy can also contribute to stunting, 
+wasting and micronutrient deficiencies in infants, 
+putting them on a trajectory to potentially long-term 
+negative consequences, ranging from impaired 
+growth, development and learning readiness in 
+early childhood, to chronic diseases in adulthood 
+(Table 1).2, 29, 30
+Women suffering from underweight before 
+pregnancy face a greater risk of preterm birth (32 
+per cent) than women with a healthy weight.21 
+Similarly, women affected by overweight and 
+obesity before and during pregnancy are at 
+increased risk of poor pregnancy outcomes, while 
+their children face a greater risk of overweight, 
+obesity and cognitive and development problems 
+that may extend into adulthood.33-34 Short stature 
+in women is also associated with poor pregnancy 
+outcomes, such as SGA and preterm births, and 
+is strongly correlated with stunting in children.3, 35 
+While short stature (<145 cm) carries the highest 
+risk for women and children, other height categories 
+(<155 cm) are also associated with increased risk of 
+SGA and preterm births.3 
+During pregnancy, deficiencies in essential vitamins 
+and minerals, such as iodine, iron and calcium, 
+are also linked to poor health outcomes, such as 
+miscarriage, stillbirths, congenital defects, LBW, 
+infant mortality, impaired cognitive development, 
+and cardiometabolic risks in adult life.20 
+Table 1. Consequences of maternal malnutrition on women and children 
+Impacts of maternal malnutrition (underweight, overweight, short stature and micronutrient deficiencies) Impacts of maternal malnutrition (underweight, overweight, short stature and micronutrient deficiencies) 
+Impacts Underweight Overweight/obesity Short stature Micronutrient deficiencies
+Mother Morbidity, death Gestational hypertension 
+and diabetes, pre-
+eclampsia, prolonged 
+labour, caesarean section, 
+miscarriage, postpartum 
+haemorrhage, anaemia, 
+death
+Obstructed labour, 
+death
+Hypothyroidism, fatigue, 
+bleeding during delivery, 
+eclampsia and pre-
+eclampsia, miscarriage, 
+obstructed labour, morbidity, 
+death
+Newborn 
+and child
+Stillbirth, preterm 
+birth, LBW, 
+stunting, wasting
+Large-for-gestational-age, 
+preterm birth, stillbirth, 
+neonatal asphyxia and 
+infant mortality, low and 
+high birthweight, birth 
+defects
+SGA, preterm birth, 
+LBW, stunting, wasting
+SGA, preterm birth, 
+stillbirth, LBW, newborn/
+infant mortality, 
+congenital defects, goitre, 
+hypothyroidism, intellectual 
+disabilities 
+
+12  UNICEF Programming Guidance
+Of special concern are the needs of millions of 
+adolescent girls who give birth each year, the vast 
+majority of whom live in LMICs and suffer from 
+malnutrition.36 In some countries, 1 in 10 adolescent 
+girls (aged 13–15 years) are underweight, one-
+third are affected by overweight or obesity, and 
+as many as half suffer from stunting.37 Pregnant 
+adolescent girls face a higher risk of malnutrition 
+because they are still growing. Their nutritional 
+needs may compete with the nutritional demands of 
+pregnancy and impact their growth.38, 39 Moreover, 
+some adolescent girls face difficulties in accessing 
+nutritious foods and pregnancy care due to harmful 
+cultural and gender norms.40, 41 Adolescent girls with 
+stunting face a high risk of malnutrition and negative 
+health outcomes during pregnancy and around the 
+time of childbirth; they are also more likely to have 
+babies who are premature or LBW. 42-45 
+Pregnant adolescent girls with overweight face a 
+higher risk of gestational diabetes, pre-eclampsia, 
+and caesarean delivery compared with pregnant 
+adolescents in the normal weight range.45 
+Adolescent girls and women who conceive shortly 
+after adolescence are likely to enter pregnancy with 
+iron deficiency, or with low or no iron stores.46 
+Across a woman’s life course, poor nutrition is 
+exacerbated by humanitarian crises, including 
+natural disasters, public health crises and conflict, 
+which can further deteriorate the quality of women’s 
+diets, disrupt access to essential services and 
+exacerbate discriminatory gender norms and social 
+inequalities around access to food and care.47 
+Causes of poor nutrition in women 
+At all stages of life, malnutrition in women is the 
+result of poor-quality diets, poor services, poor 
+practices and a weak enabling environment. 
+Women’s access to diets and care are constrained 
+by several factors, including limited availability of 
+and access to nutritious, safe and affordable foods; 
+limited opportunities for women to access nutrition 
+services; limited knowledge of the importance of 
+preconception nutrition care; and harmful gendered 
+social norms and social and cultural practices. 
+
+
+Maternal Nutrition  13
+Understanding these causes is critical to identifying 
+the appropriate mix of interventions and actions to 
+improve women’s nutrition across the life course. 
+Poor diets. Poor maternal diets are a major risk 
+factor for poor health before and during pregnancy 
+and can contribute to poor pregnancy outcomes.9,48 
+Across countries, women’s diets are lacking in 
+diversity, with limited intake of vegetables, meat, 
+dairy and fruits. This results in micronutrient 
+deficiencies due to gaps between daily nutrient 
+requirements and the intake of quality nutrients 
+(such as vitamin A, B-vitamins, calcium, iron and 
+zinc).19, 20, 50-53 While women’s diets may be better 
+during pregnancy compared to pre- or post-
+pregnancy diets, they are still not optimal and lack 
+variety. Meeting additional nutritional needs during 
+pregnancy can be especially difficult in terms of 
+micronutrients; in particular, the need for iron often 
+cannot be met by dietary measures alone.
+The problem of poor diets is not unique to women 
+in LMICs. Even in high-income countries (HICs), 
+women’s diets are often deficient in essential 
+nutrients, such as folate, iron and vitamin D.54 
+Moreover, women who are affected by overweight 
+may also lack quality nutrients in their diet.55 Across 
+LMICs and HICs alike, women are increasingly 
+consuming diets that are high in ultra-processed 
+foods, high in saturated and trans fats, salt and 
+sugar, and low in essential micronutrients.50, 56,29 
+These shifts in women’s diets are linked to the wide 
+availability and promotion of low-cost, unhealthy 
+foods. Changes in taste preferences towards sugary 
+and salty foods, and the social desirability of such 
+foods, are also impacting women’s diets. 
+With the increasing engagement of women in the 
+formal and informal work sector, time and effort 
+needed for breastfeeding and food preparation 
+may also be constrained, making convenience an 
+important factor in the foods that families choose 
+to purchase and consume. These convenient foods 
+are often ultra-processed and/or of poor nutritional 
+quality. Moreover, sedentary lifestyles and limited 
+opportunities for exercise may prevent women from 
+being physically active. 
+Poor nutrition services. Women’s nutrition, 
+including before and during pregnancy and while 
+breastfeeding, is also determined by their access 
+to and use of services: health services, water and 
+sanitation services, and social safety nets for the 
+most vulnerable women. Limited access to these 
+services can increase the risk of infection and 
+disease and result in poor outcomes for women and 
+their children. 
+Figure 3. Global coverage (%) of four antenatal care visits and iron and folic acid supplementation (90+ 
+tablets)1
+Missed opportunities to provide essential nutrition services to pregnant women
+0 20 40 60 80 100
+Pregnant women who receive 90+ iron and
+Pregnant women who receive 
+90+ iron and folic acid tablets
+Pregnant women who attend at 
+least four antenatal care visits 59%
+38%
+
+14  UNICEF Programming Guidance
+For women to avail of these essential services 
+they must be routinely offered, and women must 
+be able to access them. However, in 2020, fewer 
+than two in three women (59 per cent) attended 
+four antenatal care (ANC) visits, as recommended 
+by WHO,* and even fewer women (38 per cent) 
+received the recommended quantity of iron and 
+folic acid (IFA) supplements (90+ tablets) (Figure 
+3), representing a missed opportunity for providing 
+an essential nutrition service to pregnant women.57 
+Health services continue to experience supply-
+related barriers and stock-outs of preventive iron 
+supplements – despite the inclusion of these 
+commodities on the list of essential medicines 
+and despite policies for their free provision in 
+many countries.58 Also, while maternal nutrition 
+counselling is a recommended component 
+of health care, many women do not receive 
+quality nutrition counselling services.58 Similarly, 
+weaknesses in water and sanitation systems 
+disproportionally affect women’s access to clean, 
+safe water and sanitation facilities. Women who 
+lack safe water are also more prone to waterborne 
+illnesses, such as hookworm, which can increase 
+the risk of anaemia and LBW.60 
+Poor care practices. Malnutrition in women is 
+rooted in poor care practices at the individual, 
+household, community and societal levels. 
+Together, these factors influence women’s ability 
+to make informed decisions about their nutrition 
+and care. At the individual and household levels, 
+women’s knowledge, beliefs and values, fears 
+about pregnancy, lack of family support, and 
+household dynamics around food distribution, 
+influence their food and care-seeking behaviours 
+and choices.58, 61, 62 At a broader community and 
+societal level, harmful cultural beliefs and practices 
+about pregnancy (e.g., restrictive or excessive 
+food intake), gender norms, and gender and 
+income inequality, may also limit women’s access 
+to resources and information, and can influence 
+gendered practices on what women eat, when 
+they eat and how much they eat. 
+*  WHO has updated its recommendations from a minimum of four ANC visits to a minimum of eight ANC contacts to improve women’s preg-
+nancy care. However, data reporting at global, regional, and country levels are currently only available for a minimum of four visits, aligned with 
+the previous recommendation. 
+Weak enabling environment. Despite a strong 
+evidence base and global recommendations to 
+support women’s nutrition, there are challenges 
+in translating these into effective policies and 
+programmes.63 It is well-recognized that maternal 
+nutritional status is closely linked to children’s 
+growth and development during the first 1,000 days 
+of life. Yet women’s nutrition is often neglected 
+in policies and programmes targeting this critical 
+developmental period.58, 64 A lack of prioritization 
+and funding for maternal nutrition has also meant 
+that there are few large-scale comprehensive 
+programmes.64 Programming for maternal nutrition 
+has also relied predominantly on the health system 
+to deliver nutrition services for women during 
+pregnancy, with suboptimal coverage. 
+Few countries have the appropriate policies and 
+guidelines on what and how to achieve healthy diets 
+for pregnant women and breastfeeding mothers.59 
+The absence of policies, regulations and standards 
+on food labelling and marketing may facilitate 
+access to unhealthy foods, snacks and beverages, 
+and contribute to suboptimal diets. Further, the 
+absence of specific food-based dietary guidelines 
+targeting the nutritional needs of women across 
+the life course affects the information women 
+receive and the content of nutrition counselling and 
+education programmes that target them. Moreover, 
+nutrition-sensitive social protection programmes 
+are not available in many countries to help meet the 
+nutrition needs of pregnant women, breastfeeding 
+mothers, adolescent girls and other vulnerable 
+groups. 
+Global goals and targets on women’s 
+nutrition
+Women’s nutrition is directly linked to many global 
+nutrition, health and gender-related goals and 
+targets. Improvements in women’s nutrition are 
+needed to achieve SDG 2 on hunger and SDG 3 
+on health, as well as the World Health Assembly 
+targets on stunting, wasting, obesity, anaemia, LBW 
+and non-communicable diseases (Box 1). 
+
+Maternal Nutrition  15
+Box 1.
+Global goals and targets associated with women’s 
+nutrition
+Sustainable Development Goal targets.65, 66
+SDG 2. Zero Hunger
+Target 2.2. End all forms of malnutrition, including 
+achieving by 2025 the internationally agreed 
+targets on stunting and wasting in children under 
+5 years of age, and address the nutritional needs 
+of adolescent girls, pregnant and lactating women, 
+and older persons.
+SDG 3. Good Health and Well-being  
+Target 3.4. Reduce by one-third premature 
+mortality from non-communicable diseases 
+through prevention and treatment and promote 
+mental health and well-being.
+Target 3.8. Achieve universal health coverage, 
+including financial risk protection, access to 
+quality essential health care services and access 
+to safe, effective, quality and affordable essential 
+medicines and vaccines for all.
+SDG 5. Gender Equality 
+SDG Target 5.1. End all forms of discrimination 
+against all women and girls everywhere.
+World Health Assembly nutrition goals and 
+2030 targets.66, 67
+Target 1: Achieve a 50 per cent reduction in the 
+number of children under 5 who are stunted
+Target 2: Achieve a 50 per cent reduction in 
+anaemia in women of reproductive age
+Target 3: Achieve a 30 per cent reduction in low 
+birthweight
+Target 4: Reduce and maintain childhood 
+overweight to less than 3 per cent
+Target 5: Increase the rate of exclusive 
+breastfeeding in the first six months to at least 70 
+per cent
+Target 6: Reduce and maintain childhood wasting 
+to less than 3 per cent
+WHO targets for the prevention and control 
+of non-communicable disease69
+Experience no increase in obesity and diabetes (in 
+adults and adolescents)
+Achieve a 30 per cent reduction in the average 
+population salt intake
+Similarly, improvements in maternal nutrition are 
+also required to achieve SDG 5 on gender equality 
+and the empowerment of all women and girls.65 
+Existing global guidance and 
+recommendations on women’s nutrition
+UNICEF actions are guided by global policies and 
+guidelines on maternal and child nutrition, maternal 
+and reproductive health, and newborn outcomes. 
+The 2016 WHO Recommendations on Antenatal 
+Care for a Positive Pregnancy Experience reinforce 
+the importance of nutrition interventions during 
+pregnancy and provide comprehensive guidance 
+on the practice, organization and delivery of ANC 
+services. They include universal recommendations 
+for all pregnant women and context-specific 
+recommendations that are increasingly adopted by 
+countries.70 Subsequent updates to these guidelines 
+(e.g., on multiple micronutrient supplementation, 
+calcium and vitamin D) 
+provide countries with the 
+latest recommendations on 
+the provision of essential 
+nutrition services as part 
+of ANC.71-73 Other WHO 
+guidelines relevant for 
+women’s nutrition include: 
+Preconception care: 
+Maximizing the gains for 
+maternal and child health, a 
+policy brief (2013); Postnatal 
+care of the mother and newborn (2013); and 
+Guidelines for implementing effective actions for 
+improving adolescent nutrition (2018). 26,73,74 For a full 
+list of WHO recommendations from preconception 
+through pregnancy and the postnatal period, refer to 
+Annexes. 
+Maternal Nutrition  15
+
+
+16  UNICEF Programming Guidance
+2.
+Strategic 
+framework: 
+Preventing 
+all forms of 
+malnutrition 
+in women 
+
+Maternal Nutrition  17
+VISION
+GOAL
+OBJECTIVES
+PROGRAMME
+PRIORITIES
+PROGRAMME
+APPROACHES
+PROGRAMME
+PRINCIPLES
+Food
+system
+Health
+system
+Water and
+sanitation
+system
+Education
+system
+Equity-focused Rights-based Gender-responsive Empowerment
+Social
+protection
+system
+SYSTEMS
+Strategic framework for maternal nutrition 
+A world where all pregnant women and breastfeeding 
+mothers realize their right to adequate nutrition
+To protect and promote diets, services and practices that support 
+optimal nutrition for women during pregnancy and breastfeeding
+Diets, services and practices that 
+support optimal maternal 
+nutrition
+Policies, strategies and 
+programmes that support optimal 
+maternal nutrition
+Before pregnancy During pregnancy
+Nutrition of adolescent mothers and other nutritionally at-risk women
+Innovations for improved maternal nutrition
+While breastfeeding
+1. Conduct a situation analysis
+2. Advocate for the protection, promotion and fulﬁllment of nutrition rights
+3. Design evidence-based policies, strategies and programmes
+4. Support the scale-up of nutrtion strategies and programmes
+5. Engage communities for nutrition action
+6. Strengthen capacities for maternal nutrition programming
+7. Strengthen supply chains for sustainable nutrition programming
+8. Mobilize ﬁnances for maternal nutrition
+9. Invest in data, monitoring and evaluation for nutrition
+10. Advance knowledge, learning and innovation for nutrition
+Strategic framework
+UNICEF’s vision is a world where all women 
+realize their right to adequate nutrition, as shown 
+in the strategic framework for maternal nutrition 
+(Figure 4). The goal of UNICEF programming in 
+this area is to prevent all forms of malnutrition in 
+women – undernutrition, micronutrient deficiencies 
+and overweight – with emphasis on the nutritionally 
+vulnerable periods before and during pregnancy and 
+breastfeeding, and to meet the needs of nutritionally 
+vulnerable pregnant adolescent girls and women. 
+To realize this vision and goal, UNICEF programming 
+aims to achieve two overarching results:
+• Women benefit from diets, services and 
+practices that support optimal nutrition before 
+and during pregnancy and while breastfeeding. 
+• Women benefit from gender-responsive policies, 
+strategies and programmes that support optimal 
+nutrition before and during pregnancy and 
+while breastfeeding.
+Figure 4. UNICEF strategic framework for preventing malnutrition in women before and during 
+pregnancy, and while breastfeeding
+
+18  UNICEF Programming Guidance
+3.
+Programmatic 
+priorities 
+
+Maternal Nutrition  19
+Five programming priorities
+The strategic framework (Figure 4) outlines 
+the five programming priorities that UNICEF 
+will support to achieve the vision, goal and 
+objectives associated with the prevention of all 
+forms of malnutrition in women. These priorities 
+include programming for: (1) women’s nutrition 
+before pregnancy; (2) women’s nutrition during 
+pregnancy; (3) and women’s nutrition during 
+the breastfeeding period. In all contexts, special 
+emphasis will be given to the (4) nutrition of 
+adolescent mothers and other nutritionally at-risk 
+women; and (5) innovations for maternal nutrition. 
+The strategic framework recognizes the need for 
+comprehensive approaches to improve women’s 
+nutrition. Leveraging existing approaches 
+and interventions for which UNICEF has a 
+comparative advantage, core priorities include 
+the development of and advocacy for policies, 
+legislation and guidelines that: make nutritious 
+foods more available and affordable; support 
+maternity protection; promote large-scale food 
+fortification and micronutrient supplementation; 
+assess anthropometry; and provide counselling 
+on nutritious diets, adequate weight gain, 
+physical activity and rest. Interventions targeted 
+at meeting the specific needs of malnourished 
+women include: social protection schemes 
+and screening and treatment for anaemia, 
+micronutrient deficiencies, helminth infections 
+and undernutrition. Figure 5 details this core 
+package of UNICEF-supported interventions 
+across the life course. 
+
+20  UNICEF Programming Guidance
+Adolescence Preconception Pregnancy Breastfeeding
+During pregnancy, nutritious 
+diets support foetal growth and 
+development and help meet 
+women’s energy needs, which 
+increase by an average of 300 
+kcal/day during this time
+Nutritious diets are critical 
+during the ﬁrst six months 
+postpartum when dietary 
+requirements increase by 640 
+kcal/day among exclusively 
+breastfeeding women
+Before pregnancy, women 
+need nutritious diets to 
+protect their health and 
+establish sufﬁcient nutrient 
+reserves to support 
+pregnancy
+Adolescents need nutritious 
+diets with high amounts of 
+energy, protein and 
+micronutrients to fuel rapid 
+physical growth and 
+development
+Adolescent Adult
+Adolescence Preconception Pregnancy Breastfeeding
+During pregnancy, nutritious 
+diets support foetal growth and 
+development and help meet 
+women’s energy needs, which 
+increase by an average of 300 
+kcal/day during this time
+Nutritious diets are critical 
+during the ﬁrst six months 
+postpartum when dietary 
+requirements increase by 640 
+kcal/day among exclusively 
+breastfeeding women
+Before pregnancy, women 
+need nutritious diets to 
+protect their health and 
+establish sufﬁcient nutrient 
+reserves to support 
+pregnancy
+Adolescents need nutritious 
+diets with high amounts of 
+energy, protein and 
+micronutrients to fuel rapid 
+physical growth and 
+development
+Adolescent Adult
+Adolescence Preconception Pregnancy Breastfeeding
+During pregnancy, nutritious 
+diets support foetal growth and 
+development and help meet 
+women’s energy needs, which 
+increase by an average of 300 
+kcal/day during this time
+Nutritious diets are critical 
+during the ﬁrst six months 
+postpartum when dietary 
+requirements increase by 640 
+kcal/day among exclusively 
+breastfeeding women
+Before pregnancy, women 
+need nutritious diets to 
+protect their health and 
+establish sufﬁcient nutrient 
+reserves to support 
+pregnancy
+Adolescents need nutritious 
+diets with high amounts of 
+energy, protein and 
+micronutrients to fuel rapid 
+physical growth and 
+development
+Adolescent Adult
+Adolescence Preconception Pregnancy Breastfeeding
+During pregnancy, nutritious 
+diets support foetal growth and 
+development and help meet 
+women’s energy needs, which 
+increase by an average of 300 
+kcal/day during this time
+Nutritious diets are critical 
+during the ﬁrst six months 
+postpartum when dietary 
+requirements increase by 640 
+kcal/day among exclusively 
+breastfeeding women
+Before pregnancy, women 
+need nutritious diets to 
+protect their health and 
+establish sufﬁcient nutrient 
+reserves to support 
+pregnancy
+Adolescents need nutritious 
+diets with high amounts of 
+energy, protein and 
+micronutrients to fuel rapid 
+physical growth and 
+development
+Adolescent Adult
+Maternal nutrition interventions across the life course
+Figure 5. UNICEF-supported interventions to prevent malnutrition in women before and during pregnancy 
+and while breastfeeding
+Interventions aimed at benefiting all women Before pregnancy During pregnancy
+While 
+breastfeeding
+Policies, legislation and guidelines to make nutritious 
+foods more available and affordable r r r
+Policies and legislation to support maternity protection r
+Nutrition education and counselling on nutritious and safe 
+diets, physical activity and rest, appropriate weight gain, 
+and micronutrient supplementation
+r r r
+Large-scale food fortification r r r
+Supplementation with iron containing supplements (IFA) r
+Supplementation with iron containing supplements (IFA or 
+MMS) r r
+Anthropometric assessment (height, weight, BMI or 
+MUAC), counselling and referral as needed r r r
+Gestational and post-natal weight gain monitoring r r
+Screening for anaemia and treatment r r r
+Interventions aimed at benefiting adolescent mothers and 
+other nutritionally at-risk women Before pregnancy During pregnancy
+While 
+breastfeeding
+Social protection interventions (cash, vouchers, food 
+rations, and food supplements) r r
+Deworming prophylaxis r r r
+Nutrition education on increasing daily energy and protein 
+intake r
+Balanced energy-protein dietary supplementation 
+(prevention and treatment) r
+Calcium supplementation and nutrition counselling to 
+increase consumption of calcium-rich foods r
+Vitamin A supplementation r
+
+Maternal Nutrition  21
+Programmatic priority 1. 
+Women’s nutrition before pregnancy 
+Women who will become mothers need nutritious 
+and safe diets during the critical period before 
+pregnancy for their own health, nutrition and well-
+being and that of their newborn.74,75 However, many 
+women are malnourished before pregnancy; they 
+may be underweight, deficient in micronutrients 
+and/or anaemic due to inadequate food intake or 
+infection, or they may be living with overweight or 
+micronutrient deficiency due to limited access to, 
+and availability and affordability of nutritious diets. 
+In many settings, pregnancies are not planned, 
+and women are often unaware of their pregnancy 
+status or unwilling to divulge it in early stages 
+of pregnancy. This makes it difficult to achieve 
+significant changes in diets or nutritional status 
+in early pregnancy, which highlights the need to 
+support healthy diets and care among women 
+before conception.74 
+Understanding what influences and drives 
+women’s food options and choices can provide 
+important insights into the policies, guidelines 
+and programmatic actions needed to ensure 
+that all women have access to nutritious, safe 
+and affordable diets before they conceive. This 
+includes understanding the barriers women face 
+in accessing nutritious diets and services that 
+support healthy diets prior to pregnancy. It also 
+requires an understanding of the social, cultural 
+and environmental factors that determine which 
+foods women consume. For instance, although 
+women play an important role in purchasing 
+and preparing foods, they may not always have 
+influence over what foods to purchase due to 
+access and affordability, or how food is allocated at 
+the household level. With more women entering the 
+formal employment sector, their choices may also 
+be influenced by convenience, causing them to opt 
+for more processed, low-quality foods. 
+The adoption of national policies, strategies and 
+other normative documents can help foster an 
+enabling environment that supports women in 
+accessing nutritious and safe diets and engaging 
+*  Family-friendly policies are the measures and arrangements that have a positive impact on workers’ abilities to reconcile work and family 
+responsibilities – and advance the development and well-being of their children. 
+in physical activity before pregnancy. National 
+standards on what and how to achieve healthy 
+and nutritious diets for women, including in the 
+form of food-based dietary guidelines, can protect 
+women’s nutrition and shape the design of policies 
+and programmes. Advocacy is critical to encourage 
+governments to implement regulations on food 
+labelling, adopt policies that limit how foods are 
+marketed, and tax unhealthy foods and beverages to 
+facilitate nutritious, safe, affordable and sustainable 
+food choices. 
+Pre-pregnancy actions should also consider 
+approaches and interventions that address the 
+underlying societal determinants of poor nutrition in 
+women. For instance, social protection measures, 
+such as cash transfers, can help address the 
+underlying drivers of poor nutrition in women and 
+improve household food consumption.76 Expanding 
+family-friendly policies* to facilitate working 
+women’s access to health services and nutrition 
+counselling before pregnancy is also a promising 
+approach.77 
+In settings where diets are poor and micronutrient 
+deficiencies are widespread, fortifying staple foods 
+(e.g., wheat flour, rice, cooking oil and salt) with 
+one or more micronutrients (e.g., folic acid, iron, 
+vitamin A and iodine) can improve the quality of 
+women’s diets and improve pregnancy outcomes. 
+Folic acid fortification of flours and cereals has 
+been successfully implemented in countries around 
+the world, contributing to impressive declines in 
+neural tube defects among newborns.78-81 Iron 
+fortification of staple foods (e.g., cereals, flour, 
+rice) improves biomarkers for iron status and 
+anaemia and is currently mandated by over 80 
+countries.81,82 Similarly, salt iodization is effective 
+in improving iodine intakes and preventing and 
+controlling iodine deficiency in pregnant women 
+and breastfeeding mothers.83-85 Lessons from 
+implementing large-scale food fortification in LMICs 
+show that mandatory legislation and standards, 
+regulatory monitoring and industry consolidation are 
+essential for the long-term success of national food 
+fortification programmes.85 
+
+22  UNICEF Programming Guidance
+Creating opportunities for women to access 
+maternal health services, nutrition education and 
+counselling and micronutrient supplements before 
+pregnancy is important and can improve pre-
+pregnancy weight and pregnancy outcomes.21,76 
+Experiences in HICs and LMICs alike show that 
+pre-pregnancy nutrition counselling (one-to-one in 
+facilities and/or group counselling in communities) 
+increases ANC attendance during pregnancy and 
+the likelihood of breastfeeding.86 As more women 
+plan their pregnancies, there may be opportunities 
+to link nutrition counselling and the provision of 
+micronutrient supplements to these visits. 
+ 
+The health system offers various platforms for 
+delivering nutrition services to women, such as ANC 
+and postnatal care contacts, and child immunization 
+and growth monitoring visits during the postnatal 
+period. However, reaching women before pregnancy 
+is a greater challenge because a significant 
+proportion of all pregnancies are unplanned and 
+non-pregnant women are less likely to be in regular 
+contact with health services.87 In most contexts, 
+it is also not practical to counsel all non-pregnant 
+women of reproductive age; moreover, those who 
+are not planning a pregnancy may be less receptive 
+to maternal nutrition counselling. A rational approach 
+is to target preconception counselling to women 
+who are planning a pregnancy and those at a high 
+likelihood of becoming pregnant for the first time, 
+such as premarital or newlywed women in settings 
+where these women are likely to become pregnant 
+within one or two years of marriage.88,89 
+UNICEF ACTIONS
+UNICEF advocates for policies, strategies and 
+programmes that aim to improve the nutritional 
+status of women before pregnancy. This includes 
+supporting the formulation of policies and 
+programming that: strengthen food environments for 
+women and their communities; create opportunities 
+to reach women before pregnancy with nutrition 
+counselling, micronutrient supplementation and 
+social and behaviour change communication 
+(SBCC); and scale-up large-scale food fortification, 
+including fortification of salt, wheat flour, rice, and 
+cooking oils.
+Programmatic priority 2. 
+Women’s nutrition during pregnancy
+All pregnant women require nutritious diets 
+containing adequate energy, protein, vitamins 
+and minerals, along with adequate services and 
+practices for optimal maternal and newborn 
+outcomes.70 Ensuring these nutritional needs are 
+met during pregnancy requires a comprehensive 
+approach that includes counselling on nutritious 
+diets, monitoring appropriate weight gain, 
+micronutrient supplementation and deworming 
+prophylaxis as appropriate. 
+Counselling pregnant women on nutritious diets can 
+improve gestational weight gain, reduce maternal 
+anaemia in late pregnancy, increase birthweight, 
+and lower the risk of preterm birth.70,90 Pregnant 
+women who are counselled on nutritious diets 
+and physical activity and rest are also less likely 
+to experience excessive gestational weight gain 
+during pregnancy, gestational diabetes, caesarean 
+section, macrosomia, large-for-gestational-age 
+newborns and postnatal weight retention. Further, 
+their children are less likely to experience obesity 
+in childhood.31,91-94 SBCC interventions delivered 
+as part of counselling were also found to increase 
+physical activity in pregnant women.95 These 
+findings are relevant to all contexts – in both HICs 
+and LMICs – where rates of overweight and obesity 
+and mean BMI are increasing in women. 
+The WHO ANC guidelines recommend nutrition 
+counselling for all women as part of pregnancy care, 
+which includes actions to promote and support: 
+(1) safe and nutritious diets; (2) adherence to 
+micronutrient supplements; (3) early and exclusive 
+breastfeeding; and (4) hygiene practices. Table 
+2 details the recommended content of nutrition 
+counselling across the life course. Box 2 outlines 
+some key considerations for providing quality 
+nutrition counselling based on the latest available 
+evidence.96 
+
+Maternal Nutrition  23
+Table 2: Key content for nutritional counselling of women and adolescent girls during preconception, 
+pregnancy and postnatal care26,70,74,96
+Preconception Pregnancy Postnatal
+Dietary intake
+Healthy eating and physical activity to stay healthy, attain or maintain a 
+healthy weight and/or prevent excessive weight gain r r r
+Increase daily energy and protein intake to increase BMI and/or reduce 
+the risk of low birthweight infants in undernourished populations r r r
+Diverse diet, including locally available and affordable nutritious foods 
+and fortified foods (iodized salt, fortified vegetable oil and fortified 
+cereals) 
+r r r
+Avoid drinking tea or coffee with meals and limit the amount of coffee 
+during pregnancy in contexts where tea or coffee are a commonly 
+consumed
+r r r
+Adequate rest and reducing heavy workloads r r
+Dietary supplementation
+Continued and consistent use of IFA or multiple micronutrient 
+supplements, including how to take supplements and manage side-
+effects
+r r r
+Continued and consistent use of calcium supplements in countries 
+with low calcium intake, including how to take supplements and 
+manage side-effects
+r
+Continued and consistent use of balanced energy-protein 
+supplements in undernourished populations r r r
+Breastfeeding
+Breastfeeding (initiation immediately after delivery, providing 
+colostrum, not giving prelacteal feeds, exclusive breastfeeding, 
+continued breastfeeding, managing breastfeeding problems)
+r r
+Hygiene
+Handwashing practices at critical times and food hygiene practices 
+through safe handling, preparation and storage r r r
+
+24  UNICEF Programming Guidance
+Box 2
+Key considerations for strengthening the coverage, quality and 
+equity of maternal nutrition counselling 
+UNICEF and WHO recommend 
+nutritional counselling for 
+adolescent girls and women 
+during preconception, antenatal 
+and postnatal care, including 
+in humanitarian contexts. 
+The evidence base on how to 
+improve the coverage, quality 
+and equity of maternal nutrition 
+counselling is developing, but 
+gaps remain. Nevertheless, 
+it is essential to act now to 
+strengthen maternal nutrition 
+counselling, while continuing to 
+invest in research to further build 
+the evidence. Countries should 
+consider the following actions.96 
+1 
+Targeting: The primary 
+target audiences are 
+adolescent girls and 
+women planning to conceive 
+(at least three months before 
+conception), pregnant women 
+and women who have recently 
+given birth (from delivery to six 
+months postpartum). Adolescent 
+girls and women at nutritional 
+risk (e.g., those affected by 
+short stature, underweight, 
+overweight, obesity or anaemia) 
+and those who lack experience 
+(e.g., first time pregnancies) 
+should be prioritized for more 
+intensive counselling support. 
+In contexts where adolescent 
+girls and women need the 
+support of family members to 
+take decisions on their diet or 
+use of health care services, these 
+family members should also be 
+counselled. 
+2 
+Counselling content 
+and materials: Women 
+need information and 
+counselling on dietary intake, 
+physical activity, dietary 
+supplementation and hygiene 
+practices (Table 2). The content 
+of counselling materials should 
+reflect locally prevalent forms 
+of malnutrition, and the barriers 
+and enablers to positive 
+maternal nutrition practices, 
+including social norms and 
+socio-cultural beliefs and 
+practices. Where possible, 
+maternal nutrition should be 
+included in counselling materials 
+or packages on preconception, 
+antenatal and postnatal care and 
+breastfeeding. At the individual 
+level, counselling should be 
+tailored to the nutritional 
+status and the economic and 
+socio-cultural circumstances of 
+each adolescent girl or woman. 
+It is important to focus on 
+small doable actions that an 
+adolescent girl or woman and 
+her family members can take.
+3 
+Counselling modes: Both 
+individual and group 
+counselling modalities are 
+needed. Individual counselling 
+is better suited to an individual’s 
+counselling needs but is time-
+intensive for health providers. 
+As such, individual counselling 
+may need to be prioritized for 
+women receiving their first 
+contact with a health provider, 
+or for those who are pregnant 
+for the first time or who are 
+nutritionally at-risk. Group 
+counselling can be provided to 
+adolescent girls and women at 
+lower risk of nutrition challenges. 
+Remote counselling modalities 
+(e.g., mobile phones and digital 
+media) may complement but 
+should not replace face-to-face 
+counselling until more evidence 
+on their effectiveness in different 
+contexts is available. 
+
+
+Maternal Nutrition  25
+4 
+Timing, frequency and 
+duration of counselling: 
+Nutrition counselling 
+should begin as soon as a girl or 
+woman plans a pregnancy. To do 
+this, counselling can be targeted 
+at premarital or newlywed 
+couples in contexts where it is 
+common for women to have 
+their first pregnancy within one 
+or two years of marriage. For 
+at least six months following 
+birth, every ANC contact and all 
+interactions with health workers 
+and community workers should 
+be used to provide nutrition 
+counselling. Better counselling 
+outcomes are also expected with 
+higher frequency and longer 
+duration contacts. However, 
+decisions on the frequency 
+and duration of counselling are 
+ultimately a trade-off between 
+what is desirable and what is 
+feasible, given the delivery 
+platforms available and workload 
+of health providers.
+5 
+Service delivery 
+platforms and expanding 
+reach: Counselling 
+services should make use 
+of existing health delivery 
+platforms at facility and 
+community level that are 
+nationwide in coverage or 
+have the potential to reach 
+scale. Strategies should be 
+developed to identify, sensitize 
+and mobilize women from 
+hard-to-reach, marginalized 
+and vulnerable families. In 
+addition to counselling, other 
+communication channels and 
+platforms – such as mass media 
+(radio, television, websites 
+and social media), mobile text 
+messaging and community 
+mobilization – should be used 
+to reinforce messages on 
+positive maternal nutrition 
+practices for all women and 
+their families. 
+6 
+Capacity to counsel 
+women: Health workers 
+and community health 
+workers should be: assigned 
+the responsibility to counsel on 
+maternal nutrition in their job 
+descriptions; given the necessary 
+training (both pre- and in-
+service) to build their knowledge, 
+skills and competencies; 
+provided with access to 
+quality job aids and supportive 
+supervision; and appropriately 
+renumerated and/or incentivized 
+to sustain their motivation. 
+7 
+Monitoring: Counselling 
+should be integrated 
+into national standards 
+for assessing, monitoring 
+and improving the quality of 
+maternal care. These standards 
+should explicitly define what 
+is required to achieve high-
+quality counselling on maternal 
+nutrition. In addition, indicators 
+on the provision of maternal 
+nutrition counselling should 
+be included in routine health 
+information systems and 
+periodic household surveys, and 
+the data used to track progress 
+and take corrective action. 
+
+
+26  UNICEF Programming Guidance
+Women have increased nutritional requirements 
+during pregnancy, which may be challenging to 
+meet through diet alone, especially in LMICs 
+where the quality of women’s diets are poor and 
+micronutrient deficiencies are widespread. Although 
+pregnancy is a time when many women and their 
+families are motivated to make changes to their 
+diets, achieving these changes during the pregnancy 
+period and correcting micronutrient deficiencies 
+that occurred prior to pregnancy may not be 
+feasible with diet alone. Supplementation with 
+micronutrients is thus essential to meet additional 
+nutritional requirements and has been adopted as 
+the standard of pregnancy care across countries 
+(Table 3). 
+Preventive daily or intermittent supplementation 
+with iron during pregnancy is effective in increasing 
+haemoglobin concentration, reducing anaemia 
+(including severe post-partum anaemia) and 
+reducing LBW.97,98 
+Ensuring women have access to supplements 
+early and routinely in pregnancy is important 
+as it increases the chances that pregnant 
+women consume the recommended number of 
+supplements, thus improving birth outcomes.99-102 
+*  https://www.hemocue.us 
+WHO recommends that all women and adolescent 
+girls take daily IFA supplements containing 30-
+60 mg of elemental iron and 400 μg folic acid to 
+prevent iron deficiency and anaemia and improve 
+pregnancy outcomes.70, 103, 104 In settings where 
+anaemia is a mild public health problem (<20 per 
+cent prevalence), intermittent/weekly IFA doses 
+containing 120 mgs of elemental iron and 2,800 μg 
+(2.8 mg) of folic acid is recommended for pregnant 
+women and adolescent girls, particularly among 
+women who are not anaemic, to reduce possible of 
+side-effects from IFA. Table 3 provides details on 
+WHO recommendations on IFA supplementation for 
+pregnant women, by severity of anaemia.
+Screening women for anaemia at different points 
+in pregnancy (12, 26 and 36 weeks) and providing 
+timely treatment is an essential component of 
+nutrition care in pregnancy. WHO recommends 
+using the full blood count testing method for 
+diagnosing anaemia during pregnancy, or using a 
+hemoglobinometer (HemoCue@)* when full blood 
+count testing is not available. In settings where 
+supplies and diagnostic equipment for screening 
+women are not available and health workers may 
+not be adequately trained. clinical testing (i.e., 
+checking for physical signs of pallor) can be used 
+Table 3. WHO recommendations on preventive and therapeutic iron supplementation in pregnancy25,70,103,104
+Recommendation 
+type Preventive Therapeutic
+Settings Anaemia prevalence 
+is <20% (mild)
+Anaemia prevalence 
+is <40% (moderate)
+Anaemia prevalence 
+is ≥40% (severe)
+Based on haemoglobin testing 
+and levels (see Table 4)
+Frequency Intermittent (weekly) Daily Daily Daily 
+Supplement 
+composition
+120 mg of elemental 
+iron and 2,800 μg 
+folic acid 
+30 mg of elemental 
+iron and 400 μg of 
+folic acid
+60 mg of elemental 
+iron and 400 μg of 
+folic acid
+120 mg of elemental iron and 
+400 μg of folic acid
+Duration Weekly throughout 
+pregnancy if daily 
+iron is not acceptable 
+due to side-effects 
+Daily throughout 
+pregnancy
+Daily throughout 
+pregnancy
+Until haemoglobin levels 
+return to normal levels (11 g/
+dl or higher), after which daily 
+or intermittent regimen can 
+resume 
+Special 
+considerations
+In malaria endemic zones, iron supplementation should be provided only in conjunction with 
+measures to prevent, diagnose and treat malaria.
+In many countries, women receive two IFA tablets to treat anaemia, each containing 60 mg of 
+elemental iron and 400 μg of folic acid, unless a specific supplement for treatment purposes is 
+procured containing 120 mg of iron and 400 μg of folic acid.
+
+Maternal Nutrition  27
+to detect severe anaemia.105 Table 4 provides the 
+haemoglobin cut-offs for assessing anaemia in non-
+pregnant and pregnant women.
+Increasingly, countries across both development 
+and humanitarian settings are adopting multiple 
+micronutrient supplements (MMS) as an approach 
+to improve quality of care for pregnant women 
+and breastfeeding mothers. There is clear 
+evidence that MMS provide additional benefits 
+over IFA in meeting the increased nutrient 
+requirements of pregnancy and reducing adverse 
+pregnancy outcomes (stillbirths, preterm births, 
+SGA and LBW), with greater benefits conferred 
+among infants of women who are anaemic and 
+underweight.71, 106-108 
+Moreover, MMS containing 30 mg of iron are 
+as effective as IFA containing 60 mg of iron in 
+preventing maternal anaemia. MMS are routinely 
+used by women in HICs and are increasingly 
+prescribed to affluent women in LMICs.109 Their 
+adoption in LMICs is an opportunity to improve the 
+quality of pregnancy care for all women. 
+MMS are low-cost (@US$0.01–0.02 per tablet) and 
+are also cost-effective, yielding a high return on 
+investment.110,111 The use of MMS is now supported 
+by the 2020 update to the WHO Antenatal Care 
+Recommendations for a Positive Pregnancy 
+Experience in the context of ANC services and 
+informed by implementation research designed to 
+optimize MMS coverage and adherence.71, 112, 116 
+MMS has recently been added to the WHO Model 
+List of Essential Medicines; this is an important 
+step towards their inclusion in policies and national 
+essential medicines lists, which can facilitate 
+access, lower costs, and reduce restrictions on 
+importation or local production.114 Box 3 outlines 
+key considerations for introducing MMS as part of 
+national ANC programmes. 
+Table 4. Haemoglobin cut-offs for anaemia in non-pregnant and pregnant women living at sea level.72
+All Anaemia Mild Anaemia Moderate Anaemia Severe Anaemia
+Non-pregnant women Hb<12 g/dl Hb 10–11.9 g/dl Hb 7.0–9.9 g/dl Hb<7 g/dl
+Pregnant women – first 
+and third trimester Hb<11 g/dl Hb 10.0–10.9 g/dl Hb 7.0–9.9 g/dl Hb<7 g/dl
+In the second trimester Hb<10.5 g/dl
+
+28  UNICEF Programming Guidance
+BOX 3
+Key considerations for introducing multiple micronutrient 
+supplements 
+Based on the latest guidance from WHO and informed by implementation research, countries may 
+consider introducing MMS, especially in settings where women’s diets are poor and anaemia, 
+micronutrient deficiencies and/or LBW are prevalent. In doing so, countries should consider the following 
+guidance.116
+1 
+Create an enabling environment to (i) 
+facilitate an understanding of the evidence 
+as it relates to the benefits of MMS over IFA; 
+(ii) establish a national coordinating mechanism for 
+maternal nutrition; and (iii) develop a plan for MMS 
+introduction to ensure sustainability and impact. 
+2 
+Analyse key determinants of anaemia. 
+Given the different etiologies of anaemia, 
+analyse the magnitude and distribution 
+of anaemia and its determinants (e.g., iron and 
+other micronutrient deficiencies, malaria or soil-
+transmitted helminthic infections) and implement 
+evidence-based interventions to address these 
+determinants as per WHO and/or national 
+guidelines. 
+3 
+Introduce MMS as part of a comprehensive 
+package to improve the quality of 
+nutrition services in ANC. The updated 
+ANC guidelines recommend that women have 
+eight ANC contacts, including those through 
+the community, thereby offering additional 
+opportunities to counsel and deliver MMS along 
+with other recommended interventions. Explore 
+alternative options to introduce MMS as part of 
+social protection schemes and to deliver for a cost 
+through private entities. 
+4 
+Ensure uninterrupted quality MMS supplies 
+to harness their benefits. This may require 
+supply chain analyses to maintain MMS 
+access where IFA stock-outs are routinely reported. 
+It may also require an analysis of local production 
+capacities to establish local MMS manufacturing 
+and an understanding the regulatory landscape to 
+facilitate MMS importation. Refer to Annexes for 
+MMS-related supply tools. 
+5 
+Strengthen health worker capacities to 
+effectively deliver, counsel and support 
+women to receive and consume MMS. 
+Investing in the training of health and community 
+workers is essential to ensure effective distribution 
+and counselling on the benefits of MMS. 
+Depending on the context, this may require 
+updates to pre-service and in-service/refresher 
+training. 
+6 
+Counsel women, adolescent girls and key 
+influencers on the importance of MMS, 
+nutritious diets and appropriate weight gain. 
+This requires attention to SBCC, which should 
+be tailored to the needs of pregnant women and 
+adolescent girls to raise awareness among key 
+influencers on MMS and nutritious diets. Refer to 
+Box 2 on maternal nutrition counselling. 
+7 
+Integrate MMS coverage into routine 
+monitoring systems, including health 
+management information systems, such 
+as the District Health Information System 2 
+(DHIS2). Furthermore, there may be opportunities 
+to introduce MMS monitoring into health facility 
+assessments and household surveys (e.g., 
+Demographic and Health Surveys).
+30 Tablets, Based on the UNIMMAP formula
+Pregnancy and Lactation Vitamin & Mineral Supplement 
+Manufactured by Lomapharm®, D-3180 Emmerthal, Fed. Rep. of Germany
+Supplied by
+Batch No.:Man Date:Exp. Date:
+80044245  |  42x30x95  |  ro74 | 
+Pregnancy and Lactation
+Vitamin & Mineral Supplement 
+Provides 15 essential nutrients 
+to support a healthy pregnancy
+Pregnancy and Lactation 
+Vitamin & Mineral 
+Supplement 
+30 Tablets
+3 x 10 Tablets
+Pregnancy and Lactation Vitamin & Mineral Supplement 
+Each tablet contains:
+Vitamin A (as acetate) RAE 800mcg; Vitamin E (as acetate) TE 10mg; Vitamin D (as 
+Cholecalciferol) 5 mcg (200 IU); Vitamin B1 (as Thiamine Mononitrate) 1.4 mg; Vitamin B2 
+(Riboflavin) 1.4 mg; Vitamin B3 (as nicotinamide) NE 18mg; Vitamin B6 (as Pyridoxine ) 
+1.9 mg; Vitamin B12 (Cyanocobalamin) 2.6 mcg; Folic acid 400 mcg (667 mcg DFE); 
+Vitamin C (Ascorbic acid) 70 mg; Elemental Iron (as Ferrous Sulphate) 30 mg; Zinc (as 
+Zinc Sulfate) 15 mg; Copper (as Copper Sulfate) 2 mg; Selenium (as Sodium Selenite) 65 
+mcg; Iodine (as Potassium Iodide) 150 mcg
+Pregnancy and Lactation Vitamin & Mineral Supplement 
+Indications: Vitamin and Mineral supplement for pregnant and lactating women.
+Directions for Use: Not to be chewed. Swallow with glass of water. Preferably to 
+be taken with food.
+Dosage: One tablet per day with a meal or as directed by the physician.
+Storage: 
+Do not store above 30°C. Protect from light and moisture. 
+Keep out of the reach and sight of children.
+
+Maternal Nutrition  29
+Additional supplementation of specific vitamins 
+and minerals may be necessary in contexts of 
+deficiency. In settings with low calcium intakes 
+and high prevalence of calcium deficiency, daily 
+calcium supplementation (1.5–2.0 g of oral 
+elemental calcium/day) can reduce the risk of 
+pre-eclampsia, preterm birth, maternal morbidity 
+and mortality.72 Calcium supplementation may be 
+initiated at the first ANC visit to improve adherence. 
+In these settings, nutrition counselling to promote 
+the use of calcium-rich foods is also an effective 
+strategy to improve intakes.70,72 In countries with 
+a high prevalence of night blindness and low 
+levels of serum retinol, vitamin A supplementation 
+can reduce night blindness in pregnant women. 
+Similarly, in areas where vitamin A deficiency is a 
+public health problem, daily supplementation (up to 
+10,000 IU) or weekly supplementation (up to 25,000 
+IU) is recommended.70
+Prophylactic deworming using a single-dose 
+albendazole (400 mg) or mebendazole (500 mg) is 
+recommended for pregnant women after the first 
+trimester to reduce the burden of intestinal worms 
+caused by soil-transmitted helminth infections 
+where hookworm and/or T. trichiura infection is 
+≥20 per cent and where anaemia is a public health 
+problem (i.e., prevalence of ≥40 per cent).70, 117, 123 
+Provision of routine deworming medication when 
+delivered as part of ANC substantially improved 
+pregnancy outcomes (e.g. LBW, newborn mortality) 
+even in countries with low soil-transmitted 
+transmissions.118 
+Table 5 provides details of the various maternal 
+nutrition commodities that are available through 
+UNICEF’s Supply Division. 
+Table 5. Essential nutrition commodities for women available through UNICEF Supply Division
+Nutrition commodities Description
+Iron 30 mg and folic acid 400 mcg tablets Iron 30 mg (as ferrous fumarate or ferrous gluconate) and folic acid 
+400 mcg tablets. Available in a 100-count blister pack.
+Iron 60 mg and folic acid 400 mcg tablets Iron 60 mg and folic acid 400 mcg film coated tablets. Available in 
+100-count and 30-count blister packs and a 100-count bottle.
+Iron 60 mg tablets Iron 60 mg (as ferrous fumarate, gluconate or sulphate) tablets. Available 
+in a 100-count bottle. 
+Folic acid 400 mcg tablets Folic acid 400 mcg tablets. Available in 100-count pack.
+Multivitamin and mineral tablets Pregnancy and lactation vitamins and minerals supplement. Based 
+on the United Nations International Multiple Micronutrient Antenatal 
+Preparation (UNIMMAP) formula. Available in a 100-count bottle and 
+30-count blister pack.
+Calcium 300 mg tablets Calcium 300 mg tablets. Available in a 100-count blister pack. 
+Mebendazole 500 mg chewable tablets Mebendazole 500 mg tablets. Available in a 100-count bottle.
+Albendazole 400 mg chewable tablets Albendazole 400 mg chewable tablets. Available in a 100-count bottle.
+Supplementary spread for pregnant and 
+lactating women 
+Supplementary spread for pregnant and breastfeeding women. Lipid-
+based nutrition supplement, 92 g sachet. Available in a 150-count 
+carton. 
+Mid-upper arm circumference (MUAC) 
+tape, adult, without colour code
+MUAC measuring tape. Pack of 50 tapes with instructions for use.
+
+30  UNICEF Programming Guidance
+Table 6. United States Institute of Medicine recommendations on weight gain during pregnancy, by pre-
+pregnancy BMI, for women classified as underweight, normal and overweight/obese.13
+Total weight gain Rates of weight gain (2nd and 3rd trimester)
+Pre-pregnancy nutritional status 
+(BMI)
+Range in 
+kg
+Range in 
+Ibs
+Mean (range) in  
+kg/week
+Mean (range) in  
+lbs/week
+Underweight (<18.5 kg/m2) 12.5–18 28–40 0.51 (0.44–0.58) 1 (1–1.3)
+Normal weight (18.5-24.9 kg/m2) 11.5–16 25–35 0.42 (0.35–0.50) 1 (0.8–1)
+Overweight (25.0-29.9 kg/m2) 7–11.5 15–25 0.28 (0.23–0.33) 0.6 (0.5–0.7)
+Obese (≥30 kg/m2) 5–9 11–20 0.22 (0.17–0.27) 0.5 (0.4–0.6)
+Ensuring women enter pregnancy at a healthy 
+weight and gain weight within national and 
+international guidelines is important for achieving 
+healthy pregnancy outcomes. Assessing weight 
+and nutritional status early in pregnancy is 
+important to establish a baseline for measuring 
+the progression of the pregnancy and to identify 
+women who may be at risk for poor pregnancy 
+outcomes and in need of additional support. To 
+determine nutritional recommendations for weight 
+gain during pregnancy, an accepted standard of 
+care is for health care providers to measure the 
+woman’s weight and height and to calculate BMI 
+(≤20 weeks gestation). Routine monitoring of 
+weight gain at each ANC contact is important for 
+assessing the progression of the pregnancy. 
+WHO guidance to increase the number of ANC 
+contacts from at least four visits to eight contacts 
+represents additional opportunities to monitor 
+weight gain, counsel women and identify those in 
+need of additional support. While most ‘normal’ 
+gestational weight gain occurs after 20 weeks of 
+gestation, the definition of ‘normal’ weight gain 
+is subject to regional variations and should also 
+take pre-pregnancy BMI into consideration when 
+feasible. Table 6 outlines the recommendations for 
+weight gain during pregnancy by pre-pregnancy 
+BMI for women classified as underweight, normal 
+and overweight/obese.13 
+In many LMICs, there are few opportunities 
+to assess women’s nutritional status before 
+pregnancy or early enough in pregnancy. 
+Measuring height and calculating BMI can be 
+difficult in some field settings; the right equipment 
+
+
+Maternal Nutrition  31
+may not be available and health care workers may 
+not have the skills to accurately assess women’s 
+nutritional status. Where such assessments are 
+not feasible before or early in pregnancy, a MUAC 
+measurement may be used as an alternative to BMI 
+to identify pregnant women who are underweight 
+and to determine the prevalence of underweight in 
+the population.120,121 Low MUAC in pregnant women 
+has been associated with intrauterine growth 
+restriction, LBW and neonatal morbidity.120 
+MUAC offers the advantage of being inexpensive, 
+simple to use, and providing a narrow range of 
+cut-off values for underweight status that are not 
+affected by pregnancy status. It is increasingly being 
+used to assess the nutritional status of pregnant 
+women and determine their eligibility for nutrition 
+support programmes, especially in emergency or 
+humanitarian contexts when measuring weight 
+and height may be difficult.120-123 The MUAC 
+values below which most adverse effects were 
+identified were <22 and <23 cm; some emergency 
+programmes have used MUAC cut-offs of <21 
+cm to <23 cm to identify women at nutritional 
+risk.124 Because a recommendation for a universal 
+MUAC cut-off for pregnant women has yet to be 
+established, countries should consider undertaking 
+a cost-benefit analysis to identify a context-specific 
+MUAC cut-off.120, 122 
+ 
+UNICEF ACTIONS
+UNICEF advocates for and supports policies, 
+strategies and programmes that reflect global 
+recommendations on healthy eating, micronutrient 
+supplementation (either IFA or MMS; and calcium), 
+screening for micronutrient deficiencies (including 
+anaemia), deworming prophylaxis, weight gain 
+monitoring, and counselling on physical activity and 
+rest for pregnant women. 
+Programmatic priority 3. 
+Women’s nutrition while breastfeeding 
+The postnatal period represents an important 
+opportunity to restore maternal nutrient reserves 
+after childbirth and ensure they are sufficient to 
+meet the additional energy needs associated with 
+breastfeeding.13 This is particularly important among 
+women who are undernourished.15, 17 
+Nutrition counselling, micronutrient supplementation 
+and deworming are recommended for women after 
+delivery to replenish nutrients lost due to pregnancy, 
+childbirth and breastfeeding, and to encourage 
+healthy weight loss after pregnancy.26,103 Counselling 
+mothers on the benefits of early and continued 
+breastfeeding for their own health is particularly 
+important, as breastfeeding is associated with 
+short-term benefits (including postnatal weight 
+loss, mother-infant bonding, lactational amenorrhea) 
+and longer-term benefits (such as a reduced risk 
+of diabetes, cardiovascular disease and certain 
+cancers).124 
+Creating opportunities to counsel women and family 
+members on the importance of nutritious diets and 
+breastfeeding – in health facilities, at home, and 
+during well-child and immunization visits – is critical 
+(Table 7). 
+It is important that national guidelines and training 
+curricula include nutrition counselling, micronutrient 
+supplementation and deworming, especially to 
+meet the needs of adolescents and mothers 
+affected by underweight and overweight. Family-
+friendly policies – such as paid maternity leave, 
+access to quality childcare, breastfeeding breaks 
+and dedicated nursing spaces – promote women’s 
+health by providing them the opportunity to recover 
+from childbirth and breastfeed in the critical early 
+weeks and months of life. These policies also 
+support women’s participation in the workforce by 
+making paid and unpaid work less of a barrier to 
+breastfeeding.125 
+Daily iron supplementation, either alone or in 
+combination with folic acid, is recommended 
+postnatally for 6–12 weeks following delivery 
+to reduce the risk of anaemia in settings where 
+gestational anaemia is a public health concern.26 ,126 
+In settings where MMS are provided during 
+pregnancy, women can continue taking them during 
+the postnatal period. In countries with guidance 
+for routine deworming in pregnancy, breastfeeding 
+women should also receive deworming prophylaxis 
+as part of postnatal visits to reduce the burden of 
+soil-transmitted helminth infections.123 
+
+32  UNICEF Programming Guidance
+Table 7. Pregnancy and postnatal contacts for the provision of maternal nutrition interventions.26,70
+Period Contact Maternal nutrition interventions
+Pregnancy, 
+first trimester
+Contact 1: Up to 12 weeks Assessment: All anthropometric measurements, clinical 
+examination, tests
+Supplementation: IFA, MMS, calcium
+Counselling on nutrition/-related topics
+Pregnancy, second 
+trimester
+Contact 2: 20 weeks
+Contact 3: 26 weeks
+Assessment: Gestational weight gain; blood pressure; 
+monitoring anaemia, diabetes, infections
+Supplementation: IFA, MMS, calcium
+Counselling on nutrition/-related topics
+Pregnancy, 
+third trimester
+Contact 4: 30 weeks
+Contact 5: 34 weeks
+Contact 6: 36 weeks
+Contact 7: 38 weeks
+Contact 8: 40 weeks
+Assessment: Gestational weight gain; blood pressure; 
+monitoring anaemia, diabetes, infections
+Supplementation: IFA, MMS, calcium
+Counselling on nutrition/-related topics and breastfeeding
+Postnatal Contact 1: First day (24 hours) 
+Contact 2: Day 3 (48–72 hours)
+Contact 3: Between days 7–14 
+Contact 4: Six weeks 
+Contacts ≥5*: Monthly, 
+bimonthly or trimonthly 
+Assessment: All anthropometric measurements; clinical 
+examination
+Supplementation: IFA, MMS
+Counselling on nutrition/-related topics, breastfeeding and 
+complementary feeding
+*Plan for additional contacts for breastfeeding women with maternal nutrition services during child health visits extending from the last WHO 
+recommended postpartum visit at six weeks up to two years postpartum
+
+
+Maternal Nutrition  33
+UNICEF ACTIONS 
+UNICEF advocates for and supports policies, 
+strategies and programmes that improve the 
+nutritional status of breastfeeding mothers 
+(e.g., family-friendly policies); reflect global 
+recommendations on healthy eating, micronutrient 
+supplementation, deworming prophylaxis, physical 
+activity and rest during breastfeeding periods; and 
+strengthen the quality of nutrition counselling and 
+support for breastfeeding mothers during postnatal 
+care visits. 
+Programmatic priority 4. 
+Nutrition of adolescent mothers and 
+nutritionally at-risk women
+Nutrition care and support on healthy diets, 
+appropriate weight gain, physical activity and rest 
+are essential for all women to ensure optimal 
+pregnancy outcomes for the mother and child. 
+Some women, however, may be at increased risk 
+for malnutrition and poor pregnancy outcomes, 
+and as such, require additional attention and 
+support.128 Women who are nutritionally at-risk and 
+in need of additional support include those who 
+are underweight prior to and during pregnancy, 
+those who gain inadequate weight during 
+pregnancy, and those suffering from anaemia and 
+other micronutrient deficiencies. The rapid rise in 
+overweight and obesity among women in LMICs 
+also means that more attention must be paid to 
+the distinct needs of this group before and during 
+pregnancy. 
+Adolescent girls who are pregnant are also at higher 
+risk of poor pregnancy outcomes because they 
+are still growing; they have important nutritional 
+requirements of their own, resulting in even higher 
+nutritional requirements during pregnancy.38-40, 128 
+Other groups that may be at higher risk of poor 
+nutritional outcomes are women with disabilities, 
+women with mental health concerns, women living 
+with infectious diseases (e.g., HIV and tuberculosis), 
+women who have faced gender-based violence, and 
+ethnic and racial minorities, among others.70 Women 
+living in emergency settings, and in contexts where 
+there is food and nutrition insecurity or humanitarian 
+crisis, are also especially vulnerable. 
+In settings where pregnant women and 
+breastfeeding mothers already face challenges in 
+meeting their nutritional requirements, humanitarian 
+crisis may exacerbate malnutrition. 
+Meeting the nutritional needs of pregnant 
+adolescent girls and women affected by 
+underweight (low BMI or MUAC): Where the 
+prevalence of underweight is high among pregnant 
+women (20–39 per cent), nutrition education and 
+counselling with the aim of increasing energy and 
+protein intake are recommended for all pregnant 
+women to reduce the risk of LBW and preterm 
+birth, and to increase birthweight. The use of 
+balanced energy-protein supplements (BEP) 
+(i.e., supplements wherein protein provides less 
+than 25 per cent of the total energy content) is 
+recommended for pregnant women who are 
+underweight to reduce the risk of stillbirth and SGA 
+in newborns. 
+The use of BEP supplements before and in early 
+pregnancy has been found to improve gestational 
+weight gain and pregnancy outcomes, including 
+stillbirth, LBW and SGA, especially among 
+undernourished pregnant women.127,129 In late 
+pregnancy, the use of BEP supplements in women 
+with low BMI or inadequate weight gain can prevent 
+stillbirth and SGA births.127 Similarly, small-quantity 
+(20 g/dl) lipid-based nutrient supplements (sq-LNS) 
+containing micronutrients and macronutrients, 
+including essential fatty acids, have been found 
+to improve birthweight, birth length, SGA and 
+newborn stunting in pregnant adolescent girls and 
+women, and breastfeeding mothers.130,131 Among 
+underweight and pregnant adolescents, the use 
+of sq-LNS has been shown to improve newborn 
+stunting and wasting, with greater benefits among 
+pregnant adolescents living with moderate to severe 
+food insecurity.132 Details on the composition of 
+different maternal nutrition food supplements are 
+included in Table 8. 
+
+34  UNICEF Programming Guidance
+Table 8. Recommended dietary allowances for non-pregnant, pregnant and breastfeeding women and 
+composition of MMS, BEP supplements and sq-LNS13,14,133,134
+Recommended dietary allowances for: MMS 
+UNIMMAP 
+formulation
+Balanced 
+energy-protein 
+supplement 
+(92 g)
+Balanced 
+energy- 
+protein  
+supplement  
+(75 g)
+Small-quantity  
+lipid-based 
+nutrition  
+supplement  
+(20 g)
+non- 
+pregnant 
+women
+pregnant 
+women
+breastfeed-
+ing women
+Energy (kcal)  
+% contribution of 
+energy
+2,000 2,300 2,640 - 515 .22.3%-
+19.5%]
+420 .18.2%-16%] 119 .5.2%-4.5%]
+Protein (g) 46 71 71 - 14.4 11.7 2.6
+Vitamin A (μg RE) 700 770 1300 800 881 718 800
+Vitamin D (μg) 5 (200 IU) 5 (200 IU) 5 (200 IU) 5 15 12.2 15
+Vitamin E (mg) 15 15 19 10 13 10.5 15
+Folic acid (μg) 400 600 600 400 461 378 600
+Thiamin (mg) 1.1 1.4 1.4 1.4 1.6 1.3 1.4
+Riboflavin (mg) 1.1 1.4 1.6 1.4 1.6 1.3 1.4
+Niacin (mg) 14 18 17 18 21 17 18
+Vitamin B12 (μg) 2.4 2.6 2.8 2.6 2.6 2.1 2.6
+Vitamin B6 (mg) 1.2 1.9 2.0 1.9 2 1.6 1.9
+Vitamin C (mg) 75 85 120 70 71 58 55
+Iron (mg) 18 27 9 30 35 28.5 20
+Zinc (mg) 8 11 12 15 17 14 10
+Iodine (μg) 95 220 290 150 150 122 250
+Copper (μg) 900 1,000 1,300 2,000 2,700 2,200 1,150
+Selenium (μg) 55 60 70 65 65 53 30
+Use Prevention 
+of vitamin 
+and mineral 
+deficiencies 
+in pregnant 
+and lactating 
+women.
+One tablet/
+day during 
+pregnancy and 
+lactation.
+Prevention and 
+treatment of 
+malnutrition in 
+women before, 
+during and after 
+pregnancy
+One sachet/day 
+for prevention. 
+Two sachets/
+day for 
+treatment. 
+Prevention and 
+treatment of 
+malnutrition in 
+women before, 
+during and after 
+pregnancy.
+One sachet/day 
+for prevention. 
+Two sachets/
+day for 
+treatment. 
+Prevention of 
+malnutrition in 
+women during 
+and after 
+pregnancy.
+One sachet/day. 
+
+Maternal Nutrition  35
+UNICEF ACTIONS
+UNICEF advocates for policies, strategies and 
+programmes that provide nutrition care and 
+support to pregnant adolescent girls, breastfeeding 
+adolescent mothers and other nutritionally at-risk 
+pregnant and breastfeeding women. This includes 
+supporting counselling and nutrition services for 
+adolescent mothers and other nutritionally at-risk 
+women, including adherence to recommended 
+micronutrient supplementation protocols and the 
+use of BEP supplementation where appropriate. 
+In settings where adolescent pregnancies are 
+prevalent, UNICEF will engage with child protection 
+systems and key community stakeholders, including 
+religious leaders, to identify opportunities to prevent 
+adolescent girls and women from becoming 
+malnourished before and early in pregnancy and 
+while breastfeeding. UNICEF will also create links 
+with social protection systems to provide targeted 
+support to nutritionally vulnerable adolescent girls 
+and women.
+Meeting the nutritional needs of pregnant 
+women and adolescent girls living with 
+overweight or obesity: The rapid rise in 
+overweight and obesity among adolescent girls 
+and women, including in LMICs, is consistent with 
+the global transition towards a reliance on energy-
+dense, low-nutrient foods and sedentary lifestyles. 
+Counselling women about healthy eating and 
+keeping physically active during pregnancy is 
+recommended to improve women’s health and to 
+prevent excessive weight gain before and during 
+pregnancy.70 When aimed at pregnant women 
+affected by overweight and obesity, counselling 
+and SBCC interventions can help ensure that the 
+amount of weight gained during pregnancy is in line 
+with the recommendations of the United States 
+Institute of Medicine. It can also reduce the risk 
+of excessive gestational weight gain, gestational 
+diabetes, caesarean delivery, macrosomia and large-
+for-gestational-age newborns.92,94 
+SBCC interventions are also effective in encouraging 
+physical activity during pregnancy.95 Pregnant 
+women who are appropriately counselled on 
+nutritious diets and physical activity are less likely to 
+experience excessive postnatal weight retention and 
+their children are less likely to be affected by obesity 
+in childhood.91-93, 31 This is true for women in both 
+and HIC and LMICs and across a range of contexts. 
+UNICEF ACTIONS
+As mentioned throughout this guidance, UNICEF 
+will advocate for and create an enabling environment 
+to support actions that prevent overweight 
+and obesity in women, in line with UNICEF’s 
+programme guidance on preventing overweight 
+and obesity in children and adolescents.8 Such 
+actions include support for policies, including fiscal 
+measures and marketing regulations, that not only 
+create disincentives to promote unhealthy foods 
+and beverages but provide incentives for healthier 
+options. UNICEF recommends that, among 
+countries with a prevalence of overweight in women 
+greater than 30 per cent, significant focus be placed 
+on the prevention and management of overweight 
+and obesity in maternal nutrition programming. 
+UNICEF will also undertake the necessary 
+analyses to design programmes that address the 
+drivers of overweight and obesity in women. Core 
+interventions supported by UNICEF will emphasize 
+overall dietary quality, appropriate weight gain prior 
+to and during pregnancy, and physical activity. 
+Treating pregnant women and adolescent girls 
+suffering from anaemia and micronutrient 
+deficiencies: Once a woman is diagnosed as 
+anaemic (see Table 4 for haemoglobin cut-offs for 
+assessing anaemia in non-pregnant and pregnant 
+women), the normal course of treatment includes 
+daily supplementation with 120 mg of elemental 
+iron and 400 μg of folic acid until haemoglobin levels 
+return to normal (11 g/dl or higher) (see Table 3). 
+Ensuring the availability of therapeutic doses 
+as part of ANC services is important to provide 
+timely treatment of anaemia. In the absence of a 
+therapeutic doses, women may be prescribed two 
+of the standard IFA supplements. 
+UNICEF will also support policies and programmes 
+to ensure that women who are suffering from 
+anaemia receive nutrition services, including timely 
+screening and treatment with recommended 
+micronutrient supplements. 
+
+36  UNICEF Programming Guidance
+Programmatic priority 5. 
+Innovations for maternal nutrition
+Innovations can offer solutions to a range of 
+programming challenges that impede progress in 
+improving women’s nutritional status. Some of 
+these innovations include specialized nutritional 
+products and packaging, alternative delivery modes 
+to improve access to nutrition services, and new 
+procedures for measuring nutritional status and the 
+coverage of interventions. 
+ r Developing new products and interventions could 
+include, for example: 
+ ř Assessing whether nutrition commodities are 
+responding to women’s needs and identifying 
+new ways to adapt packaging or labelling to 
+facilitate adherence and uptake. 
+ ř Working with suppliers to shape global and 
+local markets in LMICs to ensure that low-
+cost, high-quality maternal nutrition products 
+are available and affordable. 
+ r Improving the delivery of interventions could 
+include, for example:
+ ř Leveraging alternative communication 
+channels (e.g., SMS reminders, social media) 
+to overcome challenges in providing essential 
+information to women on nutritious diets and 
+adherence to supplementation. 
+ ř Testing market-based approaches (e.g., sale 
+via pharmacies) to distribute micronutrients or 
+other nutrition services. 
+ r Strengthening the measurement of women’s 
+nutrition status could include, for example:
+ ř Investing in low-cost, field-friendly methods 
+to assess the biochemical markers of 
+micronutrient deficiencies and update 
+estimates of micronutrient deficiencies in 
+women and adolescents.
+ ř Conducting local studies to establish context-
+specific MUAC cut-offs to identify women at 
+risk of undernutrition.121
+Investing in innovative ways to improve the 
+availability and quality of routine data on maternal 
+nutrition is also important. Such improvements in 
+monitoring maternal nutrition are essential to bridge 
+data gaps in measuring counselling and care for 
+women, and report on global goals and targets. 
+Documenting these innovations will be important 
+to share learnings and to close the knowledge 
+gap in maternal nutrition programming. Indeed, 
+addressing the gaps in the operational evidence 
+base and documenting programme experiences 
+are key priorities for UNICEF and can cement 
+UNICEF’s reputation as a knowledge leader on 
+maternal nutrition. Planning at the outset of the 
+programme is critical to effectively document 
+programme experiences, in collaboration with 
+implementing partners and research institutions 
+where appropriate. 
+UNICEF ACTIONS
+UNICEF tests innovations for improving women’s 
+nutrition during pregnancy and breastfeeding, 
+such as those related to the provision of high-
+quality nutrition counselling, pregnancy weight 
+gain monitoring, use of MMS and calcium 
+supplements during pregnancy, and the use of BEP 
+dietary supplements for adolescent mothers and 
+nutritionally at-risk women. Globally, UNICEF aims 
+to shape markets to increase access to low-cost, 
+high-quality micronutrient supplements and other 
+commodities, and drive product innovation.
+
+Maternal Nutrition  37
+4.
+Programming 
+principles 
+
+38  UNICEF Programming Guidance
+UNICEF programming for maternal nutrition is aligned with the programme principles outlined in the UNICEF 
+Nutrition Strategy 2020–2030, as described below. 
+Rights-based
+UNICEF programming for maternal 
+nutrition is guided by the Universal 
+Declaration of Human Rights, the United 
+Nations Convention on the Rights of 
+the Child, and the Convention on the 
+Elimination of all Forms of Discrimination 
+Against Women. 
+Equity-focused
+Equity-focused programming is crucial to 
+fulfilling the nutrition rights of all women 
+and adolescent girls, especially the most 
+marginalized and socio-economically 
+deprived adolescent girls and women. 
+UNICEF commits to supporting equitable 
+approaches to ensure adequate diets and 
+care for all adolescent girls and women. 
+Gender-responsive
+UNICEF will help governments secure 
+women’s nutrition rights by designing 
+nutrition programmes with women’s 
+needs in mind. UNICEF will also support 
+policies and programmes that address 
+underlying inequality and harmful gender 
+roles, norms and dynamics, while 
+strengthening positive norms that support 
+equality, as outlined in the UNICEF Gender 
+Action Plan. 
+Context-specific
+UNICEF will support context-specific 
+nutrition programmes – shaped by an 
+analysis of the nutrition situation for 
+women and girls, and the resources 
+and partnerships available – to respond 
+to the specific needs of women 
+across different regional, national and 
+subnational contexts. Such programmes 
+are increasingly important, as different 
+forms of malnutrition may coexist in the 
+same country. 
+Evidence-informed
+UNICEF will support evidence-based 
+policies, strategies and programmes 
+to scale up nutritious, safe, affordable 
+and sustainable diets, essential nutrition 
+services, and care for women before and 
+during pregnancy and while breastfeeding. 
+Furthermore, UNICEF will endeavour 
+to generate new evidence to inform 
+nutrition programmes for women, in both 
+development and humanitarian contexts.
+Systems-centred
+UNICEF commits to work alongside 
+governments and partners to strengthen 
+the capacity of different systems to deliver 
+results for women before and during 
+pregnancy and during the breastfeeding 
+period. UNICEF efforts will focus on 
+five systems – food, health, water and 
+sanitation, education, and social protection 
+– with the greatest potential to improve 
+nutrition outcomes for women. In settings 
+where child marriage and adolescent 
+pregnancies are widespread, UNICEF will 
+explore opportunities to work with child 
+protection systems to adopt protective 
+policies and legislation and shift harmful 
+social norms. 
+
+Maternal Nutrition  39
+5.
+A systems 
+approach to 
+preventing 
+all forms of 
+malnutrition 
+in women
+
+40  UNICEF Programming Guidance
+The UNICEF Nutrition Strategy 2020–2030 recognizes the role of five systems – food, health, water and 
+sanitation, education, and social protection – in securing positive nutrition outcomes for women before and 
+during pregnancy and while breastfeeding. A systems approach works to make stakeholders across these 
+systems more accountable for improving maternal nutrition. UNICEF is uniquely positioned to support this 
+approach. Table 9 provides illustrative actions related to UNICEF’s engagement with the five systems. 
+Table 9. Illustrative actions related to UNICEF’s engagement with five systems
+Systems Illustrative actions
+Food system • Policies, dietary guidelines and standards to improve access to nutritious, safe, 
+affordable and sustainable foods
+• Legislation for staple food fortification
+• Financial incentives, taxes and financial disincentives
+• Front-of-pack labelling to facilitate healthy foods choices and discourage consumption of 
+unhealthy foods
+Health system • Policies to strengthen alignment and integration of maternal nutrition interventions in 
+health systems
+• Provision of high-quality and cost-effective micronutrient supplements, deworming 
+tablets and BEP supplements for undernourished women
+• Compulsory nutrition training for health workers (pre-service and in-service)
+• Financing of maternal nutrition commodities in national medicine formulary
+• Integration of maternal nutrition indicators in information systems that collect 
+routine data 
+• SBCC and counselling on nutritious diets, dietary supplements, physical activity and 
+rest, breastfeeding and hygiene
+Water and sanitation 
+system
+• Policies, strategies and programmes to ensure water and sanitation systems provide 
+safe and palatable drinking water and sanitation facilities in health facilities and 
+communities
+• Integration of nutrition counselling and SBCC for women into water and 
+sanitation platforms
+• SBCC to promote hygienic food handling and handwashing with soap
+Education system • Policies, strategies and programmes to strengthen nutrition curricula to improve 
+knowledge and skills about food, healthy diets, good nutrition, and physical activity 
+among children and adolescents
+• Capacity development and training of teachers and school managers to deliver nutrition 
+education and promote good nutrition
+• Provision of IFA and deworming to adolescent girls
+• Communication campaigns to promote physical activity and active living 
+Social protection 
+system
+• Policies, strategies and programmes (e.g., provision of cash transfers, food and 
+specialized foods, vouchers, subsidies, etc.) aimed at improving the diets and nutrition 
+of pregnant women and adolescent girls in settings with high prevalence of maternal 
+underweight, LBW and stunting
+• Inclusion of free and universal health insurance and benefits for pregnant women and 
+breastfeeding mothers
+• Family-friendly policies and maternity protection benefits
+
+Maternal Nutrition  41
+6. 
+Programming, 
+partnerships, 
+and 
+coordination 
+
+42  UNICEF Programming Guidance
+Programming approaches
+Programming approaches to support women’s 
+nutrition.
+Analyse the nutrition situation of women
+• Assess the nutritional status of women and 
+maternal nutrition intervention coverage using 
+household surveys, administrative data and 
+available studies to determine the status, trends 
+and epidemiological profile of women at risk for 
+underweight, overweight and/or micronutrient 
+deficiencies, including information available on 
+dietary intakes. 
+• Assess the adequacy of nutrition policies, 
+strategies, legislation and programmes to 
+determine how women’s nutrition is supported. 
+• Analyse the social determinants and gender-
+related drivers of malnutrition in women, including 
+barriers limiting women’s access and use of 
+nutrition services and practices. 
+Advocate for women’s right to nutritious diets, 
+services and practices
+• Advocate for and support policies, strategies and 
+programmes to protect and fulfil the nutrition 
+rights of women before and during pregnancy 
+and while breastfeeding, including the rights of 
+nutritionally at-risk women (e.g. family-friendly 
+policies, maternity protection). 
+• Advocate for the inclusion of maternal nutrition 
+services in the benefit package for universal 
+health coverage schemes. 
+• Advocate for policies, legislation and interventions 
+to prevent child marriage and adolescent 
+pregnancies. 
+• Advocate for strengthening institutional systems 
+to ensure accountability, transparency and 
+responsiveness to women as rights-holders. 
+Design evidence-based policies and strategies to 
+inform maternal nutrition programmes
+• Align interventions and approaches with the 
+global, regional and local evidence base, with 
+attention to gender issues. 
+• Develop and/or update the minimum intervention 
+package for women.
+• Develop an implementation plan with a vision, 
+goals, milestones, roles and responsibilities for 
+scaling up maternal nutrition interventions aligned 
+with national priorities.  
+Support the scale-up of maternal nutrition 
+strategies and programmes 
+• Provide technical support to implement proof-
+of-concept nutrition programmes to improve 
+women’s diets, services and practices.
+• Undertake analyses of delivery platforms and 
+identify ways to make them gender-responsive 
+(e.g., bring maternal nutrition interventions closer 
+to women by task-shifting and identifying roles for 
+community workers, mother support groups and 
+other peer support groups to promote and deliver 
+nutrition interventions). 
+• Strengthen capacities to advocate for, prioritize 
+and allocate domestic finances for the 
+implementation of maternal nutrition programmes 
+at scale.
+• Strengthen the integration of recommended 
+maternal nutrition interventions in existing 
+platforms and systems (such as health, water and 
+sanitation, education, and social protection). 
+• Advocate for social protection programmes 
+to include maternal nutrition objectives and 
+indicators.
+Engage adolescent girls, women, and 
+communities to understand and respond to their 
+needs 
+• Engage with women to understand their needs 
+and challenges; and engage key influencers and 
+decision-makers to understand their concerns.
+• Support formative research to learn more about 
+current knowledge, attitudes and practices 
+to inform the design and implementation of 
+SBCC strategies. 
+• Develop an SBCC strategy and tools that include 
+individual counselling, community mobilization 
+and mass communication focused on improving 
+women’s nutrition. 
+• Support community action to change norms and 
+practices.  
+
+Maternal Nutrition  43
+Strengthen capacities for maternal nutrition 
+programming 
+• Analyse the capacities of UNICEF staff, 
+government, health professionals, educators 
+and other relevant service providers, including 
+implementing partners, to implement maternal 
+nutrition programming. 
+• Train and supervise health and community 
+workers to deliver maternal nutrition 
+interventions. Such training should be gender-
+responsive to help health workers effectively 
+deliver nutrition programmes for women.
+• Develop and update maternal nutrition pre-
+service and in-service curricula, supervision 
+tools, and on-the-job training modules and ensure 
+their integration into ANC training for physicians, 
+midwives, nurses, other health professionals, and 
+community workers. 
+Strengthen national procurement and supply 
+chains for maternal nutrition programming
+• Support government to procure essential nutrition 
+commodities, including MMS, calcium, BEP and 
+Sq-LNS, and anthropometric equipment.
+• Undertake market analyses to identify local 
+suppliers of high-quality nutrition commodities. 
+• Build capacities to support accurate and timely 
+forecasting of essential maternal nutrition 
+commodities.
+• Conduct analyses to address supply chain 
+bottlenecks, strengthen supply chain integration 
+and improve end-user monitoring of maternal 
+nutrition commodities. 
+Mobilize financing for maternal nutrition
+• Advocate to include maternal nutrition 
+commodities (e.g., IFA, MMS, calcium, 
+deworming prophylaxis) on the essential 
+medicines list, and anthropometric equipment 
+(e.g., scales, MUAC tapes) in essential equipment 
+lists. Table 5 lists the nutritional commodities 
+for pregnant women and breastfeeding mothers 
+available through UNICEF Supply Division. 
+• Support public expenditure reviews and routine 
+tracking of financial allocations of current 
+domestic financing and official development 
+assistance for women’s nutrition and analyse 
+
+
+44  UNICEF Programming Guidance
+the costs of scaling up maternal nutrition 
+programmes. 
+• Advocate for an increase in domestic resources 
+for maternal nutrition interventions. 
+Invest in data, monitoring and evaluation for 
+maternal nutrition
+• Develop a monitoring plan and tools to track 
+programme progress. 
+• Support population-based surveys to assess 
+women’s exposure to and use of nutrition 
+interventions. 
+• Integrate monitoring of women’s nutrition 
+indicators in routine and administrative 
+information systems.
+Advance knowledge, learning and innovation on 
+maternal nutrition 
+• Develop a knowledge generation plan for 
+maternal nutrition to inform policies and 
+programme improvement. 
+• Document programme lessons learned in 
+field reports and peer reviewed journals to 
+close the knowledge gap in maternal nutrition 
+programming. 
+• Share and disseminate learning from periodic 
+evaluations and implementation research 
+conducted in-country.
+Humanitarian action
+Maternal malnutrition, specifically underweight and 
+micronutrient deficiencies, is a significant public 
+health issue in emergencies and humanitarian 
+crises. Pregnant women and breastfeeding 
+mothers, including adolescent girls, are especially 
+vulnerable to malnutrition due to their increased 
+nutritional requirements; and the consequences of 
+nutritional deprivation during this time are serious, 
+for both women and their children. Disruptions in 
+livelihoods, food supplies and crops, and disease 
+outbreaks may limit the foods women can access 
+and consume. Additionally, physical and mental 
+stresses associated with humanitarian crises 
+can suppress appetite, cause nutrient loss, and 
+increase nutritional needs in women. In settings 
+where pregnant women and breastfeeding mothers 
+are already facing challenges in meeting their 
+nutritional requirements, humanitarian crisis can 
+exacerbate existing malnutrition. Emergencies may 
+also exacerbate discriminatory gender and social 
+inequalities around food, with adverse impacts on 
+the nutritional status of women. 
+UNICEF is committed to meeting the needs of 
+populations affected by humanitarian crises, 
+especially nutritionally vulnerable groups, such 
+as pregnant women and breastfeeding mothers. 
+The UNICEF Core Commitments for Children in 
+Humanitarian Action form UNICEF’s policy and 
+framework in emergencies (Table 10).  The updated 
+Core Commitments for Children emphasize 
+key actions to be supported by UNICEF during 
+emergencies, with a focus on prevention, followed 
+by early detection and treatment of malnutrition in 
+women. This commitment is aligned with recent 
+organizational commitments made to ensure gender 
+equality in humanitarian settings.136 
+UNICEF actions in humanitarian settings are also 
+guided by the UNICEF-World Food Programme 
+(WFP) partnership framework, which outlines 
+the accountabilities of each partner to support 
+the delivery of maternal and child services in 
+development and humanitarian settings.137 
+Within this partnership framework, UNICEF is 
+accountable for supporting national governments 
+in implementing prevention services as part of 
+national systems to improve maternal nutrition, 
+ensure gestational weight gain, and prevent LBW. 
+UNICEF is also responsible for supporting national 
+governments to strengthen efforts for the early 
+detection of maternal wasting, with timely referral to 
+facility- and community- based treatment services. 
+Together with WFP, UNICEF shares accountabilities 
+for supporting national governments to develop 
+and implement nutrition-sensitive social protection 
+policies, strategies and programmes, including 
+conditional or unconditional cash transfers to 
+improve women’s access to nutritious diets, health 
+services and counselling to prevent wasting. 
+
+Maternal Nutrition  45
+Table 10. UNICEF core commitments for the prevention of malnutrition in humanitarian settings.5
+Core commitments Benchmarks
+Prevention of undernutrition, micronutrient 
+deficiencies and anaemia in pregnant women 
+and breastfeeding mothers.  
+Pregnant women and breastfeeding mothers’ 
+benefit from diets, services and practices that 
+prevent anaemia, micronutrient deficiencies and 
+undernutrition.  
+Pregnant women and breastfeeding mothers, with special 
+attention to pregnant adolescent girls and other nutritionally at-
+risk mothers, are protected from undernutrition, micronutrient 
+deficiencies and anaemia through a package of interventions 
+that includes: IFA/MMS (recommended), deworming 
+prophylaxis, weight monitoring, nutrition counselling, and 
+nutrition support through BEP dietary supplementation as 
+appropriate to context.
+UNICEF ACTIONS
+In emergencies, UNICEF will support a minimum 
+package of preventive interventions for all pregnant 
+women and breastfeeding mothers, including 
+fortified staple foods, counselling on nutritious 
+diets, MMS or IFA supplements, and deworming 
+prophylaxis. In settings where there is food 
+insecurity and poor access to diverse and quality 
+diets, UNICEF will also support services to prevent 
+maternal wasting as part of national systems. In 
+these situations, UNICEF will provide targeted 
+preventive nutritional supplements (i.e., BEP) to 
+pregnant women and breastfeeding mothers who 
+have been screened and referred for BEP. UNICEF 
+will also create opportunities to provide food 
+vouchers and cash-based interventions for women 
+and link these with nutrition counselling. Given 
+the paucity of programmatic evidence, there is an 
+urgent need to develop operational experiences 
+in providing preventive services to pregnant 
+women and breastfeeding mothers in humanitarian 
+emergencies.
+
+
+46  UNICEF Programming Guidance
+Internal collaboration and coordination
+As an organization working across multiple sectors, 
+UNICEF is well-placed to influence and mobilize 
+a range of sectors to deliver nutrition results 
+for women. Within UNICEF, this is achieved by 
+collaborating with other programmes, including 
+health, education, water and sanitation, adolescent 
+development and participation, child protection and 
+social policy. Opportunities also exist to leverage 
+cross-sectoral departments and programmes, 
+such as communications for development, gender, 
+data and analytics, supply, and public and private 
+partnerships to improve the design and impact of 
+maternal nutrition programmes. 
+Within UNICEF, nutrition staff will partner with 
+other UNICEF teams to achieve the following 
+results:
+Health • Strengthen counselling on nutritious diets and weight gain, weight gain monitoring, physical 
+activity, and supplementation with IFA/MMS and/or LNS/BEP.
+• Strengthen health worker capacities on nutrition. 
+• Strengthen systems to improve delivery and coverage of essential nutrition services during 
+ANC and postnatal care.
+Education • Integrate the delivery of IFA for adolescent girls into education platforms.
+• Integrate nutrition education into school curricula.
+Water and sanitation • Integrate nutrition counselling and SBCC into water and sanitation systems.
+• Increase access to free, safe and palatable drinking water. 
+• Improve access to sanitation facilities. 
+Social policy • Advocate to increase fiscal space for maternal nutrition interventions.
+• Analyse public expenditures and budget tracking.
+• Design nutrition-sensitive social protection approaches (cash, vouchers, insurance, maternity 
+benefits). 
+• Create soft-conditionalities linking nutrition counselling with social protection programmes.
+Communication for 
+development 
+• Design SBCC strategies and interventions, including using social media and other channels to 
+promote healthy diets and physical activity for women before, during and after pregnancy.
+Urban • Design urban programming approaches to provide essential nutrition services closer to 
+women’s workplaces (e.g., factories).
+Communications • Develop communications strategies (e.g., campaigns, media strategy) to influence key 
+audiences, such as governments, the private sector, individuals.
+Gender • Analyse gender barriers that affect diets, behaviours, food distribution, consumption, physical 
+activity and use of services among women.
+• Support development of gender-responsive policies.
+Supply • Align programme recommendations and products procured by UNICEF.
+• Establish standards and technical specifications for maternal nutrition commodities.
+• Procure high quality, cost-effective nutrition commodities for preventing and treating 
+malnutrition in women.
+Public and private 
+partnerships
+• Strengthen partnerships and seek financial resources to support implementation of maternal 
+nutrition activities. 
+Data and analytics • Support data collection and develop guidance on relevant indicators and surveys.
+
+Maternal Nutrition  47
+Strategic partnerships to improve women’s 
+nutrition
+Achieving nutrition outcomes for women will 
+require strategic engagement with a broad group 
+of partners. To this end, UNICEF will collaborate 
+with public and private institutions, civil society, 
+academia, United Nations agencies, donors, non-
+governmental organizations, and professional 
+organizations to advance nutrition programmes 
+for women. UNICEF will use its convening power 
+to identify and create strategic opportunities at 
+global, regional and country levels to advocate 
+for a stronger enabling environment to support 
+women’s nutrition and to activate national food, 
+health, education, water and sanitation, and social 
+protection systems for women’s nutrition.
+Working together with human rights, gender 
+and women’s groups, UNICEF will advocate for 
+women’s rights to nutrition. UNICEF will use its 
+influence to engage and convene thought leaders 
+and researchers to bring the latest science on 
+women’s nutrition to bear on programmes. As a 
+United Nations agency, UNICEF will collaborate 
+with WHO to develop policies and normative 
+guidance. As part of the maternal nutrition 
+collaborative comprising lead partners interested in 
+advancing women’s nutrition, UNICEF will seek to 
+bring coherence to programmatic approaches for 
+women’s nutrition. 
+Engagement on and with the private sector
+UNICEF recognizes the special role of the private 
+sector in producing nutritious, safe, affordable and 
+sustainable foods; and high-quality, low-cost vitamin 
+and mineral supplements and specialized foods, 
+to meet the nutritional needs of women before 
+and during pregnancy and while breastfeeding. 
+UNICEF also recognizes the role that private sector 
+can play in supporting the delivery of nutrition 
+services through private health care providers 
+and pharmacies, and the role that private sector 
+employers can play in supporting women with 
+nutrition care before and during pregnancy and 
+while breastfeeding. 
+UNICEF encourages engagement on/with the 
+private sector given its role in food production, 
+distribution and retail; such engagement should be 
+in the context of setting policies and standards with 
+government to promote the nutrition and health 
+goals of women. UNICEF engagement may also 
+include advocacy with government to establish 
+social and health insurance to cover ANC, family-
+friendly policies and maternity protection. Such 
+engagement may also include assessment and 
+monitoring of markets, regulations and quality-
+standards, with the aim of expanding the supplier 
+base for high-quality nutritional products for women 
+and facilitating their availability for programmes. 
+UNICEF collaborates with the private sector to 
+support the development of food and nutritional 
+supplements for use by women in LMICs. 
+
+48  UNICEF Programming Guidance
+7.
+Monitoring and 
+reporting 
+
+Maternal Nutrition  49
+UNICEF has identified a set of standard indicators 
+to monitor and report on the results in the UNICEF 
+Nutrition Strategy 2020–2030 (Table 11). These 
+results are reported via UNICEF’s institutional 
+monitoring systems (Country Strategic Indicators), 
+NutriDash (UNICEF’s global programme 
+monitoring system) and population-based surveys 
+(Demographic and Health Surveys, Multiple 
+Indicator Cluster Surveys).
+ 
+Table 11. Illustrative matrix of indicators to measure the progress of programmes to prevent all forms of 
+malnutrition in women
+Level of 
+indicator Indicator Sources
+Impact
+Underweight: 
+• Proportion of non-pregnant women aged 15–49 years with low BMI 
+(<18.5 kg/m2)
+Population-based surveys
+Overweight: 
+• Proportion (%) of non-pregnant women aged 18–49 years with a BMI 
+≥25 kg/m2
+Population-based surveys
+Obesity: 
+• Proportion (%) of non-pregnant women aged 18–49 years with a BMI 
+≥30 kg/m2
+Population-based surveys
+Short stature: 
+• Proportion of non-pregnant women aged 15–49 years with short 
+stature (<145 cm)
+Population-based surveys
+Anaemia (non-pregnant women): 
+• Prevalence (%) of haemoglobin <12 g/dL in non-pregnant women Population-based surveys
+Anaemia (pregnant women): 
+Prevalence (%) of haemoglobin <11 g/dL in pregnant women Population-based surveys 
+Low birthweight: 
+• Prevalence (%) of infants born with LBW (<2.5 kg)
+Population-based surveys and 
+administrative data systems
+Iodine status: 
+• Median urinary iodine concentration in pregnant women indicative of 
+iodine sufficiency (150-249 ug/L)
+Nutrition or micronutrient 
+surveys.
+Gestational weight gain: 
+• Proportion (%) of women who gain adequate weight during their 
+pregnancy (as per national guidelines)
+Administrative data systems, 
+population-based surveys
+Outcome and coverage
+IFA or MMS supplementation: 
+• % of mothers who received IFA or MMS for 90+ days during ANC and 
+postnatal care
+Population-based surveys and 
+Administrative data systems
+• % of pregnant women who benefit from gender-responsive 
+programmes for the prevention of anaemia* SDG+ database 
+Minimum dietary diversity for women (MDD-W): 
+• Proportion of women aged 15–14 years who have consumed foods 
+from at least five out of 10 defined food groups the previous day or 
+night
+Population-based surveys, 
+nutrition/ micronutrient 
+surveys
+Nutrition counselling during pregnancy: 
+• Proportion (%) of women aged 15–49 years who attended ANC for 
+the most recent live birth in the five years preceding that received 
+counselling about what foods to eat during pregnancy
+Population-based surveys 
+Nutrition counselling at ANC and postnatal care: 
+• Proportion (%) of women who were provided counselling on different 
+topics (diet, hygiene, rest, exercise, breastfeeding, etc.) at ANC and 
+postnatal care
+Population-based surveys
+Large-scale food fortification: 
+• % of population consuming at least one cereal fortified with IFA* 
+• % of households with adequately iodized salt 
+Population-based surveys
+* UNICEF Strategic Plan 2022–2025 indicator
+
+50  UNICEF Programming Guidance
+Outcome and coverage (con’t.)
+Antenatal care (at least eight contacts): 
+• % of women aged 15–49 years attended by any provider eight times 
+during pregnancy (ANC8)
+Administrative data systems 
+and population-based surveys
+Screening of maternal risks:
+• % of women referred for various risk factors (short stature, 
+overweight, etc.) for specialized care
+Administrative data systems
+Anaemia screening and treatment: 
+• % of women who received a haemoglobin test in their pregnancy 
+• % of women who were checked for clinical signs of anaemia in their 
+pregnancy
+• % of pregnant women diagnosed with anaemia who were treated
+Administrative data systems
+Anthropometric assessment: 
+• % of pregnant women who were weighed at each ANC visit
+• % of pregnant women who were measured in height at first ANC visit
+Administrative data systems
+Calcium supplementation: 
+• % of women who received the recommended number of calcium 
+supplements in their pregnancy
+Administrative data systems
+BEP or Sq-LNS supplementation:
+• % of women who received BEP or Sq-LNS in their pregnancy (context-
+specific)
+Administrative data systems
+Receipt of food or cash assistance during pregnancy:
+• % of women aged 15–49 years who gave birth in the preceding five 
+years that received food or cash assistance while pregnant for their 
+most recent birth
+Population-based surveys
+Output
+Enabling environment:
+• Policies, strategies and guidance include maternal nutrition 
+interventions that are aligned with global guidance and 
+recommendations
+• Maternity protection laws/regulation in place 
+• Maternal nutrition interventions are included in costed plans
+• Budgets are allocated and dispersed for maternal nutrition 
+commodities 
+• Maternal nutrition commodities are included in the national essential 
+medicines list 
+• Maternal nutrition commodities are provided free of charge through the 
+health system
+• Maternal nutrition is included in the pre-service and in-service training 
+curricula for health workers
+• Job aids and counselling materials are developed to support the 
+provision of maternal nutrition interventions
+• Nutrition counselling is integrated as part of integrated maternal and 
+infant counselling 
+• National policy document, strategy or plan of action allows for the use 
+of MMS
+Country office reports
+
+Maternal Nutrition  51
+Output (con’t.)
+Frontline capacities/training and stock availability:
+• % of ANC providers and frontline workers trained on maternal 
+nutrition services (maternal nutrition assessment, maternal nutrition 
+counselling, micronutrient supplementation, etc.) 
+• % of health facilities with no IFA or MMS stock-outs lasting more than.
+xx] week in the past.xx] months (defined nationally)
+• % of facilities with available anthropometric measurement instruments 
+(weighing scale, height scale, MUAC tapes)
+• % of facilities with available job aids, counselling cards, and other 
+materials needed for maternal nutrition
+• % of facilities practising delayed cord clamping at delivery
+Country office reports
+Population-based surveys and 
+administrative data systems 
+Adolescent girls and women benefit from gender-responsive diets, 
+services, and practices for the prevention of anaemia and poor 
+nutrition, in development and humanitarian contexts*
+• Number of countries implementing integrated anaemia prevention and 
+nutrition counselling in their pregnancy care programmes for women*
+Country office reports
+* UNICEF Strategic Plan 2022–2025 indicator
+
+52  UNICEF Programming Guidance
+Annexes
+
+Maternal Nutrition  53
+1. Resource documents
+UNICEF resource documents
+Strategies and guidance documents
+• UNICEF Nutrition Strategy 2020–2030: Nutrition, for Every Child 
+• Programming Guidance: Nutrition in Middle Childhood and Adolescence 
+• Food Systems for Children: UNICEF in Action for Food Systems transformation 
+• Counselling to improve maternal nutrition: Considerations for programming with quality, equity and scale 
+• No Time to Waste: Improving diets, services and practices for the prevention, early detection and 
+treatment of wasting in early childhood 
+• Core Commitments for Children in Humanitarian Action 
+• UNICEF, WFP, Global Nutrition Cluster, GTAM. Protecting Maternal Diets and Nutrition Services and 
+Practices in the Context of COVID-19 
+• Interim Country-level Decision-making Guidance for Introducing Multiple Micronutrient Supplementation 
+for Pregnant Women 
+• Programming guidance: Prevention of overweight and obesity in children and adolescents. 
+• Gender Action Plan 2022–2025 
+• Joint statement by the World Health Organization, the World Food Programme and the United Nations 
+Children’s Fund. Preventing and controlling micronutrient deficiencies in populations affected by an 
+emergency
+• Global Social Protection Programme Framework
+• Family-Friendly Policies. A Policy Brief 
+• Technical Bulletin on Commodities to Support Nutrition Care for Pregnant Women
+• Supply Toolkit for Multiple Micronutrient Supplements
+• Supply Division Catalogue 
+WHO policies and guidelines 
+• Comprehensive Implementation Plan on Maternal, Infant, and Young Child Nutrition
+• Essential nutrition actions: mainstreaming nutrition through the life-course
+• Preconception Care Policy Brief
+• Guideline: Recommendations on Antenatal Care for a Positive Pregnancy 
+• Guideline: Periconceptual daily folic acid supplementation 
+• Guideline: Daily iron supplementation in adult women and adolescent girls 
+• Guideline: Intermittent iron and folic acid supplementation in menstruating women
+• Guideline: implementing effective actions for improving adolescent nutrition 
+
+54  UNICEF Programming Guidance
+• Preconception care: Maximizing the gains for maternal and child health. A policy brief
+• Guideline: Calcium supplementation during pregnancy for prevention of pre-eclampsia and its 
+complications  
+• Guideline: Multiple micronutrient supplements during pregnancy
+• Fortification of wheat and maize flours 
+• Preventive chemotherapy to control soil-transmitted helminth infections in at-risk population groups
+• Optimizing Health Worker Roles to Improve Access to Key Maternal and Newborn Health Interventions 
+Through Task Shifting
+• Indicators for the Global Monitoring Framework on Maternal, Infant and Young Child Nutrition
+Other resource documents
+• Every Woman, Every Child. Indicator and Monitoring Framework for the Global Strategy for Women’s, 
+Children’s and Adolescent’s Health (2016–2030)
+• Emergency Nutrition Network. Maternal Nutrition in Emergencies
+• The SPHERE Handbook
+• United States Institute of Medicine and National Research Council. Weight Gain During Pregnancy: Re-
+examining the Guidelines 
+• International Labour Standards on Maternity Protection
+• Food and Agriculture Organization of the United Nations. Nutrition and Social Protection
+• Food and Agriculture Organization of the United Nations. Minimum dietary diversity for women   
+
+Maternal Nutrition  55
+2. WHO recommendations for preconception, 
+pregnancy and postnatal care
+WHO recommendations for preconception nutrition care74
+Nutrition interventions Context
+1. Information, education and counselling on healthy diets
+• Educate all women on the importance of consuming a health 
+balanced diet, including foods with IFA.
+• Counsel all women to maintain a healthy weight (BMI between 
+18.5 and 24.5 kg/m2).
+• Counsel all women about the specific risk associated with 
+underweight, overweight and obesity to future pregnancies.
+Recommended for all women of 
+reproductive age, including adolescent 
+girls
+2. Food fortification of staple foods (wheat and maize flour, rice, 
+salt, condiments)
+• Promote the consumption fortified food products to improve 
+micronutrient status and reduce vitamin and mineral deficiencies.
+Recommended for all women of 
+reproductive age, including adolescent 
+girls
+3. Promote exercise/physical activity
+• Counsel to engage in moderate physical activity.
+Recommended for all women of 
+reproductive age, including adolescent 
+girls
+4. Supplementation with IFA 
+• Provide daily iron supplementation (30-60 mg) to menstruating 
+adult women and adolescent girls, for the prevention of anaemia 
+and iron deficiency.
+• Provide intermittent (weekly) supplements to menstruating adult 
+women and adolescent girls for the prevention of anaemia and iron 
+deficiency.
+• Encourage all women to incorporate iron-rich foods into their diets, 
+such as red meat, poultry, and fish.
+Recommended for all women of 
+reproductive age, including adolescent 
+girls
+For women living in settings where 
+anaemia prevalence is ≥40% 
+For women living in settings where 
+anaemia prevalence is 20–39.9%
+5. Screening for anaemia and treatment 
+• Collect blood samples to screen for anaemia.
+Recommended for all women of 
+reproductive age, including adolescent 
+girls, living in settings where anaemia 
+prevalence is ≥40%
+6. Monitoring nutritional status 
+• Screen all women for any nutritional deficiencies or disorders.
+• Provide dietary counselling to all women to improve the nutritional 
+status of women before pregnancy.
+Recommended for nutritionally at-risk 
+women and adolescent girls 
+7. Supplementing energy- and nutrient-dense food
+• Supplement undernourished women’s diets with protein and/
+or energy supplements (such as sq-LNS, fortified blended foods, 
+ready-to-use supplementary food)
+Recommended for nutritionally at-risk 
+women and adolescent girls 
+8. Screening, counselling, and management of diabetes mellitus
+• Support women with diabetes to maximize diabetes control by 
+maintaining a healthy weight before pregnancy
+• Encourage blood glucose self-monitoring using HbA1C to achieve 
+a target of <7% (pre-meal blood glucose level of between 4.4-6.1 
+mmol/L and two hours after meals <8/6 mmol/L)
+• Prescribe insulin preconceptionally to achieve target levels of blood 
+glucose.
+Recommended for nutritionally at-risk 
+women and adolescent girls 
+Source: World Health Organization. (2013). Preconception care: Maximizing the gains for maternal and child health. A policy brief. 
+
+56  UNICEF Programming Guidance
+WHO Recommendations on Antenatal Care for a Positive Pregnancy Experience.70
+Nutrition 
+intervention Recommendation Context 
+Dietary interventions and physical activity
+Improve the 
+quality of the 
+diet
+Counselling about healthy eating and 
+keeping physically active during pregnancy is 
+recommended for pregnant women to stay 
+healthy and to prevent excessive weight gain 
+during pregnancy.
+Recommended for all pregnant women and 
+adolescent girls
+Nutrition education on increasing daily energy 
+and protein intake is recommended for 
+pregnant women to reduce the risk of LBW 
+neonates.
+Recommended for pregnant women and 
+adolescent girls in undernourished populations 
+(where the prevalence of underweight in non-
+pregnant women – defined as a BMI <18.5 kg/m2 
+– is ≥20 per cent)
+Lowering daily caffeine intake during is 
+recommended to reduce the risk of pregnancy 
+loss and LBW neonates.
+Recommended for pregnant women and 
+adolescent girls in context-specific settings, with 
+high daily caffeine intake (more than 300 mg 
+per day)
+Keeping 
+physically 
+active
+Counselling about exercise to prevent excessive 
+weight gain in pregnancy.
+Recommended for pregnant women and 
+adolescent girls in context-specific settings with a 
+high prevalence of overweight and obesity. 
+Increase the intake of target nutrients
+BEP 
+supplements
+BEP dietary supplementation is recommended 
+for pregnant women to reduce the risk of 
+stillbirths and SGA neonates.
+Recommended for all pregnant women and 
+adolescent girls in undernourished populations 
+(where the prevalence of underweight in non-
+pregnant women is ≥20 per cent). 
+IFA acid 
+supplements
+Daily oral IFA supplementation is recommended 
+for pregnant women to prevent maternal 
+anaemia, puerperal sepsis, LBW, and preterm 
+birth. 
+Supplement containing 30 mg of elemental iron 
+and 400 μg (0.4 mg) of folic acid.
+Supplement containing 60 mg of elemental iron 
+and 400 μg (0.4 mg) of folic acid.
+Recommended for all pregnant women and 
+adolescent girls:
+ Where the prevalence of anaemia is 20–39.9 per 
+cent 
+ Where the prevalence of anaemia is ≥40 per 
+cent 
+Daily antenatal multiple micronutrient 
+supplements that include iron and folic acid are 
+recommended 
+Recommended for all pregnant women where 
+MMS programmes are being considered in the 
+context of implementation research
+Intermittent (weekly) oral IFA supplementation 
+with 120 mg of elemental iron and 2,800 μg 
+(2.8 mg) of folic acid to improve maternal 
+and neonatal outcomes if daily iron is not 
+acceptable due to side-effects.
+Recommended for all pregnant women and 
+adolescent girls in populations with an anaemia 
+prevalence among pregnant women of less than 20 
+per cent.
+Calcium 
+supplements
+Daily calcium supplementation (1.5 g.-2.0 g. 
+oral elemental calcium) to reduce the risk of 
+pre-eclampsia. 
+Recommended for all pregnant women and 
+adolescent girls in populations with low dietary 
+intake
+
+Maternal Nutrition  57
+Vitamin A 
+supplements
+Daily vitamin A supplementation is 
+recommended for pregnant women (up to 
+10,000 IU) or a weekly dose (up to 25000 
+IU).72 
+Recommended for pregnant women and 
+adolescent girls in areas where vitamin A deficiency 
+is a severe public health problem (defined as ≥5 
+per cent or more of women in a population have 
+a history of night blindness in their most recent 
+pregnancy in the previous 3–5 years that ended in 
+a live birth, or if ≥20 per cent of pregnant women 
+have a serum retinol level < 0.70 µmol/L)
+Zinc 
+supplements
+Zinc supplementation for pregnant women Recommended for pregnant women and 
+adolescent girls in context-specific settings where 
+rigorous research is being conducted
+Sources: World Health Organization. (2016). WHO recommendations on antenatal care for a positive pregnancy experience. WHO: Geneva; 
+World Health Organization. (2020). WHO Antenatal Care Recommendations for a Positive Pregnancy Experience. Nutritional Interventions Up-
+date: Multiple Micronutrient Supplements during Pregnancy. WHO: Geneva; World Health Organization. (2018). WHO recommendation: Calcium 
+supplementation during pregnancy for the prevention of pre-eclampsia and its complications. WHO: Geneva.
+WHO recommendations for postnatal care26
+WHO nutrition recommendations Context
+Counselling Women should be counselled on healthy diets, 
+physical activity, and maintaining healthy postnatal 
+weight; provided with support for exclusive 
+breastfeeding at each postnatal contact and progress 
+assessed at each postnatal contact; and provided with 
+hygiene counselling, especially handwashing.
+Recommended for all women as part of 
+postnatal care. 
+IFA or MMS IFA supplementation should continue using the 
+pregnancy dosage for three months 
+Where MMS are provided during pregnancy, their use 
+may be continued postnatally. 
+Recommended for all women as part of 
+postnatal care where the prevalence of 
+anaemia in pregnant women is ≥40 per 
+cent.129 
+Deworming Preventive chemotherapy using annual or biannual 
+single-dose albendazole (400 mg) or mebendazole 
+(500 mg). 
+Recommended for all non-pregnant 
+adolescent girls and women of reproductive 
+age where the baseline prevalence of any 
+soil-transmitted helminth infection is ≥20 per 
+cent among adolescent girls and women of 
+reproductive age.
+Postnatal 
+contacts 
+If birth is in a health facility, mothers and newborns 
+should receive postnatal care in the facility for at least 
+24 hours after birth.
+If birth is at home, the first postnatal contact should be 
+as early as possible within 24 hours of birth.
+At least three additional postnatal contacts are 
+recommended for all mothers and newborns on day 
+three (48–72 hours), between days 7–14 after birth, 
+and six weeks after birth.
+Recommended for all women as part of 
+postnatal care. 
+Home visits In the first week after birth, home visits are 
+recommended for the care of the mother and 
+newborn.
+Recommended for all women as part of 
+postnatal care. 
+Source: World Health Organization (2013). WHO recommendations on postnatal care of the mother and newborn.
+
+58  UNICEF Programming Guidance
+Endnotes
+1. United Nations Children’s Fund. 
+(2021). Global Nutrition Database. 
+UNICEF: New York.
+2. Victora, C.G., Christian, P., 
+Vidaletti, L.P., et al. (2021). 
+Revisiting maternal and child 
+undernutrition in low-income 
+and middle-income countries: 
+variable progress towards an 
+unfinished agenda. The Lancet 
+397(10282):1388-1399. 
+3. Kozuki, N., Katz, J., Lee, A.C., 
+et al. (2015). Child Health 
+Epidemiology Reference Group 
+Small-for-Gestational-Age/Preterm 
+Birth Working Group. Short 
+Maternal Stature Increases Risk 
+of Small-for-Gestational-Age and 
+Preterm Births in Low- and Middle-
+Income Countries: Individual 
+Participant Data Meta-Analysis and 
+Population Attributable Fraction. J 
+Nutr. 145(11):2542-50. 
+4. United Nations Children’s Fund. 
+(2020), Nutrition, for Every Child: 
+UNICEF. Nutrition Strategy 
+2020–2030. UNICEF: New York.
+5. United Nations Children’s 
+Fund. (2020). UNICEF’s Core 
+Commitments for Children in 
+Humanitarian Action. UNICEF: 
+New York.
+6. United Nations Children’s Fund. 
+(2019). UNICEF programming 
+guidance: Improving young 
+children’s diets during the 
+complementary feeding period. 
+UNICEF: New York.
+7. United Nations Children’s Fund 
+(2021). UNICEF programming 
+guidance on nutrition in middle 
+childhood and adolescence. 
+UNICEF: New York.
+8. United Nations Children’s Fund 
+(2019). UNICEF programming 
+guidance: Prevention of 
+overweight and obesity in children 
+and adolescents. UNICEF: 
+New York.
+9. United Nations Children’s Fund 
+(2021). UNICEF Gender Action 
+Plan 2021-2025. UNICEF: 
+New York.
+10. Fox, E.L., Davis, C., Downs, 
+S., et al. (2018). Who is the 
+Woman in Women’s Nutrition? 
+A Narrative Review of Evidence 
+and Actions to Support Women’s 
+Nutrition throughout Life. Current 
+Developments in Nutrition 3(1).
+11. Black, R.E., Victora, C.G., Walker, 
+S.P., et al. (2013). Maternal 
+and child undernutrition and 
+overweight in low-income and 
+middle-income countries. The 
+Lancet 382(9890): p. 427-451.  
+12. Das, J.K., Lassi, Z.S., Hoodbhoy, 
+Z., et al. (2018). Nutrition for the 
+Next Generation: Older Children 
+and Adolescents. Ann Nutr Metab 
+72 Suppl 3: p. 56-64.  
+13. Institute of Medicine (US) 
+Committee on Nutritional Status 
+During Pregnancy and Lactation. 
+(1991). Nutrition During Lactation. 
+Washington (DC): National 
+Academies Press (US).
+14. Institute of Medicine (US). (1990). 
+Committee on Nutritional Status 
+During Pregnancy and Lactation. 
+Nutrition During Pregnancy: Part 
+I Weight Gain: Part II Nutrient 
+Supplements. National Academies 
+Press (US): Washington (DC).
+15. Dror, D.K., Allen, L.H., et al. 
+(2018). Overview of Nutrients 
+in Human Milk. Advances 
+in Nutrition, 9(suppl_1): p. 
+278S-294S. doi: 10.1093/
+advances/nmy022. 
+16. Dewey, K.G. (1997). Energy and 
+protein requirements during 
+lactation. Annu Rev Nutr 17: p. 19-
+36.
+17. Rasmussen, K.M. (1992). The 
+influence of maternal nutrition 
+on lactation. Annu Rev Nutr 12: 
+p. 103-117. 
+18. NCD Risk Factor 
+Collaboration (NCD-RisC). (2019). 
+Rising rural body-mass index 
+is the main driver of the global 
+obesity epidemic in adults. Nature 
+569(7755):260-264. 
+19. Torheim, L.E., Elin, L., Ferguson, 
+E., et al. (2010). Women in 
+Resource-Poor Settings Are at 
+Risk of Inadequate Intakes of 
+Multiple Micronutrients. J Nutr 
+140(11): p. 2051S-2058S. 
+20. Gernand, A., Schulze, K. J., 
+Stewart, C. P., et al. (2016). 
+Micronutrient deficiencies in 
+pregnancy worldwide: Health 
+effects and prevention. Nature 
+reviews. Endocrinology 12(5): 
+274-289. 
+21. Dean, S.V., Lassi, Z.S., Imam, A., 
+et al. (2014). Preconception care: 
+nutritional risks and interventions. 
+Reproductive health 11(3): p. S3-
+S3. 
+22. Goldstein, R.F., Abell, S. K., 
+Ranasinha, S. et al. (2017). 
+Association of Gestational Weight 
+Gain With Maternal and Infant 
+Outcomes: A Systematic Review 
+and Meta-analysis. JAMA 317(21): 
+p. 2207-2225.
+23. Gore, S.A., Brown, D.M., West, 
+D.S., et al. (2003). The role of 
+postpartum weight retention 
+in obesity among women: A 
+review of the evidence. Annals of 
+Behavioral Medicine 26(2): p. 149-
+159.
+24. Rahman, M.M., Abe, S. K., 
+Rahman, M. S., et al. (2016). 
+Maternal anemia and risk of 
+adverse birth and health outcomes 
+in low- and middle-income 
+countries: systematic review and 
+meta-analysis. Am J Clin Nutr 
+103(2): p. 495-504.
+25. Haider, B.A., Olofin, I., Wang, M., 
+et al. (2013). Anaemia, prenatal 
+iron use, and risk of adverse 
+pregnancy outcomes: systematic 
+review and meta-analysis. BMJ: 
+British Medical Journal 346: 
+f3443.
+26. World Health Organization. (2013). 
+WHO recommendations on 
+postnatal care of the mother and 
+newborn. WHO: Geneva.
+
+Maternal Nutrition  59
+27. Milman, N., Postpartum anemia 
+I: definition, prevalence, causes, 
+and consequences. Annals of 
+Hematology, 2011. 90(11): p. 1247.
+28. Milman, N., Postpartum anemia 
+II: prevention and treatment. Ann 
+Hematol, 2012. 91(2): p. 143-54.
+29. Christian, P., Lee, S.E., Donahue, 
+A. M., et al. Risk of childhood 
+undernutrition related to small-
+for-gestational age and preterm 
+birth in low- and middle-income 
+countries. International journal of 
+epidemiology 42(5): p. 1340-1355.
+30. Li, Z., Kim, R., Vollmer, S., et 
+al., Factors Associated with 
+Child Stunting, Wasting, and 
+Underweight in 35 Low- and 
+Middle-Income Countries. JAMA 
+Network Open, 2020. 3(4): 
+p. e203386-e203386.
+31. United Nations Children’s Fund, 
+World Health Organization. (2019). 
+UNICEF-WHO Low birthweight 
+estimates: Levels and trends 
+2000-2015. WHO: Geneva.
+32. Yu, Z., Han, S., Zhu, J., et al., 
+Pre-Pregnancy Body Mass Index 
+in Relation to Infant Birth Weight 
+and Offspring Overweight/Obesity: 
+A Systematic Review and Meta-
+Analysis. PLOS ONE, 2013. 8(4): 
+p. e61627.
+33. Poston, L., Caleyachetty, R., 
+Cnattingius, S., et al. (2016). 
+Preconceptional and maternal 
+obesity: epidemiology and health 
+consequences. The Lancet 
+Diabetes & Endocrinology 4(12): 
+p. 1025-1036.
+34. Voerman, E., Santos, S., Patro 
+Golab, B., et al. (2019). Maternal 
+body mass index, gestational 
+weight gain, and the risk of 
+overweight and obesity across 
+childhood: An individual participant 
+data meta-analysis. PLoS medicine 
+16(2): p. e1002744-e1002744.
+35. Kim, R., Mejía-Guevara, I., 
+Corsi, D.J., et al. (2017). 
+Relative importance of 13 
+correlates of child stunting 
+in South Asia: Insights from 
+nationally representative data 
+from Afghanistan, Bangladesh, 
+India, Nepal, and Pakistan. Social 
+Science & Medicine 187: p. 144-
+154.
+36. Williamson, N. (2013). Motherhood 
+in childhood: Facing the challenge 
+of adolescent pregnancy. State of 
+World Population 2013. UNFPA: 
+New York.
+37. Akseer, N., Al-Gashm, S., Mehta, 
+S., et al. (2017). Global and 
+regional trends in the nutritional 
+status of young people: a critical 
+and neglected age group. Annals 
+of the New York Academy of 
+Sciences 1393(1): p. 3-20.
+38. Rah, J.H., Christian, P., Shamim, 
+A.A., et al. (2008). Pregnancy 
+and Lactation Hinder Growth and 
+Nutritional Status of Adolescent 
+Girls in Rural Bangladesh. J Nutr 
+138(8): p. 1505-1511.
+39. Gigante, D.P., Rasmussen, K. 
+M., Victora, C. G. et al. (2005). 
+Pregnancy increases BMI in 
+adolescents of a population-based 
+birth cohort. J Nutr 135(1): p. 74-
+80.
+40. Kozuki, N., Lee, A.C., Silveira, 
+M.F. et al. (2013). The associations 
+of parity and maternal age with 
+small-for-gestational-age, preterm, 
+and neonatal and infant mortality: a 
+meta-analysis. BMC Public Health 
+13(3): p. S2.
+41. Scholl, T.O., Hediger, M. L., 
+Schall, J. I., et al. (1994). Maternal 
+growth during pregnancy and 
+the competition for nutrients. 
+American Journal of Clinical 
+Nutrition 60(2): p. 183-188.
+42. Gibbs, C.M., Wendt, A., Peters, S., 
+et al. (2012). The impact of early 
+age at first childbirth on maternal 
+and infant health. Paediatric and 
+perinatal epidemiology 26 Suppl 
+1(0 1): p. 259-284.
+43. Patton, G.C., Coffey, C., Sawyer, 
+S.M., et al. (2009). Global patterns 
+of mortality in young people: a 
+systematic analysis of population 
+health data. The Lancet 374(9693): 
+p. 881-892.
+44. Say, L., Chou, D., Gemmill, A., 
+et al. (2014). Global causes of 
+maternal death: a WHO systematic 
+analysis. Lancet Global Health 
+2(6): p. e323-e333.
+45. Sukalich, S., Mingione, M. J., 
+Glantz, J. C. (2006). Obstetric 
+outcomes in overweight and 
+obese adolescents. Am J Obstet 
+Gynecol 195(3): 851-855.
+46. Lynch, S.R. (2000). The Potential 
+Impact of Iron Supplementation 
+during Adolescence on Iron Status 
+in Pregnancy. J Nutr 130(2): p. 
+448S-451S.
+47. Khara, T. and E. Mates. (2014). 
+Maternal Nutrition in Emergencies. 
+Summary of the state of play and 
+key gaps. Background Technical 
+Paper for the round table DG 
+ECHO. 
+48. Raghavan, R., Dreibelbis, C., 
+Kingshipp, B.L., et al. (2019). 
+Dietary patterns before and during 
+pregnancy and birth outcomes: 
+a systematic review. American 
+Journal of Clinical Nutrition 109(1): 
+p. 729S-756S.
+49. Abdollahi, S., Soltani, S., de Souza, 
+R.J., et al. (2021). Associations 
+between Maternal Dietary Patterns 
+and Perinatal Outcomes: A 
+Systematic Review and Meta-
+Analysis of Cohort Studies. 
+Advances in Nutrition 12(4): 
+p. 1332-1352.
+50. Lee, S.E., Talegawkar, S.A., 
+Merialdi, M., et al. (2013). 
+Dietary intakes of women during 
+pregnancy in low- and middle-
+income countries. Public Health 
+Nutrition 16(8): p. 1340-1353.
+51. Arimond, M., Wiesmann, D., 
+Becquey, E., et al. (2010). Simple 
+food group diversity indicators 
+predict micronutrient adequacy 
+of women’s diets in 5 diverse, 
+resource-poor settings. J Nutr 
+140(11): p. 2059S-69S.
+52. Harika, R., Faber, M., Samuel, 
+F., et al. (2017). Micronutrient 
+Status and Dietary Intake of Iron, 
+Vitamin A, Iodine, Folate and Zinc 
+in Women of Reproductive Age 
+and Pregnant Women in Ethiopia, 
+Kenya, Nigeria and South Africa: A 
+Systematic Review of Data from 
+2005 to 2015. Nutrients 9(10): 
+p. 1096.
+53. Balk, E.M., Adam, G. P., Langberg, 
+V. N. et al. (2017). Global dietary 
+calcium intake among adults: a 
+systematic review. Osteoporos Int, 
+28(12): p. 3315-3324.
+
+60  UNICEF Programming Guidance
+54. Blumfield, M.L., Hure, A.J., 
+Macdonald-Wicks, L., et al. (2013). 
+Micronutrient intakes during 
+pregnancy in developed countries: 
+Systematic Review and Meta-
+Analysis. Nutrition Reviews 71(2): 
+p. 118 -132.
+55. Via, M. (2012). The malnutrition of 
+obesity: micronutrient deficiencies 
+that promote diabetes. ISRN 
+endocrinology 2012, p. 103472-
+103472.
+56. Bentham, J. (2019). Global trends 
+in ultra-processed food and drink 
+product sales and their association 
+with adult body mass index 
+trajectories. Obesity reviews : an 
+official journal of the International 
+Association for the Study of 
+Obesity.
+57. United Nations Children’s Fund. 
+(2021). Global Database. UNICEF: 
+New York.
+58. Kavle, J.A., and Landry, M. (2018). 
+Addressing barriers to maternal 
+nutrition in low- and middle-
+income countries: A review of 
+the evidence and programme 
+implications. Maternal & Child 
+Nutrition 14(1): p. e12508.
+59. United Nations Children’s Fund. 
+(2020). Review of national 
+Food-Based Dietary Guidelines 
+and associated guidance for 
+infants, children, adolescents, and 
+pregnant and lactating women. 
+UNICEF: New York.
+60. Steketee, R.W. (2003). Pregnancy, 
+Nutrition and Parasitic Diseases. J 
+Nutr, 133(5): p. 1661S-1667S.
+61. Siekmans, K., Roche, M., Kung’u, 
+J.K., et al. (2018). Barriers and 
+enablers for iron folic acid (IFA) 
+supplementation in pregnant 
+women. Maternal & Child Nutrition 
+14(S5): p. e12532.
+62. Schmied, V. (2020). Feeding My 
+Child: How mothers experience 
+nutrition across the world. 
+A Companion Report to the 
+State of the World’s Children 
+2019. Sydney, Western Sydney 
+University, UNICEF. 
+63. World Health Organization. (2018). 
+Global nutrition policy review 2016-
+2017: country progress in creating 
+enabling policy environments 
+for promoting healthy diets and 
+nutrition. WHO: Geneva.
+64. Victora, C.G., Barros, F.C., 
+Assunção, M.C., et al. (2012). 
+Scaling up Maternal Nutrition 
+Programs to Improve Birth 
+Outcomes: A Review of 
+Implementation Issues. Food and 
+Nutrition Bulletin 33(2_suppl1): p. 
+S6-S26.
+65. United Nations. (2015). 
+Transforming our World: The 
+2030 Agenda for Sustainable 
+Development. A/RES/70/1. 2015.
+66. United Nations Statistics 
+Division. (2020). Global indicator 
+framework for the Sustainable 
+Development Goals and targets of 
+the 2030 Agenda for Sustainable 
+Development. Resolution 68/261 
+(A/RES/71/313), Development 
+Data and Outreach Branch, United 
+Nations Statistics Division: New 
+York.
+67. United Nations Children’s Fund, 
+World Health Organization. 
+(2019). The extension of the 2025 
+maternal, infant and young child 
+nutrition targets to 2030. UNICEF, 
+WHO: New York.
+68. World Health Organization. (2014). 
+Comprehensive Implementation 
+Plan on Maternal, Infant, and 
+Young Child Nutrition. WHO/NMH/
+NHD/14.1. WHO: Geneva.
+69. World Health Organization. 
+(2013). Global Action Plan for 
+the Prevention and Control of 
+Noncommunicable Diseases 2013-
+2020. WHO: Geneva.
+70. World Health Organization. 
+(2016). WHO recommendations 
+on antenatal care for a positive 
+pregnancy experience. WHO: 
+Geneva.
+71. World Health Organization. 
+(2020). WHO Antenatal Care 
+Recommendations for a Positive 
+Pregnancy Experience. Nutritional 
+Interventions Update: Multiple 
+Micronutrient Supplements during 
+Pregnancy. WHO: Geneva.
+72. World Health Organization. (2018). 
+WHO recommendation: Calcium 
+supplementation during pregnancy 
+for the prevention of pre-eclampsia 
+and its complications. WHO: 
+Geneva.
+73. World Health Organization. (2018). 
+Guideline: implementing effective 
+actions for improving adolescent 
+nutrition. WHO: Geneva.
+74. World Health Organization. (2013). 
+Preconception care: Maximizing 
+the gains for maternal and child 
+health. A policy brief. WHO: 
+Geneva.
+75. Ramakrishnan, U., Grant, F., 
+Goldenberg, T., et al. (2012). Effect 
+of Women’s Nutrition before 
+and during Early Pregnancy on 
+Maternal and Infant Outcomes: A 
+Systematic Review. Paediatric and 
+Perinatal Epidemiology 26(s1): p. 
+285-301.
+76. Barker, M., Dombrowski, S.U., 
+Colbourn, T., et al., (2018). 
+Intervention strategies to improve 
+nutrition and health behaviours 
+before conception. The Lancet 
+391(10132): p. 1853-1864.
+77. United Nations Children’s Fund. 
+(2020). Family Friendly Policies. 
+Handbook for Business. UNICEF 
+East Asia and Pacific Regional 
+Office: Bangkok.
+78. Honein, M.A., Paulozzi, L.J., 
+Mathews, T. J., et al. (2001). 
+Impact of Folic Acid Fortification 
+of the US Food Supply on the 
+Occurrence of Neural Tube 
+Defects. JAMA 285(23): p. 2981-
+2986.
+79. López-Camelo, J.S., E.E. Castilla, 
+and I.M. Orioli. (2010). Folic acid 
+flour fortification: Impact on the 
+frequencies of 52 congenital 
+anomaly types in three South 
+American countries. American 
+Journal of Medical Genetics Part 
+A, 152A(10): p. 2444-2458.
+80. Centeno, T.E., Pachón, H., 
+Guetterman, H. M. et al. (2019). 
+Fortification of wheat and maize 
+flour with folic acid for population 
+health outcomes. Cochrane 
+Database Syst Rev, 7(7).
+81. Pachón, H., Spohrer, R., Mei, 
+Z., et al. (2015). Evidence of the 
+effectiveness of flour fortification 
+programs on iron status and 
+anemia: a systematic review. 
+Nutrition Reviews, 73(11): p. 780-
+795.
+
+Maternal Nutrition  61
+82. Gera, T., Sachdev, H.S., Boy, E. 
+(2012). Effect of iron-fortified 
+foods on hematologic and 
+biological outcomes: systematic 
+review of randomized controlled 
+trials. Am J Clin Nutr. 96(2):309-
+24.  
+83. Aburto, N., Abudou, M., Candeias, 
+V., et al. (2014). Effect and safety 
+of salt iodization to prevent iodine 
+deficiency disorders: a systematic 
+review with meta-analyses. WHO: 
+Geneva.
+84. Dold, S., Zimmermann, M. B., 
+Jukic, T., et al. (2018). Universal 
+Salt Iodization Provides Sufficient 
+Dietary Iodine to Achieve 
+Adequate Iodine Nutrition during 
+the First 1000 Days: A Cross-
+Sectional Multicenter Study. J 
+Nutr, 148(4): p. 587-598.
+85. Kupka, R., Fabrizio, C., 
+Rosenzweig, J. (2017). Lessons 
+learned from flour and salt 
+iodization, in Scaling up rice 
+fortification in Asia. Sight and Life, 
+World Food Programme: Basel. 
+p. 68-72.
+86. Dean, S., Rudan, I., Althabe, F., 
+et al. (2013). Setting research 
+priorities for preconception 
+care in low- and middle-income 
+countries: aiming to reduce 
+maternal and child mortality and 
+morbidity. PLoS medicine, 10(9): 
+p. e1001508-e1001508.
+87. Singh, S., Sedgh, G., Hussain, R. 
+(2010). Unintended pregnancy: 
+worldwide levels, trends, and 
+outcomes. Stud Fam Plann, 41(4): 
+p. 241-50.
+88. World Health Organization. (2013). 
+Meeting to Develop a Global 
+Consensus on Preconception Care 
+to Reduce Maternal and Childhood 
+Mortality and Morbidity. WHO: 
+Geneva.
+89. The World Bank. (2005). 
+The Bangladesh Integrated 
+Nutrition Project. Effectiveness 
+and Lessons. Bangladesh 
+Development Series, 8. The World 
+Bank: Dhaka.
+90. Girard, A.W. and Olude, O. 
+(2012). Nutrition Education and 
+Counselling Provided during 
+Pregnancy: Effects on Maternal, 
+Neonatal and Child Health 
+Outcomes. Paediatric and 
+Perinatal Epidemiology, 26(s1): p. 
+191-204.
+91. Institute of Medicine. (2009). 
+In: Rasmussen KM, Yaktine AL, 
+editors. Weight Gain During 
+Pregnancy: Reexamining the 
+Guidelines. Washington (DC).
+92. Cantor, A.G., Jungbauer, R.M., 
+McDonagh, M., et al. (2021). 
+Counseling and Behavioral 
+Interventions for Healthy Weight 
+and Weight Gain in Pregnancy: 
+Evidence Report and Systematic 
+Review for the US Preventive 
+Services Task Force. JAMA, 
+325(20): p. 2094-2109.
+93. Muktabhant, B., Lawrie, T. A., 
+Lumbiganon, P. et al. (2015). 
+Diet or exercise, or both, for 
+preventing excessive weight gain 
+in pregnancy. Cochrane Database 
+of Systematic Reviews, 2015(6).
+94. Oteng-Ntim, E., Varma, R., 
+Croker, H., et al. (2012). Lifestyle 
+interventions for overweight and 
+obese pregnant women to improve 
+pregnancy outcome: systematic 
+review and meta-analysis. BMC 
+Medicine, 10(1): p. 47.
+95. Flannery, C., Fredrix, M., Olander, 
+E. K., et al. (2016). Effectiveness 
+of physical activity interventions 
+for overweight and obesity during 
+pregnancy: a systematic review of 
+the content of behaviour change 
+interventions. Int J Behav Nutr 
+Phys Act, 16(1): p. 97.
+96. United Nations Children’s Fund. 
+(2021). Counselling to improve 
+maternal nutrition: Considerations 
+for programming with quality, 
+equity and scale. UNICEF: New 
+York.
+97. Peña-Rosas, J.P., De-Regil, L.M., 
+Garcia-Casal, M.N., et al. (2015). 
+Daily oral iron supplementation 
+during pregnancy. Cochrane 
+Database Syst Rev. (7):CD004736. 
+98. Peña-Rosas, J.P., De-Regil, 
+L.M., Gomez Malave, H., 
+(2015). Intermittent oral iron 
+supplementation during 
+pregnancy. Cochrane Database 
+Syst Rev. 19;2015(10):CD009997. 
+99. Nisar, Y.B. and Dibley, M.J. (2014). 
+Earlier initiation and use of a 
+greater number of iron-folic acid 
+supplements during pregnancy 
+prevents early neonatal deaths 
+in Nepal and Pakistan. PloS one, 
+9(11): p. e112446 -e112446.
+100. Dibley, M.J., Titaley, C.R., d’Este, 
+C., et al. (2011). Iron and folic 
+acid supplements in pregnancy 
+improve child survival in Indonesia. 
+American Journal of Clinical 
+Nutrition, 95(1): p. 220-230.
+101. Christian, P., Stewart, C.P., 
+LeClerq, S.C., et al. (2009). 
+Antenatal and postnatal iron 
+supplementation and childhood 
+mortality in rural Nepal: a 
+prospective follow-up in a 
+randomized, controlled community 
+trial. American journal of 
+epidemiology, 170(9): p. 1127-
+1136.
+102. Zeng, L., Yan, H., Cheng, Y. et al. 
+(2009). Adherence and Costs of 
+Micronutrient Supplementation 
+in Pregnancy in a Double-Blind, 
+Randomized, Controlled Trial in 
+Rural Western China. Food and 
+Nutrition Bulletin, 30(4_suppl4): 
+p. S480-S487.
+103. World Health Organization. (2016). 
+Guideline: Iron supplementation 
+in postpartum women. WHO: 
+Geneva.
+104. World Health Organization. 
+(2016). Guideline: Daily iron 
+supplementation in adult women 
+and adolescent girls. WHO: 
+Geneva.
+105. Dusch, E., Galloway, R., 
+Laksminingsih, E., et al. (1999). 
+Clinical screening may be a cost-
+effective way to screen for severe 
+anaemia. Food and Nutrition 
+Bulletin, 20(4), 409-416.
+106. Bourassa, M.W., Osendarp, S.J., 
+Adu-Afarwuah, S., et al. (2019). 
+Review of the evidence regarding 
+the use of antenatal multiple 
+micronutrient supplementation in 
+low- and middle-income countries. 
+Annals of the New York Academy 
+of Sciences, 1444(1): p. 6-21.
+
+62  UNICEF Programming Guidance
+107. Smith, E.R., Shankar, A.H., Wu, 
+L.S., et al. (2017). Modifiers of 
+the effect of maternal multiple 
+micronutrient supplementation 
+on stillbirth, birth outcomes, and 
+infant mortality: a meta-analysis 
+of individual patient data from 17 
+randomised trials in low-income 
+and middle-income countries. The 
+Lancet Global Health, 5(11): p. 
+e1090-e1100.
+108. Keats, E.C., Haider, B.A., Tam, 
+E., et al. (2019). Multiple-
+micronutrient supplementation 
+for women during pregnancy. 
+Cochrane Database Syst Rev. 
+2019 Mar 14;3(3):CD004905. 
+109. Monterrosa, E.C., Beesabathuni, 
+K., van Zutphen, K.G., et al. (2018). 
+Situation analysis of procurement 
+and production of multiple 
+micronutrient supplements in 12 
+lower and upper middle-income 
+countries. Matern Child Nutr. 
+Suppl 5:e12500.
+110. Kashi, B., Godin, C., Kurzawa, 
+Z.A., et al. (2019). Multiple 
+Micronutrient Supplements Are 
+More Cost-effective Than Iron and 
+Folic Acid: Modeling Results from 
+3 High-Burden Asian Countries. 
+J Nutr. 149(7):1222-1229. doi: 
+10.1093/jn/nxz052. Erratum in: J 
+Nutr. 2019 Aug 1;149(8):1487. 
+111. Engle-Stone, R., Kumordzie, 
+S.M., Meinzen-Dick, L.,  et 
+al. (2019). Replacing iron-folic 
+acid with multiple micronutrient 
+supplements among pregnant 
+women in Bangladesh and 
+Burkina Faso: costs, impacts, and 
+cost-effectiveness. Annals of the 
+New York Academy of Sciences, 
+1444(1): p. 35-51. 
+112. World Health Organization, 
+World Food Programme, and 
+United Nations Children’s Fund. 
+(2007). Preventing and controlling 
+micronutrient deficiencies in 
+populations affected by an 
+emergency. Multiple vitamin and 
+mineral supplements for pregnant 
+and lactating women, and for 
+children aged 6 to 59 months. 
+WHO: Geneva.
+113. United Nations Children’s 
+Fund, World Food Programme, 
+Global Nutrition Cluster. (2020). 
+Protecting Maternal Diets and 
+Nutrition Services and Practices in 
+the Context of COVID-19. UNICEF: 
+New York.
+114. World Health Organization. (2021). 
+Model List of Essential Medicines 
+– 22nd List. WHO: Geneva. (WHO/
+MHP/HPS/EML/2021.02). 
+115. The Micronutrient Forum, NY 
+Academy of Sciences MMS 
+Technical Advisory Group. 
+(2021). A Step Forward for 
+Women’s Nutrition During 
+Pregnancy. Multiple Micronutrient 
+Supplementation (MM): The 
+WHO’s Model List of Essential 
+Medicines (EML). A FAQ and 
+Advocacy Brief. 
+116. UNICEF, NY Academy of Sciences 
+MMS Technical Advisory Group, 
+The Micronutrient Forum et al. 
+(2020). Interim Country-level 
+Decision-making Guidance for 
+Introducing Multiple Micronutrient 
+Supplementation for Pregnant 
+Women. New York.
+117. Tanjong Ghogomu, E., Suresh, 
+S., Rayco-Solon, P., et al. (2018). 
+Deworming in non-pregnant 
+adolescent girls and adult women: 
+a systematic review and meta-
+analysis. Systematic reviews, 7(1): 
+p. 239-239.
+118. Walia, B., Kmush, B.L., Lane, S.D., 
+et al. (2021). Routine deworming 
+during antenatal care decreases 
+risk of neonatal mortality and low 
+birthweight: A retrospective cohort 
+of survey data. PLOS Neglected 
+Tropical Diseases, 15(4): 
+p. e0009282.
+119. World Health Organization. (1995). 
+Maternal Anthropometry and 
+Pregnancy Outcomes. A WHO 
+Collaborative Study. Bulletin of 
+the World Health Organization, 
+Supplement to Volume 73. WHO: 
+Geneva.
+120. Tang, A.M., Chung, M., Dong, K., 
+et al. (2016). Determining a Global 
+MidUpper Arm Circumference 
+Cutoff to Assess Malnutrition in 
+Pregnant Women. FHI 360/Food 
+Nutr Tech Assist III Proj (FANTA): 
+Washington, DC.
+121. Ververs, M.T., Antierens, A., 
+Sackl, A. et al. (2013). Which 
+anthropometric indicators identify 
+a pregnant woman as acutely 
+malnourished and predict adverse 
+birth outcomes in the humanitarian 
+context? PLoS Curr, 2013(5).
+122. Cashin, K., and Oot, L. (2018). 
+Guide to Anthropometry: A 
+Practical Tool for Program 
+Planners, Managers, and 
+Implementers. FHI 360/Food 
+Nutr Tech Assist III Proj (FANTA): 
+Washington D.C.
+123. World Health Organization. (2018). 
+Report of the WHO Advisory 
+Group on deworming in girls and 
+women of reproductive age. WHO: 
+Geneva 
+124. Dieterich, C.M., Felice, J.P., 
+O’Sullivan, E. et al. (2013). 
+Breastfeeding and health 
+outcomes for the mother-infant 
+dyad. Pediatric clinics of North 
+America, 60(1): p. 31-48.
+125. United Nations Children’s Fund. 
+(2019). Breastfeeding and Family-
+Friendly Policies. An evidence 
+brief. UNICEF: New York. 
+126. World Health Organization. (2016). 
+Guideline: Iron supplementation 
+in postpartum women. WHO: 
+Geneva.
+127. Ota, E., Hori, H., Mori, R. et al. 
+(2015). Antenatal dietary education 
+and supplementation to increase 
+energy and protein intake. 
+Cochrane Database of Systematic 
+Reviews, 2015 (6).
+128. Kawakita, T., Wilson, K., Grantz, 
+K.L. et al. (2016). Adverse 
+Maternal and Neonatal Outcomes 
+in Adolescent Pregnancy. Journal 
+of pediatric and adolescent 
+gynecology, 29(2): p. 130-136.
+129. Hambidge, K.M., Westcott, 
+J.E., Garcés, A. et al. (2019). 
+A multicountry randomized 
+controlled trial of comprehensive 
+maternal nutrition supplementation 
+initiated before conception: the 
+Women First trial. American 
+Journal of Clinical Nutrition, 
+109(2): p. 457-469.
+
+Maternal Nutrition  63
+130. Das, J. K., Hoodbhoy, Z., Salam, 
+R.A., et al. (2018). Lipid-based 
+nutrient supplements for maternal, 
+birth, and infant developmental 
+outcomes. The Cochrane database 
+of systematic reviews, 8(8), 
+CD012610. 
+131. Adu-Afarwuah, S. (2020). Impact 
+of nutrient supplementation on 
+maternal nutrition and child growth 
+and development in Sub-Saharan 
+Africa: the case of small-quantity 
+lipid-based nutrient supplements. 
+Maternal & Child Nutrition, 16(S3): 
+p. e12960.
+132. Dewey, K.G., Matias, S.L., Mridha, 
+M.K. et al. (2020). Nutrient 
+supplementation during the first 
+1000 days and growth of infants 
+born to pregnant adolescents. 
+Ann N Y Acad Sci. 2020 
+May;1468(1):25-34. 
+133. United Nations Children’s Fund. 
+(2021). Technical Bulletin No. 26. 
+Commodities to Support Nutrition 
+Care for Women in Pregnancy. 
+UNICEF: Copenhagen.
+134. Nutriset. 2021; Available from: 
+https://www.nutriset.fr/products/
+en/enov-mum.
+135. Gillespie, S.M., Menon, P., 
+Heidkamp, R., et al et al. (2019). 
+Measuring the coverage of 
+nutrition interventions along the 
+continuum of care: Time to act 
+at scale. BMJ Global Health 
+4(Supplement 4): i133–i142. 
+136. United Nations Children’s Fund. 
+(2020). Core Commitments for 
+Children in Humanitarian Action. 
+Gender Equality. UNICEF: New 
+York.
+137. United Nations Children’s Fund, 
+World Food Programme. (2020). 
+Addressing Wasting in Children 
+Globally. UNICEF and WFP 
+Partnership Framework
+
+64  UNICEF Programming Guidance
+© United Nations Children’s Fund (UNICEF)
+January 2022
+Permission is required to reproduce any part of this publication. 
+Permissions will be freely granted to educational or non-profit 
+organizations. 
+Published by:
+UNICEF 
+Nutrition and Child Development Section, Programme Group
+3 United Nations Plaza
+New York, NY 10017
+USA 
