@@ -3,7 +3,7 @@ import unittest
 from app.schemas.chatbot import ChatResponse
 from app.services.diet_service import extract_diet_profile, missing_diet_questions
 from app.services.intent_service import classify_intent
-from app.services.knowledge_service import KnowledgeChunk
+from app.services.knowledge_service import KnowledgeChunk, retrieve_guidance
 from app.services.response_validator import validate_response
 from app.services.safety_service import find_red_flags
 
@@ -85,6 +85,9 @@ class MedicalAssistantRulesTest(unittest.TestCase):
         flags = find_red_flags("আমার জ্বর এবং বাচ্চার নড়াচড়া কম মনে হচ্ছে")
         self.assertIn("জ্বর", flags)
         self.assertIn("শিশুর নড়াচড়া কম", flags)
+
+    def test_unapproved_knowledge_is_not_retrieved(self):
+        self.assertEqual(retrieve_guidance("গর্ভাবস্থায় পুষ্টিকর খাবার"), [])
 
 
 if __name__ == "__main__":

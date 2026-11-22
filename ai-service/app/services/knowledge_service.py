@@ -24,6 +24,9 @@ def _load_chunks() -> list[KnowledgeChunk]:
         if path.name == "README.md":
             continue
         content = path.read_text(encoding="utf-8")
+        review_status_match = re.search(r"^review_status:\s*(.+)$", content, re.MULTILINE)
+        if (review_status_match.group(1).strip().upper() if review_status_match else "REVIEW_REQUIRED") != "APPROVED":
+            continue
         title_match = re.search(r"^title:\s*(.+)$", content, re.MULTILINE)
         source_match = re.search(r"^source:\s*(.+)$", content, re.MULTILINE)
         sections = re.split(r"\n(?=## )", content.split("---", 2)[-1])
@@ -33,6 +36,8 @@ def _load_chunks() -> list[KnowledgeChunk]:
                 chunks.append(KnowledgeChunk(title=title_match.group(1).strip() if title_match else path.stem, text=text, source=source_match.group(1).strip() if source_match else path.name))
     for path in sorted((KNOWLEDGE_ROOT / "sources").glob("*.txt")):
         item = metadata.get(f"sources/{path.name}", {})
+        if item.get("review_status", "REVIEW_REQUIRED").upper() != "APPROVED":
+            continue
         paragraphs = [part.strip() for part in re.split(r"\n\s*\n", path.read_text(encoding="utf-8", errors="ignore")) if part.strip()]
         current = ""
         for paragraph in paragraphs:
