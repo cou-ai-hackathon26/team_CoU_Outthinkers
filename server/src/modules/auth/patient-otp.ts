@@ -15,7 +15,10 @@ function normalize(value: unknown) {
 }
 
 function normalizePhone(value: string) {
-  return value.replace(/[\s-]/g, "");
+  const compact = value.replace(/[\s-]/g, "");
+  if (compact.startsWith("+880")) return `0${compact.slice(4)}`;
+  if (compact.startsWith("880") && compact.length === 13) return `0${compact.slice(3)}`;
+  return compact;
 }
 
 function generateCode() {
@@ -48,10 +51,11 @@ router.post("/patient/request-otp", async (request, response) => {
 
   // Email is the production OTP channel until an SMS gateway is configured.
   // Patient ID can also be used when the account has a registered email.
-  const destination = user?.email || (identifier.includes("@") ? identifier : "");
+  const destination = user?.email || user?.phone || (identifier.includes("@") ? identifier : "");
+  const channel = user?.email ? "email" : "sms";
 
   if (!user || !destination) {
-    response.json({ message: "যদি account-এ email থাকে, OTP সেখানে পাঠানো হয়েছে।" });
+    response.json({ message: "যদি account থাকে, নিবন্ধিত মাধ্যমে OTP পাঠানো হয়েছে।" });
     return;
   }
   const latest = await prisma.otpChallenge.findFirst({
@@ -78,11 +82,11 @@ router.post("/patient/request-otp", async (request, response) => {
   });
 
   if (user) {
-    await writeAudit("PATIENT_OTP_REQUESTED", user.id, { destinationType: destination.includes("@") ? "email" : "phone" });
+    await writeAudit("PATIENT_OTP_REQUESTED", user.id, { destinationType: channel });
   }
 
   try {
-    await deliverPatientOtp("email", destination, code);
+    await deliverPatientOtp(channel, destination, code);
   } catch (error) {
     await prisma.otpChallenge.delete({ where: { id: challenge.id } });
     console.error("OTP delivery failed", error);
