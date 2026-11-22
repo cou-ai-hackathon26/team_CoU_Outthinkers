@@ -72,6 +72,56 @@ router.post("/chat/sessions/:id/messages", async (request, response) => {
   response.status(201).json({ data: { message: { id: saved.id, role: saved.role, content: saved.content, urgency: saved.urgency, createdAt: saved.createdAt }, redFlags: answer.red_flags || [], suggestedAction: answer.suggested_action || "" } });
 });
 
+router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const content = String(request.body?.content || "").trim();
+  if (!content || content.length > 4000) { response.status(400).json({ error: "১ থেকে ৪০০০ অক্ষরের মধ্যে আপনার কথা লিখুন।" }); return; }
+  const session = await prisma.chatSession.findFirst({ where: { id: request.params.id, patientUserId: auth.userId }, select: { id: true } });
+  if (!session) { response.status(404).json({ error: "Chat session পাওয়া যায়নি।" }); return; }
+  await prisma.chatMessage.create({ data: { sessionId: session.id, role: "USER", content } });
+
+  try {
+    const history = await prisma.chatMessage.findMany({ where: { sessionId: session.id }, orderBy: { createdAt: "asc" }, take: 12, select: { role: true, content: true } });
+    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const upstream = await axios.post(`${aiUrl}/chat/stream`, { messages: history }, { timeout: 100_000, responseType: "stream", headers: aiServiceHeaders() });
+    response.status(200).set({ "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache, no-transform", Connection: "keep-alive", "X-Accel-Buffering": "no" });
+    response.flushHeaders?.();
+
+    let buffer = "";
+    let assistantText = "";
+    let metadata: { urgency?: string; red_flags?: string[]; suggested_action?: string } = {};
+    const processEvent = (event: string) => {
+      const line = event.split(/\r?\n/).find((item: string) => item.startsWith("data:"));
+      if (!line) return;
+      try {
+        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string };
+        if (data.type === "delta" && data.text) assistantText += data.text;
+        if (data.type === "done") metadata = data;
+      } catch { /* Ignore incomplete or malformed upstream event. */ }
+    };
+    upstream.data.on("data", (chunk: Buffer) => {
+      const text = chunk.toString("utf8");
+      response.write(text);
+      buffer += text;
+      const events = buffer.split(/\r?\n\r?\n/);
+      buffer = events.pop() || "";
+      events.forEach(processEvent);
+    });
+    upstream.data.on("end", async () => {
+      if (buffer.trim()) processEvent(buffer);
+      try {
+        if (assistantText) await prisma.chatMessage.create({ data: { sessionId: session.id, role: "ASSISTANT", content: assistantText, urgency: metadata.urgency || "NORMAL" } });
+      } catch (error) { console.error("Failed to save streamed chatbot response", error); }
+      response.end();
+    });
+    upstream.data.on("error", (error: Error) => { console.error("Chat stream proxy failed", error); response.end(); });
+    request.on("close", () => { if (!response.writableEnded) upstream.data.destroy(); });
+  } catch (error) {
+    console.error("Patient chatbot stream failed", error);
+    response.status(502).json({ error: "Chat assistant এখন সাময়িকভাবে unavailable। আবার চেষ্টা করুন।" });
+  }
+});
+
 router.get("/follow-ups", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
   const tasks = await prisma.followUpTask.findMany({

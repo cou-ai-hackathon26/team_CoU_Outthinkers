@@ -1,4 +1,6 @@
 import asyncio
+import json
+from collections.abc import AsyncIterator
 
 import httpx
 
@@ -49,3 +51,29 @@ async def generate_json(prompt: str, schema: dict, temperature: float, timeout: 
     if not text:
         raise RuntimeError("Gemini returned an empty response")
     return text
+
+
+async def stream_text(prompt: str, temperature: float = 0.2, timeout: float = 90) -> AsyncIterator[str]:
+    """Yield Gemini text fragments as they arrive over its SSE endpoint."""
+    if not GEMINI_API_KEY:
+        raise RuntimeError("GEMINI_API_KEY is not configured")
+    url = f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:streamGenerateContent?alt=sse"
+    payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": temperature}}
+    async with httpx.AsyncClient(timeout=timeout) as client:
+        async with client.stream("POST", url, headers={"x-goog-api-key": GEMINI_API_KEY}, json=payload) as response:
+            if response.is_error:
+                body = await response.aread()
+                raise RuntimeError(f"Gemini HTTP {response.status_code}: {body.decode(errors='replace')[:500]}")
+            async for line in response.aiter_lines():
+                if not line.startswith("data:"):
+                    continue
+                raw = line[5:].strip()
+                if not raw or raw == "[DONE]":
+                    continue
+                try:
+                    event = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                text = response_text(event)
+                if text:
+                    yield text

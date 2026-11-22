@@ -1,8 +1,13 @@
+import json
+
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import StreamingResponse
 
 from app.dependencies import require_service_token
 from app.schemas.chatbot import ChatRequest, ChatResponse
 from app.services.chatbot_service import chat as run_chat
+from app.prompts.chatbot_prompt import build_stream_chatbot_prompt
+from app.services.gemini_service import stream_text
 from app.services.safety_service import find_red_flags
 
 router = APIRouter()
@@ -23,3 +28,31 @@ async def chat(request: Request, payload: ChatRequest):
     except Exception as exc:
         print(f"Chat service failed: {type(exc).__name__}: {exc}")
         raise HTTPException(status_code=502, detail="Chat service is temporarily unavailable") from exc
+
+
+@router.post("/chat/stream")
+async def chat_stream(request: Request, payload: ChatRequest):
+    require_service_token(request)
+    latest_message = payload.messages[-1].content if payload.messages else ""
+    flags = find_red_flags(latest_message)
+    if flags:
+        answer = f"আপনি {', '.join(flags)}-এর কথা বলেছেন। এটি জরুরি হতে পারে। এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন এবং সম্ভব হলে আপনার স্বাস্থ্যকর্মীকে জানান। আমি রোগ নির্ণয় করতে পারি না।"
+
+        async def emergency_events():
+            yield f"data: {json.dumps({'type': 'delta', 'text': answer}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'EMERGENCY', 'red_flags': flags, 'suggested_action': 'এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।'}, ensure_ascii=False)}\n\n"
+
+        return StreamingResponse(emergency_events(), media_type="text/event-stream")
+
+    conversation = "\n".join(f"{message.role.upper()}: {message.content[:4000]}" for message in payload.messages[-12:])
+
+    async def events():
+        try:
+            async for text in stream_text(build_stream_chatbot_prompt(conversation)):
+                yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': ''}, ensure_ascii=False)}\n\n"
+        except Exception as exc:
+            print(f"Chat stream failed: {type(exc).__name__}: {exc}")
+            yield f"data: {json.dumps({'type': 'error', 'message': 'Chat service is temporarily unavailable'}, ensure_ascii=False)}\n\n"
+
+    return StreamingResponse(events(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})

@@ -40,15 +40,29 @@ export default function PatientChat() {
     if (!content || !sessionId || busy) return;
     setBusy(true); setError(""); setText("");
     setMessages(current => [...current, { role: "USER", content }]);
+    const streamingId = `streaming-${Date.now()}`;
     try {
-      const result = await api.post(`/patient/chat/sessions/${sessionId}/messages`, { content });
-      const data = result.data.data;
-      setMessages(current => [...current, data.message]);
-      setRedFlags(data.redFlags || []);
-      setSuggestedAction(data.suggestedAction || "");
+      const token = localStorage.getItem("maternacare_token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "/api";
+      const result = await fetch(`${baseUrl}/patient/chat/sessions/${sessionId}/messages/stream`, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ content }) });
+      if (!result.ok || !result.body) { const body = await result.json().catch(() => ({})); throw new Error(body.error || "উত্তর পাওয়া যায়নি।"); }
+      const reader = result.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      const processEvent = (event: string) => {
+        const line = event.split(/\r?\n/).find(item => item.startsWith("data:"));
+        if (!line) return;
+        const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string; message?: string };
+        if (data.type === "delta" && data.text) { const delta = data.text; setMessages(current => { const last = current[current.length - 1]; if (last?.id === streamingId) return [...current.slice(0, -1), { ...last, content: last.content + delta }]; return [...current, { id: streamingId, role: "ASSISTANT", content: delta }]; }); }
+        if (data.type === "done") { setRedFlags(data.red_flags || []); setSuggestedAction(data.suggested_action || ""); }
+        if (data.type === "error") throw new Error(data.message || "Chat service unavailable");
+      };
+      while (true) { const chunk = await reader.read(); if (chunk.done) break; buffer += decoder.decode(chunk.value, { stream: true }); const events = buffer.split(/\r?\n\r?\n/); buffer = events.pop() || ""; events.forEach(processEvent); }
+      if (buffer.trim()) processEvent(buffer);
     } catch (e: any) {
+      setMessages(current => current.filter(message => message.id !== streamingId));
       setText(content);
-      setError(e.response?.data?.error || "উত্তর পাওয়া যায়নি। আবার চেষ্টা করুন।");
+      setError(e.message || e.response?.data?.error || "উত্তর পাওয়া যায়নি। আবার চেষ্টা করুন।");
     } finally { setBusy(false); }
   };
 
