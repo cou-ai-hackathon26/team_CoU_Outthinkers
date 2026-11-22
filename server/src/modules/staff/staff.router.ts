@@ -68,4 +68,22 @@ router.get("/patients/search", async (request, response) => {
   });
 });
 
+router.get("/patients/:patientId/care-summary", async (request, response) => {
+  const patient = await prisma.user.findFirst({
+    where: { publicId: request.params.patientId, role: "PATIENT", status: "ACTIVE" },
+    select: {
+      publicId: true, email: true, phone: true,
+      patientProfile: { select: { name: true, contactNumber: true, emergencyContactNumber: true, address: true, division: { select: { nameBn: true } }, district: { select: { nameBn: true } }, upazila: { select: { nameBn: true } } } },
+      pregnancyCases: { orderBy: { createdAt: "desc" }, select: {
+        id: true, caseCode: true, status: true, createdAt: true, expectedDeliveryDate: true,
+        careEvents: { orderBy: { occurredAt: "desc" }, select: { id: true, eventType: true, sourceType: true, verificationStatus: true, summary: true, occurredAt: true } },
+        followUpTasks: { orderBy: { createdAt: "desc" }, select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true } },
+        safetyAlerts: { orderBy: { createdAt: "desc" }, select: { id: true, severity: true, title: true, reason: true, status: true, createdAt: true } },
+      } },
+    },
+  });
+  if (!patient) { response.status(404).json({ error: "Patient খুঁজে পাওয়া যায়নি।" }); return; }
+  response.json({ data: patient });
+});
+
 export default router;
