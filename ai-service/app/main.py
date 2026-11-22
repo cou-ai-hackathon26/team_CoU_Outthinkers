@@ -156,7 +156,7 @@ class ExtractedIntake(BaseModel):
 
 
 def fallback_extract(transcript: str) -> ExtractedIntake:
-    """Keep the intake reviewable when the optional local LLM is offline."""
+    """Keep the intake reviewable when the configured extraction provider is unavailable."""
     symptom_terms = [
         "রক্তপাত", "রক্ত যাচ্ছে", "পেট ব্যথা", "মাথাব্যথা", "জ্বর",
         "শ্বাসকষ্ট", "খিঁচুনি", "অজ্ঞান", "নড়াচড়া কম", "ব্যথা",
@@ -168,7 +168,7 @@ def fallback_extract(transcript: str) -> ExtractedIntake:
     return ExtractedIntake(
         reported_symptoms=reported_symptoms,
         observations=observations,
-        uncertain_fields=["স্থানীয় AI model চালু ছিল না; স্বাস্থ্যকর্মী transcript নিজে যাচাই করবেন"],
+        uncertain_fields=["AI summary তৈরি করা যায়নি; স্বাস্থ্যকর্মী transcript নিজে যাচাই করবেন"],
     )
 
 
@@ -340,7 +340,11 @@ Original note:
                         },
                     },
                 )
-                response.raise_for_status()
+                if response.is_error:
+                    detail = response.text[:500].replace("\n", " ")
+                    raise RuntimeError(
+                        f"Gemini HTTP {response.status_code}: {detail}"
+                    )
                 result = response.json()
                 parts = result.get("candidates", [{}])[0].get("content", {}).get("parts", [])
                 response_text = "".join(part.get("text", "") for part in parts).strip()
@@ -365,5 +369,8 @@ Original note:
         return ExtractedIntake.model_validate(json.loads(response_text))
 
     except Exception as exc:
-        print(f"{AI_EXTRACTION_PROVIDER.title()} extraction error; using safe fallback: {exc}")
+        print(
+            f"{AI_EXTRACTION_PROVIDER.title()} extraction error; using safe fallback: "
+            f"{type(exc).__name__}: {exc}"
+        )
         return fallback_extract(request.transcript)
