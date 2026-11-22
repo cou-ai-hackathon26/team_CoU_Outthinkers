@@ -3,6 +3,7 @@ import axios from "axios";
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { suggestSafetyAlerts } from "./safety-alert-suggestions";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -57,23 +58,18 @@ router.post("/care-intakes", async (request, response) => {
     return;
   }
 
-  const caseCode = `MC-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
   const created = await prisma.$transaction(async (transaction) => {
-    const pregnancyCase = await transaction.pregnancyCase.create({
-      data: {
-        patientUserId: patient.id,
-        caseCode,
-        assignedStaffId: auth.userId,
-        createdByUserId: auth.userId,
-        lastMenstrualPeriod,
-        expectedDeliveryDate,
-        gravida,
-        para,
-        careEvents: { create: { eventType: "INITIAL_INTAKE", sourceType: "MANUAL", verificationStatus: "CONFIRMED", summary, createdByUserId: auth.userId } },
-      },
+    const existingCase = await transaction.pregnancyCase.findFirst({ where: { patientUserId: patient.id, status: "ACTIVE" }, select: { id: true, caseCode: true } });
+    const pregnancyCase = existingCase || await transaction.pregnancyCase.create({
+      data: { patientUserId: patient.id, caseCode: `MC-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`, assignedStaffId: auth.userId, createdByUserId: auth.userId, lastMenstrualPeriod, expectedDeliveryDate, gravida, para },
       select: { id: true, caseCode: true },
     });
-    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "CARE_INTAKE_CREATED", targetType: "PregnancyCase", targetId: pregnancyCase.id, metadata: { patientId, caseCode } } });
+    const careEvent = await transaction.careEvent.create({ data: { pregnancyCaseId: pregnancyCase.id, eventType: "INITIAL_INTAKE", sourceType: "MANUAL", verificationStatus: "CONFIRMED", summary, createdByUserId: auth.userId }, select: { id: true } });
+    for (const suggestion of suggestSafetyAlerts(summary, { observations: [summary] })) {
+      const alert = await transaction.safetyAlert.create({ data: { pregnancyCaseId: pregnancyCase.id, careEventId: careEvent.id, severity: suggestion.severity, title: suggestion.title, reason: suggestion.reason, sourceFacts: { rule: suggestion.code, matchedPhrases: suggestion.matchedPhrases, source: "verified_manual_intake" } }, select: { id: true } });
+      await transaction.auditLog.create({ data: { actorType: "SYSTEM", action: "SAFETY_ALERT_SUGGESTED", targetType: "SafetyAlert", targetId: alert.id, metadata: { caseCode: pregnancyCase.caseCode, rule: suggestion.code } } });
+    }
+    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "CARE_INTAKE_CREATED", targetType: "PregnancyCase", targetId: pregnancyCase.id, metadata: { patientId, caseCode: pregnancyCase.caseCode } } });
     return pregnancyCase;
   });
 
