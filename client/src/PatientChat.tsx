@@ -41,6 +41,7 @@ export default function PatientChat() {
     setBusy(true); setError(""); setText("");
     setMessages(current => [...current, { role: "USER", content }]);
     const streamingId = `streaming-${Date.now()}`;
+    setMessages(current => [...current, { id: streamingId, role: "ASSISTANT", content: "ভাবছি…" }]);
     try {
       const token = localStorage.getItem("maternacare_token");
       const baseUrl = import.meta.env.VITE_API_BASE_URL || "/api";
@@ -49,16 +50,17 @@ export default function PatientChat() {
       const reader = result.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
-      const processEvent = (event: string) => {
+      let rendered = "";
+      const processEvent = async (event: string) => {
         const line = event.split(/\r?\n/).find(item => item.startsWith("data:"));
         if (!line) return;
         const data = JSON.parse(line.slice(5).trim()) as { type: string; text?: string; urgency?: string; red_flags?: string[]; suggested_action?: string; message?: string };
-        if (data.type === "delta" && data.text) { const delta = data.text; setMessages(current => { const last = current[current.length - 1]; if (last?.id === streamingId) return [...current.slice(0, -1), { ...last, content: last.content + delta }]; return [...current, { id: streamingId, role: "ASSISTANT", content: delta }]; }); }
+        if (data.type === "delta" && data.text) { for (const character of data.text) { rendered += character; setMessages(current => current.map(message => message.id === streamingId ? { ...message, content: rendered } : message)); await new Promise(resolve => window.setTimeout(resolve, 12)); } }
         if (data.type === "done") { setRedFlags(data.red_flags || []); setSuggestedAction(data.suggested_action || ""); }
         if (data.type === "error") throw new Error(data.message || "Chat service unavailable");
       };
-      while (true) { const chunk = await reader.read(); if (chunk.done) break; buffer += decoder.decode(chunk.value, { stream: true }); const events = buffer.split(/\r?\n\r?\n/); buffer = events.pop() || ""; events.forEach(processEvent); }
-      if (buffer.trim()) processEvent(buffer);
+      while (true) { const chunk = await reader.read(); if (chunk.done) break; buffer += decoder.decode(chunk.value, { stream: true }); const events = buffer.split(/\r?\n\r?\n/); buffer = events.pop() || ""; for (const event of events) await processEvent(event); }
+      if (buffer.trim()) await processEvent(buffer);
     } catch (e: any) {
       setMessages(current => current.filter(message => message.id !== streamingId));
       setText(content);
