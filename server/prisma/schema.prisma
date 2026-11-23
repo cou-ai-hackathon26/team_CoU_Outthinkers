@@ -125,6 +125,13 @@ enum ChatMessageRole {
   SYSTEM
 }
 
+enum FacilityStatus {
+  DRAFT
+  VERIFIED
+  REJECTED
+  DEACTIVATED
+}
+
 model User {
   id           String     @id @default(cuid())
   role         UserRole
@@ -156,6 +163,7 @@ model User {
   referralEvents         ReferralEvent[]        @relation("ReferralEventActors")
   confirmedFields        ExtractedField[]       @relation("ConfirmedExtractedFields")
   acknowledgedAlerts     SafetyAlert[]          @relation("AcknowledgedSafetyAlerts")
+  verifiedFacilities     Facility[]             @relation("FacilityVerifiers")
   patientIntakeRequests  PatientIntakeRequest[] @relation("PatientIntakeRequests")
   reviewedIntakeRequests PatientIntakeRequest[] @relation("ReviewedIntakeRequests")
   chatSessions           ChatSession[]          @relation("PatientChatSessions")
@@ -628,4 +636,32 @@ model ChatMessage {
 
   @@index([sessionId, createdAt])
   @@map("chat_messages")
+}
+
+model Facility {
+  id                 String         @id @default(cuid())
+  nameBn             String         @map("name_bn")
+  nameEn             String?        @map("name_en")
+  addressBn          String         @map("address_bn")
+  addressEn          String?        @map("address_en")
+  phone              String?
+  latitude           Float
+  longitude          Float
+  services           Json
+  operatingHours     Json?          @map("operating_hours")
+  dataOwner          String         @map("data_owner")
+  source             String         @default("CURATED")
+  googlePlaceId      String?        @unique @map("google_place_id")
+  status             FacilityStatus @default(DRAFT)
+  verifiedAt         DateTime?      @map("verified_at")
+  verifiedById       String?        @map("verified_by_id")
+  verificationNotes  String?        @map("verification_notes")
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @updatedAt @map("updated_at")
+
+  verifiedBy User? @relation("FacilityVerifiers", fields: [verifiedById], references: [id], onDelete: SetNull)
+
+  @@index([status, latitude, longitude])
+  @@index([dataOwner, status])
+  @@map("facilities")
 }

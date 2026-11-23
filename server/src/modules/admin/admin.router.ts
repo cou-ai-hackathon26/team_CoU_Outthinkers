@@ -7,11 +7,13 @@ import { requireAuth, requireRole } from "../auth/auth-token";
 import { allocatePublicId } from "../auth/id-counter";
 import adminOverviewRouter from "./admin-overview";
 import supervisionRouter from "./supervision.router";
+import facilitiesRouter from "./facilities.router";
 
 const router = Router();
 router.use(adminOverviewRouter);
 router.use(supervisionRouter);
 router.use(requireAuth, requireRole("ADMIN"));
+router.use(facilitiesRouter);
 
 function clean(value: unknown) {
   return String(value || "").trim();
