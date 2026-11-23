@@ -5,6 +5,7 @@ from typing import AsyncIterator
 
 from app.config import (
     AI_EXTRACTION_PROVIDER,
+    AI_CHATBOT_TEST_MODE,
     ASR_CPU_THREADS,
     ASR_MODEL,
     DEEPSEEK_API_KEY,
@@ -31,6 +32,7 @@ async def lifespan(app) -> AsyncIterator[None]:
         print(f"DeepSeek extraction configured: {DEEPSEEK_MODEL} ({state})")
     else:
         print(f"Ollama extraction configured: {OLLAMA_URL} / {OLLAMA_MODEL}")
+    print(f"Chatbot test mode: {'ENABLED' if AI_CHATBOT_TEST_MODE else 'disabled'}")
 
     app.state.processor = AutoProcessor.from_pretrained(ASR_MODEL)
     app.state.asr_model = AutoModelForSpeechSeq2Seq.from_pretrained(
