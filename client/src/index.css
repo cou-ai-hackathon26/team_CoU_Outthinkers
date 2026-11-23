@@ -84,6 +84,28 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* Facility verification workspace */
 .facility-admin { max-width: 1020px; }
+.facility-workflow-guide { margin-bottom: 20px; padding: 22px; border: 1px solid #cfe8df; border-radius: var(--mc-radius-md); background: linear-gradient(135deg, #f0fbf7, #ffffff); box-shadow: var(--mc-shadow-sm); }
+.facility-workflow-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.facility-workflow-title h2, .facility-form-shell-head h2 { margin: 3px 0 0; color: var(--mc-primary-950); font-size: 20px; font-weight: 850; }
+.facility-workflow-title p { margin: 6px 0 0; color: var(--mc-muted); font-size: 12px; }
+.facility-workflow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+.facility-workflow-steps > div { display: grid; gap: 4px; padding: 12px; border: 1px solid #dcefe9; border-radius: 12px; background: rgba(255,255,255,.72); }
+.facility-workflow-steps strong { color: var(--mc-primary-800); font-size: 11px; }
+.facility-workflow-steps small { color: var(--mc-muted); font-size: 10px; line-height: 1.4; }
+.facility-form-shell { margin-bottom: 22px; padding: 20px; border: 1px solid var(--mc-border); border-radius: var(--mc-radius-md); background: var(--mc-surface); box-shadow: var(--mc-shadow-sm); }
+.facility-form-shell-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.facility-count-card { display: grid; grid-template-columns: auto auto; align-items: center; column-gap: 7px; padding: 10px 14px; border: 1px solid #cfe8df; border-radius: 12px; color: var(--mc-primary-700); background: var(--mc-primary-50); }
+.facility-count-card strong { font-size: 20px; line-height: 1; }
+.facility-count-card span { grid-column: 2; color: var(--mc-muted); font-size: 10px; }
+.facility-status-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 15px; }
+.facility-status-tabs button { padding: 8px 12px; border: 1px solid var(--mc-border); border-radius: 999px; color: var(--mc-muted); background: #fff; font-size: 11px; font-weight: 750; cursor: pointer; }
+.facility-status-tabs button.active { border-color: var(--mc-primary-500); color: var(--mc-primary-800); background: var(--mc-primary-50); }
+.loading-card { display: grid; justify-items: center; gap: 8px; padding: 34px 18px; text-align: center; }
+.loading-card strong { color: var(--mc-primary-950); font-size: 14px; }
+.loading-card span { color: var(--mc-muted); font-size: 11px; }
+.loading-card .secondary-action { margin-top: 5px; }
+@media(max-width:700px) { .facility-workflow-title { display: grid; } .facility-workflow-steps { grid-template-columns: 1fr 1fr; } }
+@media(max-width:450px) { .facility-workflow-steps { grid-template-columns: 1fr; } }
 .facility-editor { margin-bottom: 20px; padding: 20px; border: 1px solid var(--mc-border); border-radius: var(--mc-radius-md); background: var(--mc-surface); box-shadow: var(--mc-shadow-sm); }
 .facility-editor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .facility-editor-head h2 { margin: 0; color: var(--mc-primary-950); font-size: 17px; }
