@@ -34,11 +34,12 @@ function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
 
 router.get("/nearby", async (request, response) => {
   const latitude = Number(request.query.latitude); const longitude = Number(request.query.longitude);
-  const radius = Math.min(Math.max(Number(request.query.radius) || 10000, 500), 50000);
+  const radius = Math.min(Math.max(Number(request.query.radius) || 10000, 500), 50000); const requiredService = String(request.query.requiredService || "").trim();
   if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) { response.status(400).json({ error: "সঠিক location দিন।" }); return; }
 
   const span = radius / 111000;
-  const curated = await prisma.facility.findMany({ where: { status: "VERIFIED", latitude: { gte: latitude - span, lte: latitude + span }, longitude: { gte: longitude - span, lte: longitude + span } }, orderBy: { nameBn: "asc" }, take: 50 });
+  const curatedCandidates = await prisma.facility.findMany({ where: { status: "VERIFIED", latitude: { gte: latitude - span, lte: latitude + span }, longitude: { gte: longitude - span, lte: longitude + span } }, orderBy: { nameBn: "asc" }, take: 50 });
+  const curated = requiredService ? curatedCandidates.filter(item => Boolean((item.services as Record<string, unknown>)?.[requiredService])) : curatedCandidates;
   const trusted = curated.map(item => ({ id: item.id, name: item.nameBn, address: item.addressBn, phone: item.phone, latitude: item.latitude, longitude: item.longitude, distanceKm: Number(distanceKm(latitude, longitude, item.latitude, item.longitude).toFixed(2)), services: item.services, source: "CURATED", trusted: true, verifiedAt: item.verifiedAt, googleMapsUri: item.googlePlaceId ? `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${encodeURIComponent(item.googlePlaceId)}` : null })).filter(item => item.distanceKm * 1000 <= radius).sort((a, b) => a.distanceKm - b.distanceKm);
 
   const key = process.env.GOOGLE_MAPS_SERVER_API_KEY;
