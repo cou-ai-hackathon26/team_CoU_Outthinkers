@@ -140,6 +140,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .review-panel, .admin-list-panel, .request-card { box-shadow: none; break-inside: avoid; }
 }
 
+/* Final visual tuning */
+:root { --mc-content-width: 1160px; }
+body { line-height: 1.55; }
+.page-container { max-width: var(--mc-content-width); }
+.page-header h1 { letter-spacing: -.025em; line-height: 1.22; }
+.page-header p { max-width: 660px; }
+.stats-grid { margin-bottom: 28px; }
+.stat-card { min-height: 88px; }
+.primary-action, .secondary-action { min-height: 44px; }
+.secondary-action { border: 1px solid transparent; }
+.secondary-action:hover { border-color: #b9ded3; background: #e0f5ed; }
+.empty-card, .info-panel, .profile-panel, .voice-card, .review-panel, .admin-list-panel { border-color: #d7e8e2; }
+.app-footer { padding-top: 38px; }
+@media(min-width:801px) and (max-width:1100px) {
+  .nav-inner { padding-inline: 20px; }
+  .nav-links a, .nav-logout { padding-inline: 9px; font-size: 11px; }
+  .page-container { padding-inline: 20px; }
+}
+@media(max-width:800px) {
+  .page-header h1 { letter-spacing: -.015em; }
+  .stats-grid { gap: 10px; margin-bottom: 20px; }
+  .stat-card { min-height: 76px; padding: 14px; }
+  .app-footer { padding-top: 28px; }
+}
+
 /* Reusable interaction primitives */
 .section-heading { margin-bottom: 14px; }
 .section-heading h2 { color: var(--mc-primary-950); font-weight: 800; }
