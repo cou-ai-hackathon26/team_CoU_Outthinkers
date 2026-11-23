@@ -124,6 +124,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .facility-suggestion small { margin-top: 2px; color: var(--mc-muted); font-size: 10px; }
 .facility-suggestion em { margin-top: 3px; color: var(--mc-success); font-size: 9px; font-style: normal; font-weight: 800; }
 .facility-suggestion.unverified em { color: var(--mc-warning); }
+.selected-facility-card { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; padding: 11px; border: 1px solid #bfe4d7; border-radius: 11px; background: var(--mc-primary-50); }
+.selected-facility-card strong, .selected-facility-card small { display: block; }
+.selected-facility-card strong { margin-top: 5px; color: var(--mc-primary-950); font-size: 12px; }
+.selected-facility-card small { margin-top: 3px; color: var(--mc-muted); font-size: 10px; }
+.selected-facility-card button { border: 0; color: var(--mc-primary-700); background: transparent; font-size: 10px; font-weight: 800; cursor: pointer; }
 .route-time-button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; margin-top: 7px; padding: 7px 10px; border: 1px solid #bfe4d7; border-radius: 9px; color: var(--mc-primary-800); background: var(--mc-primary-50); font: inherit; font-size: 10px; font-weight: 800; cursor: pointer; }
 .route-time-button:hover:not(:disabled) { border-color: var(--mc-primary-600); background: var(--mc-primary-100); }
 .route-time-button:disabled { cursor: wait; opacity: .62; }
