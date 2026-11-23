@@ -117,6 +117,29 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .chat-composer textarea { min-height: 62px; border-radius: var(--mc-radius-md); }
 @media(max-width:600px) { .chat-shell { padding: 18px; } .chat-messages { min-height: 260px; } }
 
+/* Responsive and accessibility pass */
+@media(max-width:480px) {
+  .brand-logo { font-size: 17px; }
+  .page-header h1 { font-size: 28px; line-height: 1.25; }
+  .page-header p { font-size: 13px; }
+  .primary-action, .secondary-action, .record-action, .search-bar button, .complete-button, .danger-action { min-height: 44px; }
+  .search-bar { align-items: stretch; padding: 6px; }
+  .search-bar button { padding-inline: 13px; }
+  .detail-grid, .profile-grid { gap: 16px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media(forced-colors: active) {
+  .primary-action, .record-action, .full-button { forced-color-adjust: none; color: ButtonText; background: ButtonFace; border: 1px solid ButtonText; }
+}
+@media print {
+  .app-navbar, .app-footer, .mobile-menu, .nav-logout, button { display: none !important; }
+  .page-container { max-width: none; padding: 0; }
+  .role-app { background: #fff; }
+  .review-panel, .admin-list-panel, .request-card { box-shadow: none; break-inside: avoid; }
+}
+
 /* Reusable interaction primitives */
 .section-heading { margin-bottom: 14px; }
 .section-heading h2 { color: var(--mc-primary-950); font-weight: 800; }
