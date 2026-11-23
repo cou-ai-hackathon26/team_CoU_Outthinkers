@@ -6,9 +6,11 @@ import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { allocatePublicId } from "../auth/id-counter";
 import adminOverviewRouter from "./admin-overview";
+import supervisionRouter from "./supervision.router";
 
 const router = Router();
 router.use(adminOverviewRouter);
+router.use(supervisionRouter);
 router.use(requireAuth, requireRole("ADMIN"));
 
 function clean(value: unknown) {
