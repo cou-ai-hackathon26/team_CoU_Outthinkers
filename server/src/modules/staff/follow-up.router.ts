@@ -10,8 +10,25 @@ router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 router.get("/follow-up-tasks", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);
-  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, explanation: true, sourceFacts: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, rule: { select: { code: true, name: true } }, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
+  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, explanation: true, sourceFacts: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, rule: { select: { code: true, name: true } }, contactAttempts: { orderBy: { attemptedAt: "desc" }, take: 10, select: { id: true, method: true, result: true, notes: true, nextAction: true, attemptedAt: true } }, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
   response.json({ data: tasks.map(task => ({ ...task, patientId: task.patientUser.publicId, patientName: task.patientUser.patientProfile?.name || "নাম নেই" })) });
+});
+
+router.post("/follow-up-tasks/:id/contact-attempts", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const method = String(request.body?.method || "").trim();
+  const result = String(request.body?.result || "").trim();
+  const notes = String(request.body?.notes || "").trim() || null;
+  const nextAction = String(request.body?.nextAction || "").trim() || null;
+  if (!method || !result) { response.status(400).json({ error: "যোগাযোগের মাধ্যম এবং ফলাফল দিন।" }); return; }
+  const task = await prisma.followUpTask.findFirst({ where: { id: request.params.id, assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, select: { id: true } });
+  if (!task) { response.status(404).json({ error: "Follow-up task খুঁজে পাওয়া যায়নি।" }); return; }
+  const attempt = await prisma.$transaction(async transaction => {
+    const created = await transaction.contactAttempt.create({ data: { taskId: task.id, performedById: auth.userId, method, result, notes, nextAction }, select: { id: true, method: true, result: true, notes: true, nextAction: true, attemptedAt: true } });
+    await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "FOLLOW_UP_CONTACT_ATTEMPT_RECORDED", targetType: "FollowUpTask", targetId: task.id, metadata: { contactAttemptId: created.id, method, result } } });
+    return created;
+  });
+  response.status(201).json({ data: attempt });
 });
 
 router.post("/patients/:patientId/care-gaps/evaluate", async (request, response) => {

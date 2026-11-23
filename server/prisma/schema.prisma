@@ -147,6 +147,7 @@ model User {
   createdEvents          CareEvent[]            @relation("CreatedCareEvents")
   assignedTasks          FollowUpTask[]         @relation("AssignedFollowUpTasks")
   completedTasks         FollowUpTask[]         @relation("CompletedFollowUpTasks")
+  contactAttempts        ContactAttempt[]       @relation("ContactAttemptActors")
   patientTasks           FollowUpTask[]         @relation("PatientFollowUpTasks")
   createdCareGapRules    CareGapRule[]          @relation("CreatedCareGapRules")
   updatedCareGapRules    CareGapRule[]          @relation("UpdatedCareGapRules")
@@ -456,17 +457,37 @@ model FollowUpTask {
   createdAt       DateTime     @default(now()) @map("created_at")
   updatedAt       DateTime     @updatedAt @map("updated_at")
 
-  patientUser   User           @relation("PatientFollowUpTasks", fields: [patientUserId], references: [id], onDelete: Restrict)
-  pregnancyCase PregnancyCase? @relation(fields: [pregnancyCaseId], references: [id], onDelete: SetNull)
-  sourceEvent   CareEvent?     @relation(fields: [sourceEventId], references: [id], onDelete: SetNull)
-  rule          CareGapRule?   @relation(fields: [ruleId], references: [id], onDelete: SetNull)
-  assignedStaff User?          @relation("AssignedFollowUpTasks", fields: [assignedStaffId], references: [id], onDelete: SetNull)
-  completedBy   User?          @relation("CompletedFollowUpTasks", fields: [completedById], references: [id], onDelete: SetNull)
+  patientUser     User             @relation("PatientFollowUpTasks", fields: [patientUserId], references: [id], onDelete: Restrict)
+  pregnancyCase   PregnancyCase?   @relation(fields: [pregnancyCaseId], references: [id], onDelete: SetNull)
+  sourceEvent     CareEvent?       @relation(fields: [sourceEventId], references: [id], onDelete: SetNull)
+  rule            CareGapRule?     @relation(fields: [ruleId], references: [id], onDelete: SetNull)
+  assignedStaff   User?            @relation("AssignedFollowUpTasks", fields: [assignedStaffId], references: [id], onDelete: SetNull)
+  completedBy     User?            @relation("CompletedFollowUpTasks", fields: [completedById], references: [id], onDelete: SetNull)
+  contactAttempts ContactAttempt[]
 
   @@index([assignedStaffId, status, dueAt])
   @@index([patientUserId, status])
   @@index([ruleId, status, dueAt])
   @@map("follow_up_tasks")
+}
+
+model ContactAttempt {
+  id            String   @id @default(cuid())
+  taskId        String   @map("task_id")
+  performedById String   @map("performed_by_id")
+  method        String
+  result        String
+  notes         String?
+  nextAction    String?  @map("next_action")
+  attemptedAt   DateTime @default(now()) @map("attempted_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  task        FollowUpTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  performedBy User         @relation("ContactAttemptActors", fields: [performedById], references: [id], onDelete: Restrict)
+
+  @@index([taskId, attemptedAt])
+  @@index([performedById, attemptedAt])
+  @@map("contact_attempts")
 }
 
 model CareGapRule {
