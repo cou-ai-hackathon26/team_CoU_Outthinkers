@@ -87,7 +87,9 @@ def _retrieve_with_embeddings(query: str, chunks: list[KnowledgeChunk], limit: i
     global _embedding_model, _embedding_vectors, _embedding_chunks
     try:
         if _embedding_model is None:
-            _embedding_model = SentenceTransformer(KNOWLEDGE_EMBEDDING_MODEL)
+            # The model is provisioned in the local Hugging Face cache. Avoid
+            # network retries during patient requests when the machine is offline.
+            _embedding_model = SentenceTransformer(KNOWLEDGE_EMBEDDING_MODEL, local_files_only=True)
         if _embedding_chunks != tuple(chunks):
             _embedding_vectors = _embedding_model.encode([chunk.text for chunk in chunks], normalize_embeddings=True)
             _embedding_chunks = tuple(chunks)

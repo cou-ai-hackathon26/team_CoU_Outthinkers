@@ -1,4 +1,6 @@
 import unittest
+import json
+from pathlib import Path
 
 from app.schemas.chatbot import ChatResponse
 from app.services.diet_service import extract_diet_profile, missing_diet_questions
@@ -86,8 +88,12 @@ class MedicalAssistantRulesTest(unittest.TestCase):
         self.assertIn("জ্বর", flags)
         self.assertIn("শিশুর নড়াচড়া কম", flags)
 
-    def test_unapproved_knowledge_is_not_retrieved(self):
-        self.assertEqual(retrieve_guidance("গর্ভাবস্থায় পুষ্টিকর খাবার"), [])
+    def test_retrieval_returns_only_approved_knowledge(self):
+        manifest = json.loads((Path(__file__).parents[1] / "knowledge" / "sources_manifest.json").read_text(encoding="utf-8"))
+        approved = {item.get("url") for item in manifest["documents"] if item.get("review_status") == "APPROVED"}
+        results = retrieve_guidance("গর্ভাবস্থায় পুষ্টিকর খাবার")
+        self.assertTrue(results)
+        self.assertTrue(all(result.source in approved for result in results))
 
 
 if __name__ == "__main__":

@@ -48,7 +48,7 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
         return StreamingResponse(emergency_events(), media_type="text/event-stream")
 
-    if re.search(r"আপনি কে|আপনার পরিচয়|আপনার পরিচয়|who are you", latest_message, re.IGNORECASE):
+    if re.search(r"আপনি.*(?:কে|পরিচয়|পরিচয়)|আপনার পরিচয়|আপনার পরিচয়|who are you|what are you", latest_message, re.IGNORECASE):
         answer = "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।"
 
         async def identity_events():
