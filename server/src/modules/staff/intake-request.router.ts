@@ -6,6 +6,7 @@ import { requireAuth, requireRole } from "../auth/auth-token";
 import { suggestSafetyAlerts } from "./safety-alert-suggestions";
 import { getStaffScope } from "./staff-scope";
 import { aiServiceHeaders } from "../../lib/ai-client";
+import { evaluateCareGaps } from "../workflow/care-gap.service";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -114,6 +115,10 @@ router.patch("/intake-requests/:id/review", async (request, response) => {
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `PATIENT_INTAKE_${status}`, targetType: "PatientIntakeRequest", targetId: intake.id, metadata: { previousStatus: existing.status, caseCode: pregnancyCase?.caseCode || null } } });
     return { ...intake, pregnancyCase };
   });
+  if (status === "VERIFIED") {
+    try { await evaluateCareGaps(existing.patientUserId, auth.userId); }
+    catch (error) { console.error("Care-gap evaluation after intake verification failed", error); }
+  }
   response.json({ message: status === "VERIFIED" ? "Intake যাচাই করে সংরক্ষণ করা হয়েছে।" : status === "REJECTED" ? "Intake বাতিল করা হয়েছে।" : "Intake আবার review queue-তে পাঠানো হয়েছে।", data: updated });
 });
 
