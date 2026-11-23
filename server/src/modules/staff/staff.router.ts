@@ -5,12 +5,14 @@ import intakeRequestRouter from "./intake-request.router";
 import careIntakeRouter from "./care-intake.router";
 import followUpRouter from "./follow-up.router";
 import { getStaffScope } from "./staff-scope";
+import referralRouter from "./referral.router";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 router.use(intakeRequestRouter);
 router.use(careIntakeRouter);
 router.use(followUpRouter);
+router.use(referralRouter);
 
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
