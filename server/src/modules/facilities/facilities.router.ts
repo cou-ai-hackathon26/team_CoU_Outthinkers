@@ -6,6 +6,25 @@ import { requireAuth, requireRole } from "../auth/auth-token";
 const router = Router();
 router.use(requireAuth, requireRole("PATIENT", "NURSE", "ADMIN"));
 
+router.get("/location-for-me", async (_request, response) => {
+  const auth = response.locals.auth as { userId: string; role: "PATIENT" | "NURSE" | "ADMIN" };
+  const key = process.env.GOOGLE_MAPS_SERVER_API_KEY;
+  if (!key) { response.status(503).json({ error: "Google location service configured নয়।" }); return; }
+  const user = await prisma.user.findUnique({ where: { id: auth.userId }, select: { patientProfile: { select: { upazila: { select: { nameBn: true, nameEn: true }, }, district: { select: { nameBn: true, nameEn: true } } } }, staffProfile: { select: { upazila: { select: { nameBn: true, nameEn: true } }, district: { select: { nameBn: true, nameEn: true } } } } } });
+  const profile = auth.role === "PATIENT" ? user?.patientProfile : user?.staffProfile;
+  if (!profile) { response.status(404).json({ error: "আপনার registered এলাকা পাওয়া যায়নি।" }); return; }
+  const query = `${profile.upazila.nameEn}, ${profile.district.nameEn}, Bangladesh`;
+  try {
+    const result = await axios.post("https://places.googleapis.com/v1/places:searchText", { textQuery: query, maxResultCount: 1, languageCode: "bn", regionCode: "BD" }, { timeout: 8000, headers: { "Content-Type": "application/json", "X-Goog-Api-Key": key, "X-Goog-FieldMask": "places.location,places.formattedAddress" } });
+    const place = result.data?.places?.[0];
+    if (!place?.location) { response.status(404).json({ error: "আপনার এলাকার আনুমানিক location পাওয়া যায়নি।" }); return; }
+    response.json({ data: { latitude: place.location.latitude, longitude: place.location.longitude, label: `${profile.upazila.nameBn}, ${profile.district.nameBn}`, address: place.formattedAddress || query, approximate: true } });
+  } catch (error: any) {
+    console.error("Registered area location lookup failed", error.response?.data || error.message);
+    response.status(502).json({ error: "আপনার এলাকার location খুঁজে পাওয়া যায়নি।" });
+  }
+});
+
 function distanceKm(aLat: number, aLng: number, bLat: number, bLng: number) {
   const radians = (value: number) => value * Math.PI / 180;
   const dLat = radians(bLat - aLat); const dLng = radians(bLng - aLng);
