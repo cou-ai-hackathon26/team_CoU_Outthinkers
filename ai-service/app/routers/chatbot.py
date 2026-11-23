@@ -102,6 +102,11 @@ async def chat_stream(request: Request, payload: ChatRequest):
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': '', 'sources': source_urls, 'intent': intent.name, 'requires_nurse_review': False}, ensure_ascii=False)}\n\n"
         except Exception as exc:
             print(f"Chat stream failed: {type(exc).__name__}: {exc}")
-            yield f"data: {json.dumps({'type': 'error', 'message': 'Chat service is temporarily unavailable'}, ensure_ascii=False)}\n\n"
+            raw_error = str(exc).lower()
+            if "429" in raw_error or "quota" in raw_error or "rate limit" in raw_error:
+                message = "Gemini-এর আজকের বিনামূল্যের request সীমা শেষ হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন অথবা স্বাস্থ্যকর্মীর কাছে care request পাঠান।"
+            else:
+                message = "AI সহায়তা সাময়িকভাবে unavailable। অনুগ্রহ করে আবার চেষ্টা করুন বা স্বাস্থ্যকর্মীর কাছে care request পাঠান।"
+            yield f"data: {json.dumps({'type': 'error', 'message': message}, ensure_ascii=False)}\n\n"
 
     return StreamingResponse(events(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
