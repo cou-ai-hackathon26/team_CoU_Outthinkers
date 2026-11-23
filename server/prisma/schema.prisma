@@ -148,6 +148,7 @@ model User {
   assignedTasks          FollowUpTask[]         @relation("AssignedFollowUpTasks")
   completedTasks         FollowUpTask[]         @relation("CompletedFollowUpTasks")
   contactAttempts        ContactAttempt[]       @relation("ContactAttemptActors")
+  notifications          Notification[]
   patientTasks           FollowUpTask[]         @relation("PatientFollowUpTasks")
   createdCareGapRules    CareGapRule[]          @relation("CreatedCareGapRules")
   updatedCareGapRules    CareGapRule[]          @relation("UpdatedCareGapRules")
@@ -488,6 +489,24 @@ model ContactAttempt {
   @@index([taskId, attemptedAt])
   @@index([performedById, attemptedAt])
   @@map("contact_attempts")
+}
+
+model Notification {
+  id         String    @id @default(cuid())
+  userId     String    @map("user_id")
+  type       String
+  title      String
+  message    String
+  targetType String?   @map("target_type")
+  targetId   String?   @map("target_id")
+  metadata   Json?
+  readAt     DateTime? @map("read_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt, createdAt])
+  @@map("notifications")
 }
 
 model CareGapRule {

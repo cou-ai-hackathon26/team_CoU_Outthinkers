@@ -14,6 +14,19 @@ router.use(careIntakeRouter);
 router.use(followUpRouter);
 router.use(referralRouter);
 
+router.get("/notifications", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const notifications = await prisma.notification.findMany({ where: { userId: auth.userId }, orderBy: { createdAt: "desc" }, take: 100 });
+  response.json({ data: notifications, unreadCount: notifications.filter(item => !item.readAt).length });
+});
+
+router.patch("/notifications/:id/read", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const updated = await prisma.notification.updateMany({ where: { id: request.params.id, userId: auth.userId, readAt: null }, data: { readAt: new Date() } });
+  if (!updated.count) { response.status(404).json({ error: "Notification পাওয়া যায়নি।" }); return; }
+  response.json({ message: "Notification পড়া হয়েছে।" });
+});
+
 router.get("/me", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);

@@ -3,6 +3,7 @@ import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { getStaffScope } from "./staff-scope";
 import { evaluateCareGaps } from "../workflow/care-gap.service";
+import { createInAppNotification } from "../workflow/notification.service";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -56,6 +57,7 @@ router.post("/follow-up-tasks", async (request, response) => {
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "FOLLOW_UP_TASK_CREATED", targetType: "FollowUpTask", targetId: created.id, metadata: { patientId, priority } } });
     return created;
   });
+  await createInAppNotification({ userId: auth.userId, type: "FOLLOW_UP_ASSIGNED", title: "নতুন follow-up task", message: `${patient.patientProfile?.name || "Patient"}-এর জন্য ${title} task তৈরি হয়েছে।`, targetType: "FollowUpTask", targetId: task.id });
   response.status(201).json({ data: { ...task, patientId, patientName: patient.patientProfile?.name || "নাম নেই" } });
 });
 

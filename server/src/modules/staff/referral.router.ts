@@ -4,6 +4,7 @@ import { requireAuth, requireRole } from "../auth/auth-token";
 import { evaluateCareGaps } from "../workflow/care-gap.service";
 import { assertReferralTransition } from "../workflow/workflow";
 import { getStaffScope } from "./staff-scope";
+import { createInAppNotification } from "../workflow/notification.service";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -39,6 +40,7 @@ router.post("/referrals", async (request, response) => {
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "REFERRAL_CREATED", targetType: "Referral", targetId: referral.id, metadata: { patientId, destinationName } } });
     return referral;
   });
+  await createInAppNotification({ userId: auth.userId, type: "REFERRAL_CREATED", title: "Referral তৈরি হয়েছে", message: `${patient.patientProfile?.name || "Patient"}-এর referral workflow শুরু হয়েছে।`, targetType: "Referral", targetId: created.id });
   response.status(201).json({ data: { ...created, patientId, patientName: patient.patientProfile?.name || "নাম নেই" } });
 });
 
@@ -58,6 +60,7 @@ router.patch("/referrals/:id/status", async (request, response) => {
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "REFERRAL_STATUS_CHANGED", targetType: "Referral", targetId: referral.id, metadata: { fromStatus: referral.status, toStatus, source } } });
     return next;
   });
+  await createInAppNotification({ userId: auth.userId, type: "REFERRAL_STATUS_CHANGED", title: "Referral status update", message: `Referral এখন ${toStatus} status-এ আছে।`, targetType: "Referral", targetId: referral.id, metadata: { fromStatus: referral.status, toStatus } });
   try { await evaluateCareGaps(referral.patientUserId, auth.userId); } catch (error) { console.error("Care-gap evaluation after referral update failed", error); }
   response.json({ data: updated });
 });
