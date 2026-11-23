@@ -54,26 +54,48 @@ async def generate_json(prompt: str, schema: dict, temperature: float, timeout: 
 
 
 async def stream_text(prompt: str, temperature: float = 0.2, timeout: float = 90) -> AsyncIterator[str]:
-    """Yield Gemini text fragments as they arrive over its SSE endpoint."""
+    """Yield Gemini fragments, falling back to normal generation if SSE fails."""
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY is not configured")
     url = f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:streamGenerateContent?alt=sse"
     payload = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": temperature}}
-    async with httpx.AsyncClient(timeout=timeout) as client:
-        async with client.stream("POST", url, headers={"x-goog-api-key": GEMINI_API_KEY}, json=payload) as response:
-            if response.is_error:
-                body = await response.aread()
-                raise RuntimeError(f"Gemini HTTP {response.status_code}: {body.decode(errors='replace')[:500]}")
-            async for line in response.aiter_lines():
-                if not line.startswith("data:"):
-                    continue
-                raw = line[5:].strip()
-                if not raw or raw == "[DONE]":
-                    continue
-                try:
-                    event = json.loads(raw)
-                except json.JSONDecodeError:
-                    continue
-                text = response_text(event)
-                if text:
-                    yield text
+    try:
+        async with httpx.AsyncClient(timeout=timeout) as client:
+            async with client.stream("POST", url, headers={"x-goog-api-key": GEMINI_API_KEY}, json=payload) as response:
+                if response.is_error:
+                    body = await response.aread()
+                    raise RuntimeError(f"Gemini stream HTTP {response.status_code}: {body.decode(errors='replace')[:500]}")
+                yielded = False
+                async for line in response.aiter_lines():
+                    if not line.startswith("data:"):
+                        continue
+                    raw = line[5:].strip()
+                    if not raw or raw == "[DONE]":
+                        continue
+                    try:
+                        event = json.loads(raw)
+                    except json.JSONDecodeError:
+                        continue
+                    text = response_text(event)
+                    if text:
+                        yielded = True
+                        yield text
+                if yielded:
+                    return
+                raise RuntimeError("Gemini stream returned no text")
+    except Exception as stream_error:
+        # Some Gemini models/accounts support generateContent more reliably than
+        # streamGenerateContent. Preserve the chat workflow and let the client
+        # animate the returned text instead of showing an unavailable error.
+        print(f"Gemini stream unavailable; using generateContent fallback: {type(stream_error).__name__}: {stream_error}")
+        async with httpx.AsyncClient(timeout=timeout) as client:
+            result = await gemini_request(
+                client,
+                f"{GEMINI_BASE_URL}/models/{GEMINI_MODEL}:generateContent",
+                payload,
+            )
+        text = response_text(result)
+        if not text:
+            raise RuntimeError("Gemini fallback returned an empty response") from stream_error
+        for start in range(0, len(text), 80):
+            yield text[start:start + 80]
