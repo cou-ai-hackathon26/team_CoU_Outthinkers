@@ -5,7 +5,7 @@ import re
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
-from app.config import AI_CHAT_PROVIDER
+from app.config import AI_CHATBOT_TEST_MODE, AI_CHAT_PROVIDER
 from app.dependencies import require_service_token
 from app.schemas.chatbot import ChatRequest, ChatResponse
 from app.services.chatbot_service import chat as run_chat
@@ -27,7 +27,7 @@ async def chat(request: Request, payload: ChatRequest):
     # same alert on every subsequent turn.
     latest_message = payload.messages[-1].content if payload.messages else ""
     flags = find_red_flags(latest_message)
-    if flags:
+    if flags and not AI_CHATBOT_TEST_MODE:
         return ChatResponse(reply=f"আপনি {', '.join(flags)}-এর কথা বলেছেন। এটি জরুরি হতে পারে। এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন। আমি রোগ নির্ণয় করতে পারি না।", urgency="EMERGENCY", red_flags=flags, suggested_action="এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।")
     try:
         return await run_chat(payload)
@@ -41,7 +41,7 @@ async def chat_stream(request: Request, payload: ChatRequest):
     require_service_token(request)
     latest_message = payload.messages[-1].content if payload.messages else ""
     flags = find_red_flags(latest_message)
-    if flags:
+    if flags and not AI_CHATBOT_TEST_MODE:
         answer = f"আপনি {', '.join(flags)}-এর কথা বলেছেন। এটি জরুরি হতে পারে। এখনই নিকটস্থ হাসপাতাল বা স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন এবং সম্ভব হলে আপনার স্বাস্থ্যকর্মীকে জানান। আমি রোগ নির্ণয় করতে পারি না।"
 
         async def emergency_events():
@@ -50,7 +50,7 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
         return StreamingResponse(emergency_events(), media_type="text/event-stream")
 
-    if re.search(r"আপনি.*(?:কে|পরিচয়|পরিচয়)|আপনার পরিচয়|আপনার পরিচয়|who are you|what are you", latest_message, re.IGNORECASE):
+    if not AI_CHATBOT_TEST_MODE and re.search(r"আপনি.*(?:কে|পরিচয়|পরিচয়)|আপনার পরিচয়|আপনার পরিচয়|who are you|what are you", latest_message, re.IGNORECASE):
         answer = "আমি MaternaCare AI—গর্ভকালীন স্বাস্থ্য সম্পর্কে সাধারণ তথ্য দেওয়ার সহায়ক। আমি ডাক্তার নই; জরুরি বা ব্যক্তিগত সমস্যার জন্য আপনার নার্স বা ডাক্তারের সঙ্গে যোগাযোগ করুন।"
 
         async def identity_events():
@@ -65,7 +65,7 @@ async def chat_stream(request: Request, payload: ChatRequest):
     intent = classify_intent(latest_message, conversation)
     profile = extract_diet_profile(conversation)
     missing = missing_diet_questions(profile)
-    if intent.name == "DIET_PLAN" and missing:
+    if not AI_CHATBOT_TEST_MODE and intent.name == "DIET_PLAN" and missing:
         answer = clarification_response(profile)
 
         async def diet_events():

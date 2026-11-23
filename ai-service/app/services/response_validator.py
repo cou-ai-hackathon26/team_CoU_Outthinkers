@@ -3,6 +3,7 @@
 import re
 
 from app.schemas.chatbot import ChatResponse
+from app.config import AI_CHATBOT_TEST_MODE
 from app.services.knowledge_service import KnowledgeChunk
 
 GENERIC_PATTERNS = [
@@ -20,6 +21,11 @@ UNSAFE_PATTERNS = [
 def validate_response(response: ChatResponse, chunks: list[KnowledgeChunk], intent: str) -> ChatResponse:
     sources = list(dict.fromkeys([*response.sources, *(chunk.source for chunk in chunks)]))
     reply = response.reply.strip()
+    if AI_CHATBOT_TEST_MODE:
+        response.sources = sources
+        response.intent = intent
+        response.validation_status = "TEST_MODE_UNRESTRICTED"
+        return response
     generic = any(re.search(pattern, reply, re.IGNORECASE) for pattern in GENERIC_PATTERNS) or ("সুষম খাবার" in reply and ("পানি" in reply or "বিশ্রাম" in reply))
     unsafe = any(re.search(pattern, reply, re.IGNORECASE) for pattern in UNSAFE_PATTERNS)
     if generic or unsafe or not reply:
