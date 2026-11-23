@@ -146,6 +146,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .emergency-facility-card p { margin: 0; color: var(--mc-muted); font-size: 11px; line-height: 1.5; }
 .emergency-facility-card small { display: block; margin-top: 4px; color: var(--mc-subtle); font-size: 10px; }
 .emergency-facility-card .primary-action { flex: none; margin: 0; padding: 9px 11px; font-size: 10px; }
+.unverified-facilities { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #e4c9c2; }
+.unverified-facilities h4 { margin: 0; color: #9a625b; font-size: 11px; }
+.unverified-facilities h4 span { margin-left: 5px; color: #b17a31; font-weight: 500; }
+.unverified-facility-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f1dfda; }
+.unverified-facility-row:last-child { border-bottom: 0; }
+.unverified-facility-row strong, .unverified-facility-row small { display: block; }
+.unverified-facility-row strong { color: var(--mc-ink); font-size: 11px; }
+.unverified-facility-row small { margin-top: 2px; color: var(--mc-subtle); font-size: 9px; }
+.unverified-facility-row a { display: inline-flex; align-items: center; gap: 3px; color: #a16053; font-size: 10px; font-weight: 800; text-decoration: none; }
 @media(max-width:600px) { .emergency-facilities-heading, .emergency-facility-card { align-items: stretch; flex-direction: column; } .emergency-facility-card .primary-action { justify-content: center; } }
 
 /* Admin workspace */
