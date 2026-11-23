@@ -40,6 +40,16 @@ router.post("/facilities", async (request: Request, response: Response) => {
   }
 });
 
+router.patch("/facilities/:id/details", async (request: Request, response: Response) => {
+  const data = facilityPayload(request.body);
+  if (!data) { response.status(400).json({ error: "Facility-এর সব তথ্য এবং সঠিক location দিন।" }); return; }
+  try {
+    const facility = await prisma.facility.update({ where: { id: String(request.params.id) }, data });
+    await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "FACILITY_UPDATED", targetType: "Facility", targetId: facility.id, metadata: { nameBn: facility.nameBn } } });
+    response.json({ data: facility });
+  } catch { response.status(404).json({ error: "Facility পাওয়া যায়নি।" }); }
+});
+
 router.patch("/facilities/:id", async (request: Request, response: Response) => {
   const id = text(request.params.id);
   const status = text(request.body?.status).toUpperCase();
