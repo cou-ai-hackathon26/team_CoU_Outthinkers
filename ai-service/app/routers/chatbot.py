@@ -85,22 +85,12 @@ async def chat_stream(request: Request, payload: ChatRequest):
     guidance = format_guidance(guidance_chunks)
     source_urls = [chunk.source for chunk in guidance_chunks]
 
-    if not guidance_chunks and intent.name not in {"GENERAL_INFORMATION", "IDENTITY"}:
-        answer = "এই প্রশ্নের জন্য clinician-approved তথ্য পাওয়া যায়নি। ভুল তথ্য না দিয়ে অনুগ্রহ করে আপনার নার্স বা ডাক্তারের সঙ্গে কথা বলুন।"
-
-        async def unavailable_events():
-            for character in answer:
-                yield f"data: {json.dumps({'type': 'delta', 'text': character}, ensure_ascii=False)}\n\n"
-            yield f"data: {json.dumps({'type': 'done', 'urgency': 'HIGH', 'red_flags': [], 'suggested_action': 'স্বাস্থ্যকর্মীর কাছে care request পাঠান।', 'sources': [], 'intent': intent.name, 'requires_nurse_review': True, 'validation_status': 'REJECTED_NO_SOURCE'}, ensure_ascii=False)}\n\n"
-
-        return StreamingResponse(unavailable_events(), media_type="text/event-stream")
-
     async def events():
         try:
             yield f"data: {json.dumps({'type': 'status', 'message': 'উত্তর তৈরি হচ্ছে…'}, ensure_ascii=False)}\n\n"
             async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name, guidance)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
-            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': '', 'sources': source_urls, 'intent': intent.name, 'requires_nurse_review': False}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': '', 'sources': source_urls, 'intent': intent.name, 'requires_nurse_review': not bool(source_urls)}, ensure_ascii=False)}\n\n"
         except Exception as exc:
             print(f"Chat stream failed: {type(exc).__name__}: {exc}")
             raw_error = str(exc).lower()
