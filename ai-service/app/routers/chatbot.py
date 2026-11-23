@@ -5,6 +5,7 @@ import re
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
+from app.config import AI_CHAT_PROVIDER
 from app.dependencies import require_service_token
 from app.schemas.chatbot import ChatRequest, ChatResponse
 from app.services.chatbot_service import chat as run_chat
@@ -103,8 +104,11 @@ async def chat_stream(request: Request, payload: ChatRequest):
         except Exception as exc:
             print(f"Chat stream failed: {type(exc).__name__}: {exc}")
             raw_error = str(exc).lower()
-            if "429" in raw_error or "quota" in raw_error or "rate limit" in raw_error:
-                message = "Gemini-এর আজকের বিনামূল্যের request সীমা শেষ হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন অথবা স্বাস্থ্যকর্মীর কাছে care request পাঠান।"
+            if "authentication failed" in raw_error or "http 401" in raw_error or "http 403" in raw_error:
+                message = "DeepSeek API key গ্রহণ করা যায়নি। server/.env-এ সঠিক DeepSeek key এবং DEEPSEEK_BASE_URL যাচাই করুন।"
+            elif "429" in raw_error or "quota" in raw_error or "rate limit" in raw_error:
+                provider_name = "DeepSeek" if AI_CHAT_PROVIDER == "deepseek" else "AI service"
+                message = f"{provider_name}-এর request সীমা বা quota সমস্যা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন অথবা স্বাস্থ্যকর্মীর কাছে care request পাঠান।"
             else:
                 message = "AI সহায়তা সাময়িকভাবে unavailable। অনুগ্রহ করে আবার চেষ্টা করুন বা স্বাস্থ্যকর্মীর কাছে care request পাঠান।"
             yield f"data: {json.dumps({'type': 'error', 'message': message}, ensure_ascii=False)}\n\n"

@@ -23,6 +23,11 @@ async def _request(client: httpx.AsyncClient, payload: dict) -> dict:
     for attempt in range(3):
         try:
             response = await client.post(f"{DEEPSEEK_BASE_URL}/chat/completions", headers=_headers(), json=payload)
+            if response.status_code in {401, 403}:
+                raise RuntimeError(
+                    f"DeepSeek authentication failed (HTTP {response.status_code}). "
+                    "Check DEEPSEEK_API_KEY and DEEPSEEK_BASE_URL."
+                )
             if response.status_code in {429, 500, 502, 503, 504}:
                 last_error = RuntimeError(f"DeepSeek HTTP {response.status_code}: {response.text[:500]}")
                 if attempt < 2:
@@ -59,6 +64,11 @@ async def stream_text(prompt: str, temperature: float = 0.2, timeout: float = 25
         async with client.stream("POST", f"{DEEPSEEK_BASE_URL}/chat/completions", headers=_headers(), json=payload) as response:
             if response.is_error:
                 body = await response.aread()
+                if response.status_code in {401, 403}:
+                    raise RuntimeError(
+                        f"DeepSeek authentication failed (HTTP {response.status_code}). "
+                        "Check DEEPSEEK_API_KEY and DEEPSEEK_BASE_URL."
+                    )
                 raise RuntimeError(f"DeepSeek stream HTTP {response.status_code}: {body.decode(errors='replace')[:500]}")
             async for line in response.aiter_lines():
                 if not line.startswith("data:"):
