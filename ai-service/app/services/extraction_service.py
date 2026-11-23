@@ -5,7 +5,7 @@ import httpx
 from app.config import AI_EXTRACTION_PROVIDER, OLLAMA_MODEL, OLLAMA_URL
 from app.prompts.extraction_prompt import build_extraction_prompt
 from app.schemas.extraction import ExtractedIntake
-from app.services.gemini_service import generate_json
+from app.services.llm_service import generate_json
 
 
 EXTRACTION_SCHEMA = {"type": "OBJECT", "properties": {field: {"type": "ARRAY", "items": {"type": "STRING"}} for field in ["reported_symptoms", "observations", "dates", "access_barriers", "uncertain_fields"]}, "required": ["reported_symptoms", "observations", "dates", "access_barriers", "uncertain_fields"]}
@@ -26,8 +26,8 @@ def fallback_extract(transcript: str) -> ExtractedIntake:
 async def extract_transcript(transcript: str) -> ExtractedIntake:
     prompt = build_extraction_prompt(transcript)
     try:
-        if AI_EXTRACTION_PROVIDER == "gemini":
-            response_text = await generate_json(prompt, EXTRACTION_SCHEMA, 0.1)
+        if AI_EXTRACTION_PROVIDER in {"gemini", "deepseek"}:
+            response_text = await generate_json(prompt, EXTRACTION_SCHEMA, 0.1, provider=AI_EXTRACTION_PROVIDER)
         elif AI_EXTRACTION_PROVIDER == "ollama":
             async with httpx.AsyncClient(timeout=120) as client:
                 response = await client.post(f"{OLLAMA_URL}/api/generate", json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": EXTRACTION_SCHEMA})

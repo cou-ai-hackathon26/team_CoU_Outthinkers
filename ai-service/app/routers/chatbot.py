@@ -9,7 +9,7 @@ from app.dependencies import require_service_token
 from app.schemas.chatbot import ChatRequest, ChatResponse
 from app.services.chatbot_service import chat as run_chat
 from app.prompts.chatbot_prompt import build_stream_chatbot_prompt
-from app.services.gemini_service import stream_text
+from app.services.llm_service import stream_text
 from app.services.safety_service import find_red_flags
 from app.services.intent_service import classify_intent
 from app.services.diet_service import clarification_response, extract_diet_profile, missing_diet_questions

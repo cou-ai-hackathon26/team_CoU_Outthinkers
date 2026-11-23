@@ -3,7 +3,7 @@ import re
 
 from app.schemas.chatbot import ChatRequest, ChatResponse
 from app.prompts.chatbot_prompt import build_chatbot_prompt
-from app.services.gemini_service import generate_json
+from app.services.llm_service import generate_json
 from app.services.intent_service import classify_intent
 from app.services.diet_service import clarification_response, extract_diet_profile, missing_diet_questions
 from app.services.knowledge_service import format_guidance, retrieve_guidance

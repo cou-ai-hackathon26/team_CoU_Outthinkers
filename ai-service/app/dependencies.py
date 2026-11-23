@@ -3,7 +3,17 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
-from app.config import AI_EXTRACTION_PROVIDER, ASR_CPU_THREADS, ASR_MODEL, GEMINI_API_KEY, GEMINI_MODEL, OLLAMA_MODEL, OLLAMA_URL
+from app.config import (
+    AI_EXTRACTION_PROVIDER,
+    ASR_CPU_THREADS,
+    ASR_MODEL,
+    DEEPSEEK_API_KEY,
+    DEEPSEEK_MODEL,
+    GEMINI_API_KEY,
+    GEMINI_MODEL,
+    OLLAMA_MODEL,
+    OLLAMA_URL,
+)
 
 import torch
 from fastapi import HTTPException, Request
@@ -16,6 +26,9 @@ async def lifespan(app) -> AsyncIterator[None]:
     if AI_EXTRACTION_PROVIDER == "gemini":
         state = "configured" if GEMINI_API_KEY else "missing API key"
         print(f"Gemini extraction configured: {GEMINI_MODEL} ({state})")
+    elif AI_EXTRACTION_PROVIDER == "deepseek":
+        state = "configured" if DEEPSEEK_API_KEY else "missing API key"
+        print(f"DeepSeek extraction configured: {DEEPSEEK_MODEL} ({state})")
     else:
         print(f"Ollama extraction configured: {OLLAMA_URL} / {OLLAMA_MODEL}")
 
