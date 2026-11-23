@@ -16,6 +16,14 @@ router.use(referralRouter);
 
 router.get("/notifications", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
+  const now = new Date();
+  const soon = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { in: ["OPEN", "IN_PROGRESS"] }, dueAt: { lte: soon } }, select: { id: true, title: true, dueAt: true, priority: true } });
+  for (const task of tasks) {
+    const type = task.dueAt && task.dueAt < now ? "FOLLOW_UP_OVERDUE" : "FOLLOW_UP_DUE_SOON";
+    const exists = await prisma.notification.findFirst({ where: { userId: auth.userId, type, targetType: "FollowUpTask", targetId: task.id, createdAt: { gte: new Date(now.getTime() - 24 * 60 * 60 * 1000) } }, select: { id: true } });
+    if (!exists) await prisma.notification.create({ data: { userId: auth.userId, type, title: task.dueAt && task.dueAt < now ? "Follow-up overdue" : "Follow-up reminder", message: `${task.title} ${task.dueAt && task.dueAt < now ? "নির্ধারিত সময় পেরিয়েছে" : "আগামী ২৪ ঘণ্টার মধ্যে সম্পন্ন করুন"}।`, targetType: "FollowUpTask", targetId: task.id, metadata: { priority: task.priority, dueAt: task.dueAt } } });
+  }
   const notifications = await prisma.notification.findMany({ where: { userId: auth.userId }, orderBy: { createdAt: "desc" }, take: 100 });
   response.json({ data: notifications, unreadCount: notifications.filter(item => !item.readAt).length });
 });
