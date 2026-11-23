@@ -58,7 +58,7 @@ router.post("/intake-requests/:id/retry-extraction", async (request, response) =
   if (existing.status === "VERIFIED" || existing.status === "REJECTED") { response.status(409).json({ error: "এই intake আর পুনরায় process করা যাবে না।" }); return; }
   if (!existing.transcriptText?.trim()) { response.status(400).json({ error: "Transcript না থাকায় summary তৈরি করা যাচ্ছে না।" }); return; }
   try {
-    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const aiUrl = process.env.AI_SERVICE_URL || "http://127.0.0.1:8000";
     const result = await axios.post(`${aiUrl}/extract`, { transcript: existing.transcriptText }, { timeout: 120000, headers: aiServiceHeaders() });
     const updated = await prisma.$transaction(async transaction => {
       const intake = await transaction.patientIntakeRequest.update({ where: { id: existing.id }, data: { status: "READY_FOR_REVIEW", aiSummary: result.data, reviewedAt: null, reviewedById: null }, select: { id: true, status: true, aiSummary: true } });

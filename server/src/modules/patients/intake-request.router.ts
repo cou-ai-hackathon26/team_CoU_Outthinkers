@@ -13,7 +13,7 @@ function clean(value: unknown) {
 
 async function enrichIntake(intakeId: string, transcriptText: string) {
   try {
-    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+    const aiUrl = process.env.AI_SERVICE_URL || "http://127.0.0.1:8000";
     const result = await axios.post(`${aiUrl}/extract`, { transcript: transcriptText }, { timeout: 120000, headers: aiServiceHeaders() });
     const extractionFailed = result.data?.extractionStatus === "FAILED";
     await prisma.$transaction(async (transaction) => {

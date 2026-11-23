@@ -65,7 +65,7 @@ router.post("/chat/sessions/:id/messages", async (request, response) => {
   } else {
     try {
       const history = await prisma.chatMessage.findMany({ where: { sessionId: session.id }, orderBy: { createdAt: "asc" }, take: 12, select: { role: true, content: true } });
-      const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+      const aiUrl = process.env.AI_SERVICE_URL || "http://127.0.0.1:8000";
       const result = await axios.post(`${aiUrl}/chat`, { messages: history }, { timeout: 100_000, headers: aiServiceHeaders() });
       answer = result.data;
     } catch (error) {
@@ -99,7 +99,7 @@ router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
 
   try {
     const history = await prisma.chatMessage.findMany({ where: { sessionId: session.id }, orderBy: { createdAt: "asc" }, take: 12, select: { role: true, content: true } });
-    const aiUrl = process.env.AI_SERVICE_URL || "http://localhost:8000";
+      const aiUrl = process.env.AI_SERVICE_URL || "http://127.0.0.1:8000";
     const upstream = await axios.post(`${aiUrl}/chat/stream`, { messages: history }, { timeout: 100_000, responseType: "stream", headers: aiServiceHeaders() });
     response.status(200).set({ "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache, no-transform", Connection: "keep-alive", "X-Accel-Buffering": "no" });
     response.flushHeaders?.();
