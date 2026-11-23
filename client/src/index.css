@@ -82,6 +82,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .page-header { margin-bottom: 25px; }
 }
 
+/* Admin workspace */
+.role-app:has(.admin-list-panel) .page-container { max-width: 1240px; }
+.admin-list-panel, .rule-card, .knowledge-card { border-radius: var(--mc-radius-md); }
+.admin-list-panel h2, .rule-card h3, .knowledge-card h3 { color: var(--mc-primary-950); font-weight: 800; }
+.admin-row { min-height: 62px; padding: 15px 4px; }
+.admin-row:hover { background: var(--mc-primary-50); }
+.admin-row-actions { flex-wrap: wrap; justify-content: flex-end; }
+.status-action { border: 1px solid #f0d4ca; }
+.admin-two-col, .supervision-grid { align-items: start; }
+.admin-two-col > .review-panel { position: sticky; top: 96px; }
+.admin-rule-panel, .admin-knowledge { max-width: 1020px; }
+.rule-panel-intro, .knowledge-review-toolbar { padding-bottom: 16px; border-bottom: 1px solid var(--mc-border); }
+.rule-card, .knowledge-card { box-shadow: var(--mc-shadow-sm); }
+.rule-card:hover, .knowledge-card:hover { border-color: #b9ded3; box-shadow: var(--mc-shadow-md); }
+.knowledge-card-head { min-height: 42px; }
+@media(max-width:800px) { .admin-two-col > .review-panel { position: static; } .admin-row-actions { justify-content: flex-start; } }
+
 /* Reusable interaction primitives */
 .section-heading { margin-bottom: 14px; }
 .section-heading h2 { color: var(--mc-primary-950); font-weight: 800; }
