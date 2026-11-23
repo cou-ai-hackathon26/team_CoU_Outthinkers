@@ -1,3 +1,4 @@
+import asyncio
 import json
 import re
 
@@ -72,7 +73,14 @@ async def chat_stream(request: Request, payload: ChatRequest):
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': 'উপরের তথ্যগুলো লিখে পাঠান।', 'intent': 'DIET_PLAN', 'needs_clarification': True}, ensure_ascii=False)}\n\n"
 
         return StreamingResponse(diet_events(), media_type="text/event-stream")
-    guidance_chunks = retrieve_guidance(latest_message + " " + intent.name)
+    try:
+        guidance_chunks = await asyncio.wait_for(
+            asyncio.to_thread(retrieve_guidance, latest_message + " " + intent.name),
+            timeout=5,
+        )
+    except asyncio.TimeoutError:
+        print("Knowledge retrieval timed out; continuing without retrieved guidance")
+        guidance_chunks = []
     guidance = format_guidance(guidance_chunks)
     source_urls = [chunk.source for chunk in guidance_chunks]
 
@@ -88,6 +96,7 @@ async def chat_stream(request: Request, payload: ChatRequest):
 
     async def events():
         try:
+            yield f"data: {json.dumps({'type': 'status', 'message': 'উত্তর তৈরি হচ্ছে…'}, ensure_ascii=False)}\n\n"
             async for text in stream_text(build_stream_chatbot_prompt(conversation, latest_message, intent.name, guidance)):
                 yield f"data: {json.dumps({'type': 'delta', 'text': text}, ensure_ascii=False)}\n\n"
             yield f"data: {json.dumps({'type': 'done', 'urgency': 'NORMAL', 'red_flags': [], 'suggested_action': '', 'sources': source_urls, 'intent': intent.name, 'requires_nurse_review': False}, ensure_ascii=False)}\n\n"

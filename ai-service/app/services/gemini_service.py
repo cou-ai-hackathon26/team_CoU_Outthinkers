@@ -53,7 +53,7 @@ async def generate_json(prompt: str, schema: dict, temperature: float, timeout: 
     return text
 
 
-async def stream_text(prompt: str, temperature: float = 0.2, timeout: float = 90) -> AsyncIterator[str]:
+async def stream_text(prompt: str, temperature: float = 0.2, timeout: float = 25) -> AsyncIterator[str]:
     """Yield Gemini fragments, falling back to normal generation if SSE fails."""
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY is not configured")
