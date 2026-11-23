@@ -27,7 +27,7 @@ function findChatRedFlags(text: string) {
 }
 
 function isIdentityQuestion(text: string) {
-  return /আপনি কে|আপনার পরিচয়|আপনার পরিচয়|who are you/i.test(text);
+  return /আপনি.*(?:কে|পরিচয়|পরিচয়)|আপনার পরিচয়|আপনার পরিচয়|who are you|what are you/i.test(text);
 }
 
 router.post("/chat/sessions", async (request, response) => {
