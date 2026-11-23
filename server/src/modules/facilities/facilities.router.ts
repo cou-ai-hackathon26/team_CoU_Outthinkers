@@ -34,4 +34,23 @@ router.get("/nearby", async (request, response) => {
   }
 });
 
+router.get("/route", async (request, response) => {
+  const originLat = Number(request.query.originLat); const originLng = Number(request.query.originLng);
+  const destinationLat = Number(request.query.destinationLat); const destinationLng = Number(request.query.destinationLng);
+  const values = [originLat, originLng, destinationLat, destinationLng];
+  if (values.some(value => !Number.isFinite(value)) || originLat < -90 || originLat > 90 || destinationLat < -90 || destinationLat > 90 || originLng < -180 || originLng > 180 || destinationLng < -180 || destinationLng > 180) { response.status(400).json({ error: "সঠিক route location দিন।" }); return; }
+  const key = process.env.GOOGLE_MAPS_SERVER_API_KEY;
+  if (!key) { response.status(503).json({ error: "Google route service configured নয়।" }); return; }
+  try {
+    const result = await axios.post("https://routes.googleapis.com/directions/v2:computeRoutes", { origin: { location: { latLng: { latitude: originLat, longitude: originLng } } }, destination: { location: { latLng: { latitude: destinationLat, longitude: destinationLng } } }, travelMode: "DRIVE", routingPreference: "TRAFFIC_AWARE", languageCode: "bn-BD", units: "METRIC" }, { timeout: 8000, headers: { "Content-Type": "application/json", "X-Goog-Api-Key": key, "X-Goog-FieldMask": "routes.duration,routes.distanceMeters,routes.localizedValues" } });
+    const route = result.data?.routes?.[0];
+    if (!route) { response.status(404).json({ error: "Route পাওয়া যায়নি।" }); return; }
+    const seconds = Number.parseInt(String(route.duration || "0").replace("s", ""), 10) || 0;
+    response.json({ data: { durationSeconds: seconds, durationMinutes: Math.max(1, Math.ceil(seconds / 60)), distanceMeters: route.distanceMeters || null, localizedValues: route.localizedValues || null } });
+  } catch (error: any) {
+    console.error("Google route calculation failed", error.response?.data || error.message);
+    response.status(502).json({ error: "পথের সময় হিসাব করা যায়নি।" });
+  }
+});
+
 export default router;
