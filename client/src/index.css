@@ -115,6 +115,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .facility-suggestion small { margin-top: 2px; color: var(--mc-muted); font-size: 10px; }
 .facility-suggestion em { margin-top: 3px; color: var(--mc-success); font-size: 9px; font-style: normal; font-weight: 800; }
 .facility-suggestion.unverified em { color: var(--mc-warning); }
+.route-time-button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; margin-top: 7px; padding: 7px 10px; border: 1px solid #bfe4d7; border-radius: 9px; color: var(--mc-primary-800); background: var(--mc-primary-50); font: inherit; font-size: 10px; font-weight: 800; cursor: pointer; }
+.route-time-button:hover:not(:disabled) { border-color: var(--mc-primary-600); background: var(--mc-primary-100); }
+.route-time-button:disabled { cursor: wait; opacity: .62; }
 @media(max-width:600px) { .facility-picker-heading { align-items: stretch; flex-direction: column; } .facility-picker-heading .secondary-action { justify-content: center; } }
 
 .emergency-facilities { margin-top: 16px; padding: 16px; border: 1px solid #f0c3bc; border-radius: var(--mc-radius-md); background: #fffaf8; }
