@@ -56,6 +56,32 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .plain-input:focus, textarea:focus, .review-textarea:focus { border-color: var(--mc-primary-600); box-shadow: var(--mc-focus); }
 ::selection { color: var(--mc-primary-950); background: var(--mc-primary-100); }
 
+/* Shared product shell refinements */
+.role-app { background: var(--mc-page); }
+.app-navbar { background: rgb(255 255 255 / .92); border-bottom-color: var(--mc-border); }
+.nav-inner { min-height: 76px; }
+.nav-links { gap: 3px; }
+.nav-links a, .nav-logout { min-height: 42px; padding: 10px 13px; border-radius: var(--mc-radius-sm); }
+.nav-links a.active { color: var(--mc-primary-800); background: var(--mc-primary-50); box-shadow: inset 0 -2px 0 var(--mc-primary-600); }
+.nav-links a:hover { color: var(--mc-primary-800); background: var(--mc-primary-50); }
+.nav-logout { color: var(--mc-danger); }
+.page-container { padding-top: 48px; }
+.page-header { margin-bottom: 34px; }
+.page-header h1 { max-width: 760px; font-weight: 800; }
+.page-header p { color: var(--mc-muted); }
+.empty-card, .info-panel, .profile-panel, .voice-card, .review-panel, .admin-list-panel, .rule-card, .knowledge-card { box-shadow: var(--mc-shadow-sm); }
+.empty-card:hover, .info-panel:hover, .stat-card:hover { border-color: #c6e4db; box-shadow: var(--mc-shadow-md); }
+.stat-card { border-color: var(--mc-border); }
+.stat-card strong { color: var(--mc-primary-950); }
+.inline-error { border: 1px solid #f1c8c3; color: var(--mc-danger); background: var(--mc-danger-bg); }
+.success-message { border: 1px solid #c5e8d9; color: var(--mc-success); background: var(--mc-success-bg); }
+@media(max-width:800px) {
+  .nav-inner { min-height: 68px; }
+  .nav-links { top: 68px; border-color: var(--mc-border); box-shadow: var(--mc-shadow-md); }
+  .page-container { padding-top: 32px; }
+  .page-header { margin-bottom: 25px; }
+}
+
 .register-card{display:flex;align-items:center;gap:12px;width:100%;margin-top:20px;padding:13px 14px;text-align:left;border:1px solid #cfe6df;border-radius:16px;color:#1d514b;background:linear-gradient(135deg,#f4fffb,#e8f8f1);box-shadow:0 7px 18px #167e6814;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}.register-card:hover{border-color:#5abca2;box-shadow:0 12px 24px #167e6824;transform:translateY(-2px)}.register-card:focus-visible{outline:3px solid #71ceb7;outline-offset:3px}.register-card-icon{display:grid;place-items:center;width:43px;height:43px;flex:0 0 43px;border-radius:13px;color:#fff;background:#178b77}.register-card strong,.register-card small{display:block}.register-card strong{font-size:13px;font-weight:800}.register-card small{margin-top:3px;color:#78958f;font-size:11px}.register-card-arrow{margin-left:auto;color:#168875;font-size:24px;font-weight:400}.admin-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;border-radius:14px;background:#edf5f2}.admin-tab{min-height:42px;border:0;border-radius:10px;color:#6f8581;background:transparent;font-size:12px;font-weight:700}.admin-tab.active{color:#126e60;background:#fff;box-shadow:0 3px 10px #146e5c18}
 .register-link{display:flex;align-items:center;justify-content:center;gap:6px;margin:21px auto 0;padding:0;border:0;color:#128675;background:transparent;font-size:13px;font-weight:700}.optional{color:#9aa9a6;font-size:11px;font-weight:400}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.select-wrap{display:flex;align-items:center;gap:9px;height:54px;padding:0 14px;border:1px solid #d2e0dd;border-radius:13px;color:#77a09a;background:#fff}.select-wrap:focus-within{border-color:#229a85;box-shadow:0 0 0 4px #2da98a18}.select-wrap select{width:100%;height:100%;border:0;outline:0;color:#365a56;background:transparent;font-size:13px}.select-wrap select:disabled{color:#a8b6b3}textarea{display:block;width:100%;padding:14px;border:1px solid #d2e0dd;border-radius:13px;outline:0;resize:vertical;color:#173f3c;background:#fff;font-size:14px}textarea:focus{border-color:#229a85;box-shadow:0 0 0 4px #2da98a18}textarea::placeholder{color:#a6b6b3}.registration-form .field-label{margin-top:18px}@media(max-width:600px){.form-grid{grid-template-columns:1fr;gap:0}}
 .admin-toolbar{display:flex;align-items:center;justify-content:space-between;margin:0 0 18px}.admin-status{display:flex;align-items:center;gap:6px;color:#16816f;font-size:12px;font-weight:700}.logout-button,.refresh-button{display:flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid #d8e6e2;border-radius:9px;color:#6d8580;background:#fff;font-size:11px;font-weight:700}.logout-button:hover,.refresh-button:hover{color:#b04b4b;border-color:#e4baba}.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.overview-card{padding:13px 12px;border:1px solid #deebe7;border-radius:14px;background:#fff}.overview-card small,.overview-card strong{display:block}.overview-card small{margin-top:10px;color:#718985;font-size:10px}.overview-card strong{margin-top:3px;color:#15524b;font-size:24px}.overview-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:10px}.overview-icon.patients{color:#168875;background:#dff5ed}.overview-icon.nurses{color:#587bc0;background:#e8efff}.overview-icon.admins{color:#b17b34;background:#fff1da}.admin-section-heading{display:flex;align-items:center;justify-content:space-between;margin:25px 0 10px}.admin-section-heading strong,.admin-section-heading small{display:block}.admin-section-heading strong{color:#214b46;font-size:14px}.admin-section-heading small{margin-top:3px;color:#8b9c98;font-size:11px}.recent-panel{margin-top:26px;padding-top:3px;border-top:1px solid #e4eeeb}.recent-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #edf3f1}.recent-row strong,.recent-row small{display:block}.recent-row strong{color:#315a55;font-size:12px}.recent-row small{margin-top:2px;color:#899a96;font-size:10px}.recent-avatar{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;color:#167b6b;background:#e0f4ec;font-size:14px;font-weight:800}.empty-state{color:#879894;font-size:12px}@media(max-width:600px){.overview-grid{grid-template-columns:1fr 1fr}.overview-card:last-child{grid-column:span 2}}
