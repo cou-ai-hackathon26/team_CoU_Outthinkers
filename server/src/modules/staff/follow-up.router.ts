@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
 import { getStaffScope } from "./staff-scope";
+import { evaluateCareGaps } from "../workflow/care-gap.service";
 
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
@@ -9,8 +10,17 @@ router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 router.get("/follow-up-tasks", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);
-  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
+  const tasks = await prisma.followUpTask.findMany({ where: { assignedStaffId: auth.userId, status: { not: "CANCELLED" } }, orderBy: [{ status: "asc" }, { dueAt: "asc" }], take: 100, select: { id: true, title: true, reason: true, explanation: true, sourceFacts: true, priority: true, status: true, dueAt: true, outcome: true, nextAction: true, completedAt: true, rule: { select: { code: true, name: true } }, patientUser: { select: { publicId: true, patientProfile: { select: { name: true } } } } } });
   response.json({ data: tasks.map(task => ({ ...task, patientId: task.patientUser.publicId, patientName: task.patientUser.patientProfile?.name || "নাম নেই" })) });
+});
+
+router.post("/patients/:patientId/care-gaps/evaluate", async (request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const scope = await getStaffScope(auth.userId);
+  const patient = await prisma.user.findFirst({ where: { publicId: request.params.patientId, role: "PATIENT", status: "ACTIVE", ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }) }, select: { id: true } });
+  if (!patient) { response.status(404).json({ error: "Patient খুঁজে পাওয়া যায়নি।" }); return; }
+  const result = await evaluateCareGaps(patient.id, auth.userId);
+  response.json({ data: result });
 });
 
 router.post("/follow-up-tasks", async (request, response) => {

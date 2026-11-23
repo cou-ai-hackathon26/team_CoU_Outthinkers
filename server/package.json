@@ -8,6 +8,7 @@
     "db:seed:admin": "tsx prisma/seed-admin.ts",
     "db:seed:locations": "tsx prisma/seed-locations.ts",
     "db:seed": "tsx prisma/seed.ts",
+    "db:seed:care-gaps": "tsx prisma/seed-care-gap-rules.ts",
     "test": "tsx --test \"src/**/*.test.ts\"",
     "start": "node dist/index.js"
   },

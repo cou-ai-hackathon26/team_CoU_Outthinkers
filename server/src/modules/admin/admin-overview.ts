@@ -1,9 +1,29 @@
 import { Router } from "express";
 import { prisma } from "../../lib/prisma";
 import { requireAuth, requireRole } from "../auth/auth-token";
+import { seedDefaultCareGapRules } from "../workflow/care-gap.service";
 
 const router = Router();
 router.use(requireAuth, requireRole("ADMIN"));
+
+router.get("/care-gap-rules", async (_request, response) => {
+  const rules = await prisma.careGapRule.findMany({ orderBy: { code: "asc" }, include: { createdBy: { select: { email: true } }, updatedBy: { select: { email: true } } } });
+  response.json({ data: rules });
+});
+
+router.post("/care-gap-rules/seed", async (request, response) => {
+  await seedDefaultCareGapRules();
+  await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "CARE_GAP_RULES_SEEDED", targetType: "CareGapRule", metadata: { source: "default_configuration" } } });
+  response.json({ message: "Default care-gap rules প্রস্তুত হয়েছে।" });
+});
+
+router.patch("/care-gap-rules/:id", async (request, response) => {
+  const { name, description, configuration, priority, defaultDueHours, status } = request.body || {};
+  if (!name || !description || !configuration || !["NORMAL", "HIGH", "URGENT"].includes(priority) || !["ACTIVE", "INACTIVE"].includes(status)) { response.status(400).json({ error: "Rule configuration সঠিক নয়।" }); return; }
+  const rule = await prisma.careGapRule.update({ where: { id: request.params.id }, data: { name: String(name).trim(), description: String(description).trim(), configuration, priority, defaultDueHours: Number(defaultDueHours) || null, status, updatedById: response.locals.auth.userId } });
+  await prisma.auditLog.create({ data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "CARE_GAP_RULE_UPDATED", targetType: "CareGapRule", targetId: rule.id, metadata: { priority, status } } });
+  response.json({ data: rule });
+});
 
 router.get("/overview", async (_request, response) => {
   try {
