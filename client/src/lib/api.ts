@@ -10,6 +10,11 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("maternacare_token");
   if (token && !config.headers.Authorization) config.headers.Authorization = `Bearer ${token}`;
+  // Let the browser add the multipart boundary for FormData requests.
+  // Keeping the shared JSON default here causes Multer to receive no file.
+  if (typeof FormData !== "undefined" && config.data instanceof FormData) {
+    config.headers.delete("Content-Type");
+  }
   return config;
 });
 

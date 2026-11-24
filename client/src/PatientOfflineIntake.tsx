@@ -46,9 +46,13 @@ export default function PatientOfflineIntake() {
         await refresh();
         try {
           let text = current.text;
-          if (current.sourceType === "VOICE" && current.audio) {
+          if (current.sourceType === "VOICE" && !current.audio) {
+            throw new Error("এই intake-এ audio সংরক্ষিত নেই। নতুন করে রেকর্ড করুন।");
+          }
+          if (current.sourceType === "VOICE") {
             const data = new FormData();
-            data.append("audio", current.audio, "patient-voice.webm");
+            const extension = current.audio!.type.includes("mp4") ? "m4a" : current.audio!.type.includes("ogg") ? "ogg" : "webm";
+            data.append("audio", current.audio!, `patient-voice.${extension}`);
             const result = await api.post("/voice-intake", data);
             text = String(result.data.transcript || "").trim();
             if (!text) throw new Error("লিখিত রূপ পাওয়া যায়নি; মূল recording সংরক্ষিত আছে।");
