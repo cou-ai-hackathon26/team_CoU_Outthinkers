@@ -99,6 +99,7 @@ enum CareGapRuleStatus {
 enum ReferralStatus {
   DRAFT
   SENT
+  REJECTED
   ACKNOWLEDGED
   IN_TRANSIT
   ARRIVED

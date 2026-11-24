@@ -6,8 +6,8 @@ import WorkerNavbar from "./WorkerNavbar";
 import RouteTimeButton from "./RouteTimeButton";
 import { getFacilityLocation } from "./lib/facility-location";
 
-const labels: Record<string, string> = { DRAFT: "খসড়া", SENT: "পাঠানো হয়েছে", ACKNOWLEDGED: "গ্রহণ করা হয়েছে", IN_TRANSIT: "পথে", ARRIVED: "পৌঁছেছে", ACCEPTED: "গ্রহণ করা হয়েছে", TRANSFERRED: "স্থানান্তরিত", COMPLETED: "সম্পন্ন", UNRESOLVED: "অমীমাংসিত" };
-const nextStatuses: Record<string, string[]> = { DRAFT: ["SENT", "UNRESOLVED"], SENT: ["ACKNOWLEDGED", "UNRESOLVED"], ACKNOWLEDGED: ["IN_TRANSIT", "UNRESOLVED"], IN_TRANSIT: ["ARRIVED", "UNRESOLVED"], ARRIVED: ["ACCEPTED", "TRANSFERRED", "UNRESOLVED"], ACCEPTED: ["COMPLETED", "UNRESOLVED"], TRANSFERRED: ["COMPLETED", "UNRESOLVED"], UNRESOLVED: ["ACKNOWLEDGED", "IN_TRANSIT", "ARRIVED", "ACCEPTED", "TRANSFERRED", "COMPLETED"], COMPLETED: [] };
+const labels: Record<string, string> = { DRAFT: "খসড়া", SENT: "পাঠানো হয়েছে", REJECTED: "Facility reject করেছে", ACKNOWLEDGED: "গ্রহণ করা হয়েছে", IN_TRANSIT: "পথে", ARRIVED: "পৌঁছেছে", ACCEPTED: "গ্রহণ করা হয়েছে", TRANSFERRED: "স্থানান্তরিত", COMPLETED: "সম্পন্ন", UNRESOLVED: "অমীমাংসিত" };
+const nextStatuses: Record<string, string[]> = { DRAFT: ["SENT", "UNRESOLVED"], SENT: ["ACKNOWLEDGED", "REJECTED", "UNRESOLVED"], REJECTED: ["UNRESOLVED"], ACKNOWLEDGED: ["IN_TRANSIT", "UNRESOLVED"], IN_TRANSIT: ["ARRIVED", "UNRESOLVED"], ARRIVED: ["ACCEPTED", "TRANSFERRED", "UNRESOLVED"], ACCEPTED: ["COMPLETED", "UNRESOLVED"], TRANSFERRED: ["COMPLETED", "UNRESOLVED"], UNRESOLVED: ["ACKNOWLEDGED", "IN_TRANSIT", "ARRIVED", "ACCEPTED", "TRANSFERRED", "COMPLETED"], COMPLETED: [] };
 
 export default function WorkerReferrals() {
   const [items, setItems] = useState<any[]>([]); const [patients, setPatients] = useState<any[]>([]); const [facilities, setFacilities] = useState<any[]>([]);

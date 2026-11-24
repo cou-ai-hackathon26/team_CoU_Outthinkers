@@ -2,7 +2,8 @@ import { ReferralStatus } from "../../generated/prisma/enums";
 
 const transitions: Record<ReferralStatus, ReferralStatus[]> = {
   DRAFT: ["SENT", "UNRESOLVED"],
-  SENT: ["ACKNOWLEDGED", "UNRESOLVED"],
+  SENT: ["ACKNOWLEDGED", "REJECTED", "UNRESOLVED"],
+  REJECTED: ["UNRESOLVED"],
   ACKNOWLEDGED: ["IN_TRANSIT", "UNRESOLVED"],
   IN_TRANSIT: ["ARRIVED", "UNRESOLVED"],
   ARRIVED: ["ACCEPTED", "TRANSFERRED", "UNRESOLVED"],
