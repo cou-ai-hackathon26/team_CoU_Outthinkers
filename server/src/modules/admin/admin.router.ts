@@ -123,6 +123,56 @@ async function createAccount(request: Request, response: Response, role: "NURSE"
 router.post("/nurses", (request, response) => createAccount(request, response, "NURSE"));
 router.post("/admins", (request, response) => createAccount(request, response, "ADMIN"));
 
+router.get("/facility-worker-options", async (_request, response) => {
+  const facilities = await prisma.facility.findMany({
+    where: { status: "VERIFIED" },
+    orderBy: { nameBn: "asc" },
+    select: { id: true, nameBn: true, addressBn: true },
+  });
+  response.json({ data: facilities });
+});
+
+router.post("/facility-workers", async (request, response) => {
+  const accountEmail = email(request.body?.email);
+  const accountPhone = phone(request.body?.phone);
+  const password = clean(request.body?.password);
+  const name = clean(request.body?.name);
+  const facilityId = clean(request.body?.facilityId);
+  if (!accountEmail || !accountPhone || !name || !facilityId || password.length < 12) {
+    response.status(400).json({ error: "নাম, ইমেইল, মোবাইল, verified facility এবং কমপক্ষে ১২ অক্ষরের password দিন।" });
+    return;
+  }
+  try {
+    const created = await prisma.$transaction(async transaction => {
+      const duplicate = await transaction.user.findFirst({ where: { OR: [{ email: accountEmail }, { phone: accountPhone }] }, select: { id: true } });
+      if (duplicate) throw new Error("DUPLICATE_ACCOUNT");
+      const facility = await transaction.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
+      if (!facility) throw new Error("FACILITY_NOT_VERIFIED");
+      const employeeId = await allocatePublicId(transaction, "EMPLOYEE");
+      const user = await transaction.user.create({
+        data: {
+          role: "FACILITY_WORKER",
+          email: accountEmail,
+          phone: accountPhone,
+          passwordHash: await bcrypt.hash(password, 12),
+          facilityWorkerProfile: { create: { employeeId, name, facilityId } },
+        },
+        select: { id: true, email: true, role: true },
+      });
+      await transaction.auditLog.create({
+        data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "FACILITY_WORKER_CREATED", targetType: "User", targetId: user.id, metadata: { email: user.email, facilityId, employeeId } },
+      });
+      return { ...user, employeeId };
+    });
+    response.status(201).json({ message: "Facility worker account তৈরি হয়েছে।", account: created });
+  } catch (error) {
+    if (error instanceof Error && error.message === "DUPLICATE_ACCOUNT") { response.status(409).json({ error: "এই ইমেইল বা মোবাইল নম্বর আগে থেকেই ব্যবহৃত হয়েছে।" }); return; }
+    if (error instanceof Error && error.message === "FACILITY_NOT_VERIFIED") { response.status(400).json({ error: "শুধু verified facility-তে worker account তৈরি করা যাবে।" }); return; }
+    console.error("Facility worker creation failed", error);
+    response.status(500).json({ error: "Facility worker account তৈরি করা যায়নি।" });
+  }
+});
+
 router.get("/knowledge-documents", async (_request, response) => {
   try {
     const manifest = await readKnowledgeManifest();

@@ -16,8 +16,8 @@ router.post("/staff/login", async (request, response) => {
 
   const user = await prisma.user.findFirst({
     where: {
-      OR: [{ email: identifier }, { staffProfile: { employeeId: identifier } }],
-      role: { in: ["NURSE", "ADMIN"] },
+      OR: [{ email: identifier }, { staffProfile: { employeeId: identifier } }, { facilityWorkerProfile: { employeeId: identifier } }],
+      role: { in: ["NURSE", "FACILITY_WORKER", "ADMIN"] },
       status: "ACTIVE",
     },
     select: { id: true, role: true, passwordHash: true },

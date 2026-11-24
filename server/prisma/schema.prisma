@@ -10,6 +10,7 @@ datasource db {
 enum UserRole {
   PATIENT
   NURSE
+  FACILITY_WORKER
   ADMIN
 }
 
@@ -145,6 +146,7 @@ model User {
 
   patientProfile         PatientProfile?
   staffProfile           StaffProfile?
+  facilityWorkerProfile  FacilityWorkerProfile?
   requestedOtps          OtpChallenge[]         @relation("OtpRequestedBy")
   createdAuditLogs       AuditLog[]             @relation("AuditActor")
   passwordResets         PasswordResetToken[]
@@ -213,6 +215,21 @@ model StaffProfile {
 
   @@index([divisionId, districtId, upazilaId])
   @@map("staff_profiles")
+}
+
+model FacilityWorkerProfile {
+  userId     String   @id @map("user_id")
+  employeeId String   @unique @map("employee_id")
+  name       String
+  facilityId String   @map("facility_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  facility Facility @relation(fields: [facilityId], references: [id], onDelete: Restrict)
+
+  @@index([facilityId])
+  @@map("facility_worker_profiles")
 }
 
 model Division {
@@ -660,6 +677,7 @@ model Facility {
   updatedAt          DateTime       @updatedAt @map("updated_at")
 
   verifiedBy User? @relation("FacilityVerifiers", fields: [verifiedById], references: [id], onDelete: SetNull)
+  workers    FacilityWorkerProfile[]
 
   @@index([status, latitude, longitude])
   @@index([dataOwner, status])

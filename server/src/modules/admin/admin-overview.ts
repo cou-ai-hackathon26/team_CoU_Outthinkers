@@ -68,7 +68,7 @@ router.get("/overview", async (_request, response) => {
 });
 
 router.get("/staff", async (_request, response) => {
-  const staff = await prisma.user.findMany({ where: { role: { in: ["NURSE", "ADMIN"] } }, orderBy: { createdAt: "desc" }, select: { id: true, email: true, phone: true, role: true, status: true, createdAt: true, staffProfile: { select: { name: true, employeeId: true, address: true, upazila: { select: { nameBn: true } }, district: { select: { nameBn: true } } } } } });
+  const staff = await prisma.user.findMany({ where: { role: { in: ["NURSE", "FACILITY_WORKER", "ADMIN"] } }, orderBy: { createdAt: "desc" }, select: { id: true, email: true, phone: true, role: true, status: true, createdAt: true, staffProfile: { select: { name: true, employeeId: true, address: true, upazila: { select: { nameBn: true } }, district: { select: { nameBn: true } } } }, facilityWorkerProfile: { select: { name: true, employeeId: true, facility: { select: { nameBn: true } } } } } });
   response.json({ data: staff });
 });
 
@@ -89,7 +89,7 @@ router.patch("/users/:id/status", async (request, response) => {
   if (!["ACTIVE", "SUSPENDED"].includes(status)) { response.status(400).json({ error: "Account status সঠিক নয়।" }); return; }
   if (request.params.id === auth.userId) { response.status(400).json({ error: "নিজের account suspend করা যাবে না।" }); return; }
   const existing = await prisma.user.findUnique({ where: { id: request.params.id }, select: { id: true, role: true, status: true, email: true } });
-  if (!existing || !["NURSE", "ADMIN"].includes(existing.role)) { response.status(404).json({ error: "Staff account খুঁজে পাওয়া যায়নি।" }); return; }
+  if (!existing || !["NURSE", "FACILITY_WORKER", "ADMIN"].includes(existing.role)) { response.status(404).json({ error: "Staff account খুঁজে পাওয়া যায়নি।" }); return; }
   const updated = await prisma.$transaction(async transaction => {
     const user = await transaction.user.update({ where: { id: existing.id }, data: { status: status as "ACTIVE" | "SUSPENDED" }, select: { id: true, status: true, email: true, role: true } });
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: `STAFF_${status}`, targetType: "User", targetId: existing.id, metadata: { previousStatus: existing.status, email: existing.email } } });

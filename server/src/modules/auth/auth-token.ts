@@ -4,7 +4,7 @@ import { prisma } from "../../lib/prisma";
 
 export type AuthClaims = {
   userId: string;
-  role: "PATIENT" | "NURSE" | "ADMIN";
+  role: "PATIENT" | "NURSE" | "FACILITY_WORKER" | "ADMIN";
   issuedAt: number;
   expiresAt: number;
 };
