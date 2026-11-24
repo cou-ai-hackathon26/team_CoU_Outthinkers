@@ -592,6 +592,7 @@ model Referral {
 
   @@index([patientUserId, status])
   @@index([ownerStaffId, status, dueAt])
+  @@index([facilityId, status])
   @@index([status, updatedAt])
   @@map("referrals")
 }
