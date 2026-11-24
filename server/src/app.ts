@@ -19,7 +19,7 @@ export const app = express();
     exposedHeaders: ["Retry-After", "X-RateLimit-Reset"],
   }));
 app.use("/api/auth", rateLimit({ name: "auth", windowMs: 60_000, max: 60 }));
-app.use("/api/voice-intake", rateLimit({ name: "voice", windowMs: 60_000, max: 20 }), requireAuth, voiceRouter);
+app.use("/api/voice-intake", requireAuth, voiceRouter);
 app.use(express.json({ limit: "2mb" }));
 app.use("/api/locations", locationsRouter);
 app.use("/api/facilities", rateLimit({ name: "facility-search", windowMs: 60_000, max: 30 }), facilitiesRouter);
