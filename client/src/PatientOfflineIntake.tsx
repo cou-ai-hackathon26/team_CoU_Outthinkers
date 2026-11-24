@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowRight, Mic } from "lucide-react";
+import { ArrowRight, Mic, Trash2 } from "lucide-react";
 import api from "./lib/api";
-import { getOfflineIntakes, saveOfflineIntake, type OfflineIntake, type OfflineStatus } from "./offline-intake";
+import { deleteOfflineIntake, getOfflineIntakes, saveOfflineIntake, type OfflineIntake, type OfflineStatus } from "./offline-intake";
 
 const labels: Record<OfflineStatus, string> = {
   SAVED_OFFLINE: "অফলাইনে সংরক্ষিত",
@@ -202,6 +202,13 @@ export default function PatientOfflineIntake() {
     void saveOfflineIntake(updated);
   };
 
+  const removeTranscript = async (item: OfflineIntake) => {
+    const confirmed = window.confirm("এই লিখিত রূপ ও এর সংরক্ষিত অডিও এই ডিভাইস থেকে মুছে যাবে। মুছবেন?");
+    if (!confirmed) return;
+    await deleteOfflineIntake(item.localId);
+    await refresh();
+  };
+
   return <section className="voice-card">
     <div className={`offline-banner ${online ? "online" : "offline"}`}><strong>{online ? "সংযোগ আছে" : "অফলাইনে সংরক্ষিত"}</strong><span>{online ? "তথ্য নিরাপদে পাঠানো যাবে" : "সংযোগ ফিরে এলে পাঠানো হবে"}</span></div>
     <div className="intake-mode-tabs"><button className={mode === "VOICE" ? "active" : ""} onClick={() => setMode("VOICE")}><Mic size={16}/> কথা বলে দিন</button><button className={mode === "MANUAL" ? "active" : ""} onClick={() => setMode("MANUAL")}>লিখে দিন</button></div>
@@ -225,7 +232,7 @@ export default function PatientOfflineIntake() {
           {item.sourceType === "VOICE" && item.status === "TRANSCRIBED" && <label className="offline-transcript-label">AI লিখিত রূপ · পাঠানোর আগে দেখে নিন<textarea className="transcript-editable" value={item.text} onChange={(event) => updateTranscript(item, event.target.value)} rows={4}/></label>}
         </div>
         <time>{new Date(item.createdAt).toLocaleString("bn-BD")}</time>
-        {item.sourceType === "VOICE" && item.status === "TRANSCRIBED" && <button className="primary-action" onClick={() => void submitVoice(item)}>স্বাস্থ্যকর্মীর কাছে পাঠান <ArrowRight size={16}/></button>}
+        {item.sourceType === "VOICE" && item.status === "TRANSCRIBED" && <div className="offline-voice-actions"><button className="offline-delete-action" onClick={() => void removeTranscript(item)}><Trash2 size={15}/> মুছে ফেলুন</button><button className="primary-action" onClick={() => void submitVoice(item)}>স্বাস্থ্যকর্মীর কাছে পাঠান <ArrowRight size={16}/></button></div>}
         {item.status === "SYNC_FAILED" && <button className="secondary-action" disabled={cooldown > 0 || busy} onClick={() => item.sourceType === "VOICE" && item.text.trim() ? void submitVoice(item) : void saveOfflineIntake({ ...item, status: "WAITING_TO_SYNC", error: undefined, retryAfter: undefined }).then(sync)}>{item.sourceType === "VOICE" && item.text.trim() ? "আবার পাঠান" : "আবার চেষ্টা"}</button>}
       </article>;
     })}</div>
