@@ -46,7 +46,34 @@ router.get("/nearby", async (request, response) => {
   if (!key) { response.json({ data: { facilities: trusted, google: { available: false, message: "Google Maps API key configured নয়।" } } }); return; }
   try {
     const result = await axios.post("https://places.googleapis.com/v1/places:searchNearby", { includedTypes: ["hospital", "medical_clinic"], maxResultCount: 10, rankPreference: "DISTANCE", languageCode: "bn", regionCode: "BD", locationRestriction: { circle: { center: { latitude, longitude }, radius } } }, { timeout: 8000, headers: { "Content-Type": "application/json", "X-Goog-Api-Key": key, "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location,places.googleMapsUri,places.primaryType,places.businessStatus" } });
-    const discovered = (result.data?.places || []).map((place: any) => ({ id: place.id, name: place.displayName?.text || "নাম পাওয়া যায়নি", address: place.formattedAddress || "ঠিকানা পাওয়া যায়নি", latitude: place.location?.latitude, longitude: place.location?.longitude, distanceKm: Number(distanceKm(latitude, longitude, place.location?.latitude, place.location?.longitude).toFixed(2)), services: {}, source: "GOOGLE_PLACES", trusted: false, status: "UNVERIFIED", googleMapsUri: place.googleMapsUri || null, primaryType: place.primaryType || null, businessStatus: place.businessStatus || null }));
+    const places = result.data?.places || [];
+    const placeIds = places.map((place: any) => place.id).filter(Boolean);
+    const localMatches = placeIds.length ? await prisma.facility.findMany({ where: { googlePlaceId: { in: placeIds } }, select: { id: true, googlePlaceId: true, status: true, services: true, verifiedAt: true, _count: { select: { workers: { where: { user: { status: "ACTIVE" } } } } } } }) : [];
+    const localByPlaceId = new Map(localMatches.map(item => [item.googlePlaceId, item]));
+    const discovered = places.map((place: any) => {
+      const local = localByPlaceId.get(place.id);
+      const workerAvailable = Boolean(local?._count.workers);
+      return {
+        id: local?.id || place.id,
+        facilityId: local?.id || null,
+        googlePlaceId: place.id,
+        name: place.displayName?.text || "নাম পাওয়া যায়নি",
+        address: place.formattedAddress || "ঠিকানা পাওয়া যায়নি",
+        latitude: place.location?.latitude,
+        longitude: place.location?.longitude,
+        distanceKm: Number(distanceKm(latitude, longitude, place.location?.latitude, place.location?.longitude).toFixed(2)),
+        services: local?.services || {},
+        source: "GOOGLE_PLACES",
+        trusted: local?.status === "VERIFIED",
+        routable: workerAvailable && local?.status !== "REJECTED" && local?.status !== "DEACTIVATED",
+        workerAvailable,
+        status: local?.status || "UNVERIFIED",
+        verifiedAt: local?.verifiedAt || null,
+        googleMapsUri: place.googleMapsUri || null,
+        primaryType: place.primaryType || null,
+        businessStatus: place.businessStatus || null,
+      };
+    });
     response.json({ data: { facilities: [...trusted, ...discovered], google: { available: true } } });
   } catch (error: any) {
     console.error("Google nearby facility search failed", error.response?.data || error.message);

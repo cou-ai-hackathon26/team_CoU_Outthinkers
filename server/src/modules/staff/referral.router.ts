@@ -43,8 +43,10 @@ router.post("/referrals", async (request, response) => {
   const dueAt = request.body?.dueAt ? new Date(String(request.body.dueAt)) : null;
   if (!patientId || !reason) { response.status(400).json({ error: "Patient ID এবং referral-এর কারণ দিন।" }); return; }
   if (facilityId) {
-    const facility = await prisma.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
-    if (!facility) { response.status(400).json({ error: "Referral-এর জন্য verified facility নির্বাচন করুন।" }); return; }
+    const facility = await prisma.facility.findUnique({ where: { id: facilityId }, select: { id: true, status: true, _count: { select: { workers: { where: { user: { status: "ACTIVE" } } } } } } });
+    const verified = facility?.status === "VERIFIED";
+    const workerLinkedDraft = facility?.status === "DRAFT" && facility._count.workers > 0;
+    if (!facility || (!verified && !workerLinkedDraft)) { response.status(400).json({ error: "Referral-এর জন্য verified facility অথবা worker-যুক্ত facility নির্বাচন করুন।" }); return; }
   }
   if (dueAt && Number.isNaN(dueAt.getTime())) { response.status(400).json({ error: "Referral due date সঠিক নয়।" }); return; }
   const patient = await prisma.user.findFirst({ where: { publicId: patientId, role: "PATIENT", status: "ACTIVE", ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }) }, select: { id: true, publicId: true, patientProfile: { select: { name: true } } } });

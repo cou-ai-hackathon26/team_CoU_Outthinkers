@@ -12,8 +12,8 @@ export default function FacilityWorkerInbox() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const load = async () => {
-    setLoading(true);
+  const load = async (initial = false) => {
+    if (initial) setLoading(true);
     setError("");
     try {
       const result = await api.get("/facility-worker/referrals");
@@ -22,11 +22,15 @@ export default function FacilityWorkerInbox() {
     } catch (failure: any) {
       setError(failure.response?.data?.error || "Referral inbox আনা যায়নি।");
     } finally {
-      setLoading(false);
+      if (initial) setLoading(false);
     }
   };
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    void load(true);
+    const timer = window.setInterval(() => void load(), 15000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const decide = async (item: any, decision: "ACKNOWLEDGE" | "REJECT" | "ARRIVED" | "ACCEPT" | "COMPLETE") => {
     const prompts: Record<string, string> = { REJECT: "Referral reject করার কারণ লিখুন:", ARRIVED: "পৌঁছানোর বিষয়ে নোট (ঐচ্ছিক):", ACCEPT: "Facility গ্রহণের বিষয়ে নোট (ঐচ্ছিক):", COMPLETE: "সেবার outcome লিখুন:" };
