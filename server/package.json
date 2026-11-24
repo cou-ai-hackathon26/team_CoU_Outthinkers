@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "db:generate": "prisma generate --schema prisma/schema.prisma",
+    "predev": "npm run db:generate",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npm run db:generate && tsc",
+    "prestart": "npm run db:generate",
     "db:seed:admin": "tsx prisma/seed-admin.ts",
     "db:seed:locations": "tsx prisma/seed-locations.ts",
     "db:seed": "tsx prisma/seed.ts",
