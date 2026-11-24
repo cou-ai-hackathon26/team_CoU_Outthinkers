@@ -33,15 +33,15 @@ MaternaCare AI provides a simple Bengali digital care journey:
 
 1. A patient registers using Bengali forms.
 2. The patient logs in using OTP authentication.
-3. She submits a voice recording or manual care intake.
-4. Faster-Whisper transcribes Bengali speech into text.
-5. Gemini structures the transcript into useful intake information.
-6. Deterministic safety rules identify potential red-flag symptoms.
-7. The nurse receives the intake in an inbox.
-8. The nurse reviews, edits and verifies the AI-generated information.
-9. The nurse creates follow-ups and referrals.
-10. The system suggests nearby facilities using live location or registered upazila.
-11. Referral progress and follow-up outcomes are recorded.
+3. She records her concern in Bengali or completes a manual care-intake form.
+4. Voice recordings are saved in the browser's IndexedDB on the same device. If offline, they wait locally until the connection returns.
+5. Faster-Whisper transcribes the recording when the service is reachable; the patient can review and edit the transcript before sending it.
+6. The care request is saved with an idempotency key so a retry does not create a duplicate.
+7. Gemini structures the transcript into useful intake information.
+8. Deterministic safety rules identify potential red-flag symptoms.
+9. The nurse receives the intake in an inbox and reviews, edits and verifies the AI-generated information.
+10. The nurse creates follow-ups and referrals.
+11. The system suggests nearby facilities using live location or registered upazila. Referral progress and follow-up outcomes are recorded.
 
 ## Project Impact
 
@@ -66,16 +66,23 @@ Patients can describe symptoms naturally in Bengali instead of filling out compl
 ```text
 Patient Bengali voice
         ↓
-Faster-Whisper transcription
+Save audio in browser IndexedDB
         ↓
-Editable transcript
+┌───────────────────┴───────────────────┐
+Offline                                Online
+Wait on this device              Upload audio to API
+└───────────────────┬───────────────────┘
+                    ↓
+             Faster-Whisper
+                    ↓
+          Editable Bengali transcript
         ↓
-Patient confirmation
+Patient reviews and sends
         ↓
 Nurse inbox
 ```
 
-The transcript is editable before submission so the patient can correct recognition errors.
+The original recording stays on the device while transcription or submission is pending. When the connection returns, the open intake page resumes transcription automatically. Failed transcriptions keep the recording for retry. The patient can edit the transcript before sending it to the nurse, or delete an unneeded local transcript and its recording after confirmation. Idempotency keys protect against duplicate requests during retries.
 
 ### AI-Assisted Structured Extraction
 
@@ -253,6 +260,8 @@ maternacare-ai/
 │   │   ├── PatientChat.tsx         # Bengali AI chatbot and facility suggestions
 │   │   ├── PatientRequests.tsx     # Patient care-request tracking
 │   │   ├── PatientFollowUps.tsx    # Patient follow-up view
+│   │   ├── PatientOfflineIntake.tsx # Local voice/manual queue, transcription and review
+│   │   ├── offline-intake.ts       # IndexedDB storage and queue types
 │   │   ├── WorkerNavbar.tsx        # Shared nurse navigation
 │   │   ├── Worker*.tsx             # Nurse intake, patient, referral and follow-up workflows
 │   │   ├── Admin*.tsx              # Admin management and governance workflows
@@ -330,7 +339,7 @@ maternacare-ai/
 ```text
                          ┌─────────────────────────────┐
                          │        Patient Browser       │
-                         │ Bengali voice, form, chatbot │
+                         │ voice, form, IndexedDB, chat │
                          └──────────────┬──────────────┘
                                         │ HTTPS/JSON/SSE
                          ┌──────────────▼──────────────┐
@@ -365,18 +374,23 @@ maternacare-ai/
 ```text
 Patient records Bengali audio
         ↓
-React uploads audio to Express API
+Save recording in IndexedDB with a unique local ID
         ↓
-Express forwards audio to FastAPI
+If offline: wait locally ──────┐
+If online/reconnected: upload  ◄┘
         ↓
-Faster-Whisper returns transcript
+Express forwards multipart audio to FastAPI
         ↓
-Patient reviews and edits transcript
+Faster-Whisper returns Bengali transcript
         ↓
-Express saves care request in PostgreSQL
+Save editable transcript locally for patient review
+        ↓ patient submits
+Express saves care request in PostgreSQL with idempotency key
         ↓
 Nurse sees the request in the inbox
 ```
+
+If transcription fails, the client keeps the original audio and exposes a retry action. The local queue also recovers interrupted uploads when the patient returns to the page. After the care request is accepted, the client marks the item as sent and removes its local audio copy. The patient can delete an unsubmitted transcript and its local audio from the queue.
 
 #### AI Chatbot
 
@@ -557,7 +571,8 @@ The platform:
 - Gemini free-tier quota may be exhausted
 - Google facility results may be unverified
 - Live hospital bed, blood and ambulance availability are not available
-- Offline-first synchronization is incomplete
+- Offline voice drafts and retry synchronization work in the same browser/device; browser storage can still be removed by the user or operating system
+- Automatic synchronization resumes while the intake page is open or when the patient returns to it; background synchronization while the browser is closed is not implemented
 - Production backup, retention and disaster recovery need further work
 - Clinical validation and supervised pilot testing are still required
 - Browser, accessibility and mobile-device testing should be expanded
@@ -565,8 +580,7 @@ The platform:
 
 ## Future Roadmap
 
-- Offline-first PWA support
-- Local voice recording queue with later synchronization
+- Installable PWA support and background synchronization
 - Complete facility verification history
 - Semantic retrieval optimization
 - Expanded Bengali clinical evaluation set
