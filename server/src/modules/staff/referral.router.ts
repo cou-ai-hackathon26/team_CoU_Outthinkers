@@ -16,7 +16,7 @@ router.get("/referrals", async (request, response) => {
     where: scope?.role === "ADMIN" ? {} : { ownerStaffId: auth.userId },
     orderBy: [{ status: "asc" }, { dueAt: "asc" }],
     take: 100,
-    select: { id: true, status: true, reason: true, destinationName: true, destinationContact: true, sourceFacts: true, dueAt: true, completedAt: true, createdAt: true, updatedAt: true, patient: { select: { publicId: true, patientProfile: { select: { name: true } } } }, events: { orderBy: { createdAt: "desc" }, take: 10, select: { id: true, fromStatus: true, toStatus: true, performedById: true, source: true, notes: true, evidence: true, createdAt: true } } },
+    select: { id: true, status: true, reason: true, destinationName: true, destinationContact: true, facilityId: true, facility: { select: { nameBn: true, addressBn: true, status: true } }, sourceFacts: true, dueAt: true, completedAt: true, createdAt: true, updatedAt: true, patient: { select: { publicId: true, patientProfile: { select: { name: true } } } }, events: { orderBy: { createdAt: "desc" }, take: 10, select: { id: true, fromStatus: true, toStatus: true, performedById: true, source: true, notes: true, evidence: true, createdAt: true } } },
   });
   response.json({ data: referrals.map(item => ({ ...item, patientId: item.patient.publicId, patientName: item.patient.patientProfile?.name || "নাম নেই" })) });
 });
@@ -28,14 +28,19 @@ router.post("/referrals", async (request, response) => {
   const reason = String(request.body?.reason || "").trim();
   const destinationName = String(request.body?.destinationName || "").trim() || null;
   const destinationContact = String(request.body?.destinationContact || "").trim() || null;
+  const facilityId = String(request.body?.facilityId || "").trim() || null;
   const dueAt = request.body?.dueAt ? new Date(String(request.body.dueAt)) : null;
   if (!patientId || !reason) { response.status(400).json({ error: "Patient ID এবং referral-এর কারণ দিন।" }); return; }
+  if (facilityId) {
+    const facility = await prisma.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
+    if (!facility) { response.status(400).json({ error: "Referral-এর জন্য verified facility নির্বাচন করুন।" }); return; }
+  }
   if (dueAt && Number.isNaN(dueAt.getTime())) { response.status(400).json({ error: "Referral due date সঠিক নয়।" }); return; }
   const patient = await prisma.user.findFirst({ where: { publicId: patientId, role: "PATIENT", status: "ACTIVE", ...(scope?.role === "ADMIN" ? {} : { patientProfile: { upazilaId: scope?.upazilaId || "__unassigned__" } }) }, select: { id: true, publicId: true, patientProfile: { select: { name: true } } } });
   if (!patient) { response.status(404).json({ error: "Patient খুঁজে পাওয়া যায়নি।" }); return; }
   const pregnancyCase = await prisma.pregnancyCase.findFirst({ where: { patientUserId: patient.id, status: "ACTIVE" }, select: { id: true } });
   const created = await prisma.$transaction(async transaction => {
-    const referral = await transaction.referral.create({ data: { patientUserId: patient.id, pregnancyCaseId: pregnancyCase?.id, ownerStaffId: auth.userId, reason, destinationName, destinationContact, dueAt, sourceFacts: request.body?.sourceFacts || { source: "worker_created" } }, select: { id: true, status: true, dueAt: true, createdAt: true } });
+    const referral = await transaction.referral.create({ data: { patientUserId: patient.id, pregnancyCaseId: pregnancyCase?.id, ownerStaffId: auth.userId, facilityId, reason, destinationName, destinationContact, dueAt, sourceFacts: request.body?.sourceFacts || { source: "worker_created" } }, select: { id: true, status: true, facilityId: true, dueAt: true, createdAt: true } });
     await transaction.referralEvent.create({ data: { referralId: referral.id, toStatus: "DRAFT", performedById: auth.userId, source: "worker", notes: "Referral তৈরি করা হয়েছে।" } });
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "REFERRAL_CREATED", targetType: "Referral", targetId: referral.id, metadata: { patientId, destinationName } } });
     return referral;

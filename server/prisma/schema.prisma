@@ -562,6 +562,7 @@ model Referral {
   patientUserId      String         @map("patient_user_id")
   pregnancyCaseId    String?        @map("pregnancy_case_id")
   ownerStaffId       String?        @map("owner_staff_id")
+  facilityId         String?        @map("facility_id")
   status             ReferralStatus @default(DRAFT)
   reason             String
   destinationName    String?        @map("destination_name")
@@ -575,6 +576,7 @@ model Referral {
   patient       User            @relation(fields: [patientUserId], references: [id], onDelete: Restrict)
   pregnancyCase PregnancyCase?  @relation(fields: [pregnancyCaseId], references: [id], onDelete: SetNull)
   ownerStaff    User?           @relation("ReferralOwners", fields: [ownerStaffId], references: [id], onDelete: SetNull)
+  facility      Facility?       @relation(fields: [facilityId], references: [id], onDelete: SetNull)
   events        ReferralEvent[]
 
   @@index([patientUserId, status])
@@ -678,6 +680,7 @@ model Facility {
 
   verifiedBy User? @relation("FacilityVerifiers", fields: [verifiedById], references: [id], onDelete: SetNull)
   workers    FacilityWorkerProfile[]
+  referrals  Referral[]
 
   @@index([status, latitude, longitude])
   @@index([dataOwner, status])
