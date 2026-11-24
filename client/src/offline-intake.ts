@@ -1,5 +1,5 @@
-export type OfflineStatus = "SAVED_OFFLINE" | "WAITING_TO_SYNC" | "UPLOADING" | "PROCESSED" | "SYNC_FAILED";
-export type OfflineIntake = { localId: string; sourceType: "VOICE" | "MANUAL"; text: string; audio?: Blob; mimeType?: string; createdAt: number; status: OfflineStatus; error?: string; retryAfter?: number };
+export type OfflineStatus = "SAVED_OFFLINE" | "WAITING_TO_SYNC" | "UPLOADING" | "TRANSCRIBED" | "PROCESSED" | "SYNC_FAILED";
+export type OfflineIntake = { localId: string; sourceType: "VOICE" | "MANUAL"; text: string; audio?: Blob; mimeType?: string; createdAt: number; status: OfflineStatus; error?: string; retryAfter?: number; automaticRetryAttempted?: boolean };
 
 const DB = "maternacare-offline-v1";
 const STORE = "intakes";
