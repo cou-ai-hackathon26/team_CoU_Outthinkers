@@ -36,10 +36,16 @@ router.post("/intake-requests", async (request, response) => {
   const audioStorageKey = clean(request.body?.audioStorageKey) || null;
   const originalFilename = clean(request.body?.originalFilename) || null;
   const mimeType = clean(request.body?.mimeType) || null;
+  const idempotencyKey = clean(request.body?.idempotencyKey) || null;
 
   if (!transcriptText) {
     response.status(400).json({ error: "আপনার কথার লিখিত রূপ প্রয়োজন।" });
     return;
+  }
+
+  if (idempotencyKey) {
+    const existing = await prisma.patientIntakeRequest.findFirst({ where: { patientUserId: auth.userId, idempotencyKey }, select: { id: true, status: true, submittedAt: true } });
+    if (existing) { response.status(200).json({ message: "এই intake ইতিমধ্যে গ্রহণ করা হয়েছে।", data: existing }); return; }
   }
 
   const duplicate = await prisma.patientIntakeRequest.findFirst({
@@ -53,7 +59,7 @@ router.post("/intake-requests", async (request, response) => {
 
   const requestRecord = await prisma.$transaction(async (transaction) => {
     const intake = await transaction.patientIntakeRequest.create({
-      data: { patientUserId: auth.userId, sourceType, transcriptText, audioStorageKey, originalFilename, mimeType, status: "PROCESSING", transcriptionStatus: "COMPLETED" },
+      data: { patientUserId: auth.userId, idempotencyKey, sourceType, transcriptText, audioStorageKey, originalFilename, mimeType, status: "PROCESSING", transcriptionStatus: "COMPLETED" },
       select: { id: true, status: true, submittedAt: true },
     });
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "PATIENT_INTAKE_REQUEST_SUBMITTED", targetType: "PatientIntakeRequest", targetId: intake.id } });

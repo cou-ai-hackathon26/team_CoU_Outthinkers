@@ -359,6 +359,7 @@ model AuditLog {
 
 model PatientIntakeRequest {
   id                  String              @id @default(cuid())
+  idempotencyKey      String?             @map("idempotency_key")
   patientUserId       String              @map("patient_user_id")
   status              IntakeRequestStatus @default(SUBMITTED)
   sourceType          CareSourceType      @default(VOICE) @map("source_type")
@@ -379,6 +380,7 @@ model PatientIntakeRequest {
 
   @@index([patientUserId, status, submittedAt])
   @@index([status, submittedAt])
+  @@unique([patientUserId, idempotencyKey])
   @@map("patient_intake_requests")
 }
 

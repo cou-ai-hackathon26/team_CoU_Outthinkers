@@ -16,3 +16,5 @@ createRoot(document.getElementById('root')!).render(
     {window.location.pathname === '/register' ? <BrowserRouter><Registration /></BrowserRouter> : window.location.pathname === '/forgot-password' || window.location.pathname === '/reset-password' ? <BrowserRouter><PasswordReset /></BrowserRouter> : window.location.pathname === '/patient/chat' ? <PatientChat /> : window.location.pathname.startsWith('/worker/intake-review/') ? <WorkerIntakeReview /> : window.location.pathname.startsWith('/worker/patient-case/') ? <WorkerPatientCase /> : window.location.pathname === '/patient/requests' ? <PatientRequests /> : window.location.pathname === '/worker/follow-ups' ? <WorkerFollowUps /> : <App />}
   </StrictMode>,
 )
+
+if ('serviceWorker' in navigator) window.addEventListener('load', () => { void navigator.serviceWorker.register('/sw.js').catch(error => console.warn('PWA offline shell could not be registered', error)); });

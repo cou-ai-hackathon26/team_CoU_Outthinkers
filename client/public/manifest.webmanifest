@@ -1,0 +1,10 @@
+{
+  "name": "MaternaCare AI",
+  "short_name": "MaternaCare",
+  "lang": "bn-BD",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4faf7",
+  "theme_color": "#147d6d",
+  "icons": [{ "src": "/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }]
+}

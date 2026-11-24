@@ -222,6 +222,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .facility-review-notice { margin: 14px 0; padding: 14px 16px; border: 1px solid #efd39e; border-radius: 14px; color: #765114; background: #fff8e9; }
 .facility-review-notice strong { display: block; font-size: 13px; }
 .facility-review-notice p { margin: 5px 0 0; font-size: 12px; line-height: 1.6; }
+.offline-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;padding:11px 14px;border-radius:12px;font-size:12px}.offline-banner.online{color:#176a56;background:#eaf8f0}.offline-banner.offline{color:#8d5c16;background:#fff4da}.offline-queue{display:grid;gap:8px;margin-top:20px}.offline-queue h3{margin:0;color:var(--mc-primary-950);font-size:14px}.offline-queue article{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #dcece6;border-radius:12px;background:#fff}.offline-queue article>div{display:grid;gap:4px}.offline-queue article strong{font-size:11px}.offline-queue article small,.offline-queue time{color:var(--mc-subtle);font-size:10px}.offline-status{font-size:10px;font-weight:800;color:var(--mc-primary-700)}
 .patient-referrals { margin: 18px 0 28px; }
 .patient-referrals .section-heading { align-items: center; }
 .patient-referrals .section-heading h2 { margin: 0; color: var(--mc-primary-950); font-size: 19px; }
