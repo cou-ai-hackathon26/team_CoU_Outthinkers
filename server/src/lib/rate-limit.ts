@@ -20,6 +20,7 @@ export function rateLimit(options: { windowMs: number; max: number; name: string
     response.setHeader("X-RateLimit-Reset", Math.ceil(bucket.resetAt / 1000));
 
     if (bucket.count > options.max) {
+      response.setHeader("Retry-After", Math.max(1, Math.ceil((bucket.resetAt - now) / 1000)));
       response.status(429).json({ error: "অনেকবার অনুরোধ করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।" });
       return;
     }

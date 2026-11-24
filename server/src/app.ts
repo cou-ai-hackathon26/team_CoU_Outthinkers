@@ -14,7 +14,10 @@ import facilityWorkerRouter from "./modules/facility-workers/facility-worker.rou
 
 dotenv.config();
 export const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+  app.use(cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    exposedHeaders: ["Retry-After", "X-RateLimit-Reset"],
+  }));
 app.use("/api/auth", rateLimit({ name: "auth", windowMs: 60_000, max: 60 }));
 app.use("/api/voice-intake", rateLimit({ name: "voice", windowMs: 60_000, max: 20 }), requireAuth, voiceRouter);
 app.use(express.json({ limit: "2mb" }));
