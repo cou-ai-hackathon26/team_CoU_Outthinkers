@@ -123,13 +123,41 @@ async function createAccount(request: Request, response: Response, role: "NURSE"
 router.post("/nurses", (request, response) => createAccount(request, response, "NURSE"));
 router.post("/admins", (request, response) => createAccount(request, response, "ADMIN"));
 
-router.get("/facility-worker-options", async (_request, response) => {
-  const facilities = await prisma.facility.findMany({
-    where: { status: "VERIFIED" },
-    orderBy: { nameBn: "asc" },
-    select: { id: true, nameBn: true, addressBn: true },
-  });
-  response.json({ data: facilities });
+router.get("/facility-worker-options", async (request, response) => {
+  const upazilaId = clean(request.query.upazilaId);
+  if (!upazilaId) { response.status(400).json({ error: "আগে উপজেলা নির্বাচন করুন।" }); return; }
+  const upazila = await prisma.upazila.findUnique({ where: { id: upazilaId }, select: { id: true, nameBn: true, nameEn: true, district: { select: { nameBn: true, nameEn: true, division: { select: { nameBn: true, nameEn: true } } } } } });
+  if (!upazila) { response.status(404).json({ error: "নির্বাচিত উপজেলা পাওয়া যায়নি।" }); return; }
+  const key = process.env.GOOGLE_MAPS_SERVER_API_KEY;
+  if (!key) { response.status(503).json({ error: "Google Maps API key configured নয়; hospital suggestion আনা যাচ্ছে না।" }); return; }
+  const areaLabel = `${upazila.nameEn}, ${upazila.district.nameEn}, ${upazila.district.division.nameEn}, Bangladesh`;
+  try {
+    const areaResult = await fetch("https://places.googleapis.com/v1/places:searchText", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": key, "X-Goog-FieldMask": "places.location,places.formattedAddress" },
+      body: JSON.stringify({ textQuery: areaLabel, maxResultCount: 1, languageCode: "bn", regionCode: "BD" }), signal: AbortSignal.timeout(8000),
+    });
+    if (!areaResult.ok) throw new Error(`Google area lookup HTTP ${areaResult.status}`);
+    const area = (await areaResult.json() as any).places?.[0];
+    if (!area?.location) { response.json({ data: { area: { nameBn: upazila.nameBn, approximate: true }, verifiedFacilities: [], googleSuggestions: [], googleAvailable: true } }); return; }
+    const { latitude, longitude } = area.location;
+    const radius = 30000;
+    const span = radius / 111000;
+    const candidates = await prisma.facility.findMany({ where: { status: "VERIFIED", latitude: { gte: latitude - span, lte: latitude + span }, longitude: { gte: longitude - span, lte: longitude + span } }, orderBy: { nameBn: "asc" }, take: 100, select: { id: true, nameBn: true, addressBn: true, phone: true, latitude: true, longitude: true, googlePlaceId: true, verifiedAt: true } });
+    const distanceKm = (lat: number, lng: number) => { const rad = (n: number) => n * Math.PI / 180; const dLat = rad(lat - latitude); const dLng = rad(lng - longitude); const a = Math.sin(dLat / 2) ** 2 + Math.cos(rad(latitude)) * Math.cos(rad(lat)) * Math.sin(dLng / 2) ** 2; return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); };
+    const verifiedFacilities = candidates.map(item => ({ ...item, distanceKm: Number(distanceKm(item.latitude, item.longitude).toFixed(1)) })).filter(item => item.distanceKm * 1000 <= radius).sort((a, b) => a.distanceKm - b.distanceKm);
+    const placesResult = await fetch("https://places.googleapis.com/v1/places:searchNearby", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": key, "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location,places.googleMapsUri,places.businessStatus" },
+      body: JSON.stringify({ includedTypes: ["hospital", "medical_clinic"], maxResultCount: 10, rankPreference: "DISTANCE", languageCode: "bn", regionCode: "BD", locationRestriction: { circle: { center: { latitude, longitude }, radius } } }), signal: AbortSignal.timeout(10000),
+    });
+    if (!placesResult.ok) throw new Error(`Google Places search HTTP ${placesResult.status}`);
+    const places = (await placesResult.json() as any).places || [];
+    const verifiedPlaceIds = new Set(verifiedFacilities.map(item => item.googlePlaceId).filter(Boolean));
+    const googleSuggestions = places.filter((place: any) => !verifiedPlaceIds.has(place.id)).map((place: any) => ({ placeId: place.id, name: place.displayName?.text || "নাম পাওয়া যায়নি", address: place.formattedAddress || "ঠিকানা পাওয়া যায়নি", latitude: place.location?.latitude, longitude: place.location?.longitude, googleMapsUri: place.googleMapsUri || null, distanceKm: Number(distanceKm(place.location?.latitude || latitude, place.location?.longitude || longitude).toFixed(1)), trusted: false, status: "UNVERIFIED" }));
+    response.json({ data: { area: { nameBn: `${upazila.nameBn}, ${upazila.district.nameBn}`, address: area.formattedAddress, approximate: true }, verifiedFacilities, googleSuggestions, googleAvailable: true } });
+  } catch (error) {
+    console.error("Facility worker hospital suggestions failed", error);
+    response.status(502).json({ error: "এই এলাকার hospital suggestion আনা যায়নি। আবার চেষ্টা করুন।" });
+  }
 });
 
 router.post("/facility-workers", async (request, response) => {
@@ -138,8 +166,11 @@ router.post("/facility-workers", async (request, response) => {
   const password = clean(request.body?.password);
   const name = clean(request.body?.name);
   const facilityId = clean(request.body?.facilityId);
-  if (!accountEmail || !accountPhone || !name || !facilityId || password.length < 12) {
-    response.status(400).json({ error: "নাম, ইমেইল, মোবাইল, verified facility এবং কমপক্ষে ১২ অক্ষরের password দিন।" });
+  const divisionId = clean(request.body?.divisionId);
+  const districtId = clean(request.body?.districtId);
+  const upazilaId = clean(request.body?.upazilaId);
+  if (!accountEmail || !accountPhone || !name || !facilityId || !divisionId || !districtId || !upazilaId || password.length < 12) {
+    response.status(400).json({ error: "নাম, ইমেইল, মোবাইল, এলাকা, verified facility এবং কমপক্ষে ১২ অক্ষরের password দিন।" });
     return;
   }
   try {
@@ -148,6 +179,8 @@ router.post("/facility-workers", async (request, response) => {
       if (duplicate) throw new Error("DUPLICATE_ACCOUNT");
       const facility = await transaction.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
       if (!facility) throw new Error("FACILITY_NOT_VERIFIED");
+      const location = await transaction.upazila.findFirst({ where: { id: upazilaId, districtId, district: { divisionId } }, select: { id: true } });
+      if (!location) throw new Error("INVALID_LOCATION");
       const employeeId = await allocatePublicId(transaction, "EMPLOYEE");
       const user = await transaction.user.create({
         data: {
@@ -155,7 +188,7 @@ router.post("/facility-workers", async (request, response) => {
           email: accountEmail,
           phone: accountPhone,
           passwordHash: await bcrypt.hash(password, 12),
-          facilityWorkerProfile: { create: { employeeId, name, facilityId } },
+          facilityWorkerProfile: { create: { employeeId, name, facilityId, divisionId, districtId, upazilaId } },
         },
         select: { id: true, email: true, role: true },
       });
@@ -168,6 +201,7 @@ router.post("/facility-workers", async (request, response) => {
   } catch (error) {
     if (error instanceof Error && error.message === "DUPLICATE_ACCOUNT") { response.status(409).json({ error: "এই ইমেইল বা মোবাইল নম্বর আগে থেকেই ব্যবহৃত হয়েছে।" }); return; }
     if (error instanceof Error && error.message === "FACILITY_NOT_VERIFIED") { response.status(400).json({ error: "শুধু verified facility-তে worker account তৈরি করা যাবে।" }); return; }
+    if (error instanceof Error && error.message === "INVALID_LOCATION") { response.status(400).json({ error: "বিভাগ, জেলা ও উপজেলার নির্বাচন মিলছে না।" }); return; }
     console.error("Facility worker creation failed", error);
     response.status(500).json({ error: "Facility worker account তৈরি করা যায়নি।" });
   }

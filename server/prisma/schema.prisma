@@ -223,13 +223,20 @@ model FacilityWorkerProfile {
   employeeId String   @unique @map("employee_id")
   name       String
   facilityId String   @map("facility_id")
+  divisionId String?  @map("division_id")
+  districtId String?  @map("district_id")
+  upazilaId  String?  @map("upazila_id")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   facility Facility @relation(fields: [facilityId], references: [id], onDelete: Restrict)
+  division Division? @relation(fields: [divisionId], references: [id])
+  district District? @relation(fields: [districtId], references: [id])
+  upazila  Upazila?  @relation(fields: [upazilaId], references: [id])
 
-  @@index([facilityId])
+  @@index([facilityId, upazilaId])
+  @@index([divisionId, districtId, upazilaId])
   @@map("facility_worker_profiles")
 }
 
@@ -244,6 +251,7 @@ model Division {
   districts       District[]
   patientProfiles PatientProfile[]
   staffProfiles   StaffProfile[]
+  facilityWorkerProfiles FacilityWorkerProfile[]
 
   @@unique([nameBn])
   @@unique([nameEn])
@@ -264,6 +272,7 @@ model District {
   upazilas        Upazila[]
   patientProfiles PatientProfile[]
   staffProfiles   StaffProfile[]
+  facilityWorkerProfiles FacilityWorkerProfile[]
 
   @@unique([divisionId, nameBn])
   @@unique([divisionId, nameEn])
@@ -283,6 +292,7 @@ model Upazila {
   district        District         @relation(fields: [districtId], references: [id], onDelete: Restrict)
   patientProfiles PatientProfile[]
   staffProfiles   StaffProfile[]
+  facilityWorkerProfiles FacilityWorkerProfile[]
 
   @@unique([districtId, nameBn])
   @@unique([districtId, nameEn])
