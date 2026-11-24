@@ -1,9 +1,47 @@
 import { useEffect, useState } from "react";
 import { Activity, ClipboardList, HeartPulse, Home, LogOut, Menu, Mic, UserRound, X } from "lucide-react";
 import api from "./lib/api";
+import PatientReferrals from "./PatientReferrals";
 
 const statusText: Record<string, string> = { SUBMITTED: "পাঠানো হয়েছে", PROCESSING: "AI তথ্য সাজাচ্ছে", READY_FOR_REVIEW: "স্বাস্থ্যকর্মীর যাচাইয়ের অপেক্ষায়", VERIFIED: "যাচাই সম্পন্ন", REJECTED: "অনুরোধ বাতিল" };
 const statusClass: Record<string, string> = { SUBMITTED: "submitted", PROCESSING: "processing", READY_FOR_REVIEW: "review", VERIFIED: "verified", REJECTED: "rejected" };
 const statusHint: Record<string, string> = { SUBMITTED: "আপনার তথ্য স্বাস্থ্যকর্মীর inbox-এ পাঠানো হয়েছে।", PROCESSING: "AI আপনার কথার গুরুত্বপূর্ণ তথ্য সাজাচ্ছে।", READY_FOR_REVIEW: "স্বাস্থ্যকর্মী আপনার তথ্য যাচাই করবেন।", VERIFIED: "স্বাস্থ্যকর্মী আপনার তথ্য যাচাই করেছেন।", REJECTED: "নতুন করে আরও পরিষ্কার তথ্য পাঠাতে পারেন।" };
-function PatientNavbar() { const [open, setOpen] = useState(false); const close = () => setOpen(false); return <header className="app-navbar"><div className="nav-inner"><a className="brand-logo" href="/patient/home"><span className="logo-icon"><HeartPulse size={20} /></span><span>MaternaCare <b>AI</b></span></a><button className="mobile-menu" aria-label="মেনু" onClick={() => setOpen(value => !value)}>{open ? <X /> : <Menu />}</button><nav className={open ? "nav-links open" : "nav-links"}><a href="/patient/home" onClick={close}><Home size={17} />আমার হোম</a><a href="/patient/voice-intake" onClick={close}><Mic size={17} />কথা বলে তথ্য দিন</a><a className="active" href="/patient/requests" onClick={close}><ClipboardList size={17} />আমার অনুরোধ</a><a href="/patient/follow-ups" onClick={close}><Activity size={17} />Follow-up</a><a href="/patient/profile" onClick={close}><UserRound size={17} />আমার প্রোফাইল</a><button className="nav-logout" onClick={() => { localStorage.removeItem("maternacare_token"); window.location.href = "/login"; }}><LogOut size={17} /> বের হোন</button></nav></div></header>; }
-export default function PatientRequests() { const [items, setItems] = useState<any[]>([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(""); const load = async (initial = false) => { try { const r = await api.get("/patient/intake-requests"); setItems(r.data.data || []); setError(""); } catch (e: any) { setError(e.response?.data?.error || "আপনার অনুরোধ লোড করা যাচ্ছে না।"); } finally { if (initial) setLoading(false); } }; useEffect(() => { void load(true); const timer = window.setInterval(() => void load(), 20000); return () => window.clearInterval(timer); }, []); return <main className="role-app"><PatientNavbar /><div className="page-container"><div className="page-header"><div><span className="page-eyebrow">আপনার care journey</span><h1>আমার অনুরোধ</h1><p>আপনি যে care intake পাঠিয়েছেন, তার বর্তমান অবস্থা এখানে দেখতে পারবেন।</p></div><a className="primary-action" href="/patient/voice-intake"><Mic size={16} /> নতুন intake</a></div>{loading && <div className="loading-card">আপনার অনুরোধ লোড হচ্ছে…</div>}{error && <p className="inline-error">{error}</p>}{!loading && !error && items.length === 0 && <section className="empty-card"><span className="empty-icon"><ClipboardList size={21} /></span><h3>এখনও কোনো অনুরোধ নেই</h3><p>বাড়ি থেকে বাংলায় কথা বা manual form-এ care intake পাঠান।</p><a className="secondary-action" href="/patient/voice-intake">প্রথম care intake শুরু করুন</a></section>}<div className="request-list">{items.map(item => <article className="request-card" key={item.id}><div className="request-card-top"><div><span className={`request-status ${statusClass[item.status] || ""}`}>{statusText[item.status] || item.status}</span><h2>{statusText[item.status] || "আপনার care request"}</h2></div><time>{new Date(item.submittedAt).toLocaleString("bn-BD", { dateStyle: "medium", timeStyle: "short" })}</time></div><div className="request-progress"><span className={item.status !== "REJECTED" ? "done" : "current"}>১</span><i /><span className={["READY_FOR_REVIEW", "VERIFIED"].includes(item.status) ? "done" : item.status === "REJECTED" ? "current" : ""}>২</span><i /><span className={item.status === "VERIFIED" ? "done" : ""}>৩</span></div><p className="request-hint">{statusHint[item.status] || "আপনার অনুরোধের অবস্থা update হচ্ছে।"}</p><p className="request-label">আপনার বলা কথা</p><p className="request-transcript">{item.transcriptText || "Transcript তৈরি হচ্ছে…"}</p>{item.status === "REJECTED" && <p className="request-note">স্বাস্থ্যকর্মী আপনার অনুরোধটি গ্রহণ করতে পারেননি। নতুন করে তথ্য পাঠাতে পারেন।</p>}{item.status === "VERIFIED" && <p className="request-note success">আপনার তথ্য স্বাস্থ্যকর্মী যাচাই করেছেন। পরবর্তী care plan শিগগিরই জানানো হবে।</p>}</article>)}</div></div></main>; }
+
+function PatientNavbar() {
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+  return <header className="app-navbar"><div className="nav-inner"><a className="brand-logo" href="/patient/home"><span className="logo-icon"><HeartPulse size={20} /></span><span>MaternaCare <b>AI</b></span></a><button className="mobile-menu" aria-label="মেনু" onClick={() => setOpen(value => !value)}>{open ? <X /> : <Menu />}</button><nav className={open ? "nav-links open" : "nav-links"}><a href="/patient/home" onClick={close}><Home size={17} />আমার হোম</a><a href="/patient/voice-intake" onClick={close}><Mic size={17} />কথা বলে তথ্য দিন</a><a className="active" href="/patient/requests" onClick={close}><ClipboardList size={17} />আমার অনুরোধ</a><a href="/patient/follow-ups" onClick={close}><Activity size={17} />Follow-up</a><a href="/patient/profile" onClick={close}><UserRound size={17} />আমার প্রোফাইল</a><button className="nav-logout" onClick={() => { localStorage.removeItem("maternacare_token"); window.location.href = "/login"; }}><LogOut size={17} /> বের হোন</button></nav></div></header>;
+}
+
+export default function PatientRequests() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const load = async (initial = false) => {
+    try {
+      const result = await api.get("/patient/intake-requests");
+      setItems(result.data.data || []);
+      setError("");
+    } catch (failure: any) {
+      setError(failure.response?.data?.error || "আপনার অনুরোধ লোড করা যাচ্ছে না।");
+    } finally {
+      if (initial) setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    void load(true);
+    const timer = window.setInterval(() => void load(), 20000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return <main className="role-app"><PatientNavbar /><div className="page-container">
+    <div className="page-header"><div><span className="page-eyebrow">আপনার care journey</span><h1>আমার অনুরোধ</h1><p>আপনি যে care intake পাঠিয়েছেন এবং তার পরের referral update—সব এখানে দেখতে পারবেন।</p></div><a className="primary-action" href="/patient/voice-intake"><Mic size={16} /> নতুন intake</a></div>
+    <PatientReferrals />
+    {loading && <div className="loading-card">আপনার অনুরোধ লোড হচ্ছে…</div>}
+    {error && <p className="inline-error">{error}</p>}
+    {!loading && !error && items.length === 0 && <section className="empty-card"><span className="empty-icon"><ClipboardList size={21} /></span><h3>এখনও কোনো care intake নেই</h3><p>বাড়ি থেকে বাংলায় কথা বা manual form-এ care intake পাঠান।</p><a className="secondary-action" href="/patient/voice-intake">প্রথম care intake শুরু করুন</a></section>}
+    <div className="request-list">{items.map(item => <article className="request-card" key={item.id}><div className="request-card-top"><div><span className={`request-status ${statusClass[item.status] || ""}`}>{statusText[item.status] || item.status}</span><h2>{statusText[item.status] || "আপনার care request"}</h2></div><time>{new Date(item.submittedAt).toLocaleString("bn-BD", { dateStyle: "medium", timeStyle: "short" })}</time></div><div className="request-progress"><span className={item.status !== "REJECTED" ? "done" : "current"}>১</span><i /><span className={["READY_FOR_REVIEW", "VERIFIED"].includes(item.status) ? "done" : item.status === "REJECTED" ? "current" : ""}>২</span><i /><span className={item.status === "VERIFIED" ? "done" : ""}>৩</span></div><p className="request-hint">{statusHint[item.status] || "আপনার অনুরোধের অবস্থা update হচ্ছে।"}</p><p className="request-label">আপনার বলা কথা</p><p className="request-transcript">{item.transcriptText || "Transcript তৈরি হচ্ছে…"}</p>{item.status === "REJECTED" && <p className="request-note">স্বাস্থ্যকর্মী আপনার অনুরোধটি গ্রহণ করতে পারেননি। নতুন করে তথ্য পাঠাতে পারেন।</p>}{item.status === "VERIFIED" && <p className="request-note success">আপনার তথ্য স্বাস্থ্যকর্মী যাচাই করেছেন। পরবর্তী care plan শিগগিরই জানানো হবে।</p>}</article>)}</div>
+  </div></main>;
+}

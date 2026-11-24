@@ -9,6 +9,17 @@ import { createInAppNotification } from "../workflow/notification.service";
 const router = Router();
 router.use(requireAuth, requireRole("NURSE", "ADMIN"));
 
+const patientReferralStatusText: Record<string, string> = {
+  SENT: "স্বাস্থ্যকর্মী referral facility-তে পাঠিয়েছেন",
+  ACKNOWLEDGED: "facility referral গ্রহণ করেছে",
+  REJECTED: "facility referral গ্রহণ করতে পারেনি; স্বাস্থ্যকর্মীকে জানানো হয়েছে",
+  IN_TRANSIT: "আপনার facility-তে যাওয়ার ব্যবস্থা চলছে",
+  ARRIVED: "facility-তে পৌঁছানোর তথ্য নথিভুক্ত হয়েছে",
+  ACCEPTED: "facility আপনাকে গ্রহণ করেছে",
+  COMPLETED: "referral-এর পরবর্তী ধাপ সম্পন্ন হয়েছে",
+  UNRESOLVED: "referral-টি এখনও সমাধান হয়নি; স্বাস্থ্যকর্মী follow-up করবেন",
+};
+
 router.get("/referrals", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);
@@ -53,7 +64,7 @@ router.patch("/referrals/:id/status", async (request, response) => {
   const auth = response.locals.auth as { userId: string };
   const scope = await getStaffScope(auth.userId);
   const toStatus = String(request.body?.status || "").trim();
-  const referral = await prisma.referral.findFirst({ where: { id: request.params.id, ...(scope?.role === "ADMIN" ? {} : { ownerStaffId: auth.userId }) }, select: { id: true, patientUserId: true, status: true } });
+  const referral = await prisma.referral.findFirst({ where: { id: request.params.id, ...(scope?.role === "ADMIN" ? {} : { ownerStaffId: auth.userId }) }, select: { id: true, patientUserId: true, facilityId: true, status: true } });
   if (!referral) { response.status(404).json({ error: "Referral খুঁজে পাওয়া যায়নি।" }); return; }
   if (!(toStatus in { DRAFT: 1, SENT: 1, ACKNOWLEDGED: 1, IN_TRANSIT: 1, ARRIVED: 1, ACCEPTED: 1, TRANSFERRED: 1, COMPLETED: 1, UNRESOLVED: 1 })) { response.status(400).json({ error: "Referral status সঠিক নয়।" }); return; }
   try { assertReferralTransition(referral.status, toStatus as any); } catch { response.status(409).json({ error: `এই referral-এ ${referral.status} থেকে ${toStatus} status করা যাবে না।` }); return; }
@@ -65,7 +76,13 @@ router.patch("/referrals/:id/status", async (request, response) => {
     await transaction.auditLog.create({ data: { actorType: "USER", actorUserId: auth.userId, action: "REFERRAL_STATUS_CHANGED", targetType: "Referral", targetId: referral.id, metadata: { fromStatus: referral.status, toStatus, source } } });
     return next;
   });
-  await createInAppNotification({ userId: auth.userId, type: "REFERRAL_STATUS_CHANGED", title: "Referral status update", message: `Referral এখন ${toStatus} status-এ আছে।`, targetType: "Referral", targetId: referral.id, metadata: { fromStatus: referral.status, toStatus } });
+  const notifications = [createInAppNotification({ userId: referral.patientUserId, type: "PATIENT_REFERRAL_UPDATE", title: "আপনার referral-এর update", message: patientReferralStatusText[toStatus] || "আপনার referral-এর অবস্থা update হয়েছে।", targetType: "Referral", targetId: referral.id, metadata: { fromStatus: referral.status, toStatus } })];
+  if (toStatus === "SENT" && referral.facilityId) {
+    const workers = await prisma.facilityWorkerProfile.findMany({ where: { facilityId: referral.facilityId, user: { status: "ACTIVE" } }, select: { userId: true } });
+    notifications.push(...workers.map(worker => createInAppNotification({ userId: worker.userId, type: "FACILITY_REFERRAL_RECEIVED", title: "নতুন referral এসেছে", message: "আপনার facility-তে একটি referral পাঠানো হয়েছে। inbox-এ দেখুন।", targetType: "Referral", targetId: referral.id, metadata: { status: "SENT" } })));
+  }
+  const notificationResults = await Promise.allSettled(notifications);
+  notificationResults.filter(result => result.status === "rejected").forEach(result => console.error("Referral notification failed", result));
   try { await evaluateCareGaps(referral.patientUserId, auth.userId); } catch (error) { console.error("Care-gap evaluation after referral update failed", error); }
   response.json({ data: updated });
 });

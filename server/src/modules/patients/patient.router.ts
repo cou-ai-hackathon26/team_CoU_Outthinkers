@@ -139,6 +139,21 @@ router.post("/chat/sessions/:id/messages/stream", async (request, response) => {
   }
 });
 
+router.get("/referrals", async (_request, response) => {
+  const auth = response.locals.auth as { userId: string };
+  const referrals = await prisma.referral.findMany({
+    where: { patientUserId: auth.userId },
+    orderBy: [{ updatedAt: "desc" }],
+    take: 50,
+    select: {
+      id: true, status: true, reason: true, destinationName: true, destinationContact: true, dueAt: true, completedAt: true, createdAt: true, updatedAt: true,
+      facility: { select: { nameBn: true, addressBn: true, phone: true, status: true } },
+      events: { orderBy: { createdAt: "asc" }, select: { id: true, toStatus: true, createdAt: true } },
+    },
+  });
+  response.json({ data: referrals });
+});
+
 router.get("/follow-ups", async (_request, response) => {
   const auth = response.locals.auth as { userId: string };
   const tasks = await prisma.followUpTask.findMany({
