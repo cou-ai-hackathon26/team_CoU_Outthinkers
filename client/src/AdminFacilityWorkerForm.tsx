@@ -5,12 +5,13 @@ import api from "./lib/api";
 
 type AreaOption = { id: string; nameBn: string };
 type FacilityOption = { id: string; nameBn: string; addressBn: string; phone?: string | null; distanceKm: number; verifiedAt?: string | null };
-type GoogleHospital = { placeId: string; name: string; address: string; googleMapsUri?: string | null; distanceKm: number };
+type GoogleHospital = { placeId: string; name: string; address: string; latitude: number; longitude: number; googleMapsUri?: string | null; distanceKm: number };
 
 export default function AdminFacilityWorkerForm() {
   const [areas, setAreas] = useState<{ divisions: AreaOption[]; districts: AreaOption[]; upazilas: AreaOption[] }>({ divisions: [], districts: [], upazilas: [] });
   const [facilities, setFacilities] = useState<FacilityOption[]>([]);
   const [googleHospitals, setGoogleHospitals] = useState<GoogleHospital[]>([]);
+  const [selectedGoogleHospital, setSelectedGoogleHospital] = useState<GoogleHospital | null>(null);
   const [loadingAreas, setLoadingAreas] = useState(true);
   const [loadingHospitals, setLoadingHospitals] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -41,14 +42,16 @@ export default function AdminFacilityWorkerForm() {
   }, [form.districtId]);
 
   useEffect(() => {
-    if (!form.upazilaId) { setFacilities([]); setGoogleHospitals([]); setAreaLabel(""); return; }
+    if (!form.upazilaId) { setFacilities([]); setGoogleHospitals([]); setSelectedGoogleHospital(null); setAreaLabel(""); return; }
     setLoadingHospitals(true);
     setError("");
     setForm(current => ({ ...current, facilityId: "" }));
+    setSelectedGoogleHospital(null);
     api.get(`/admin/facility-worker-options?upazilaId=${encodeURIComponent(form.upazilaId)}`)
       .then(result => {
         setFacilities(result.data.data.verifiedFacilities || []);
         setGoogleHospitals(result.data.data.googleSuggestions || []);
+        setSelectedGoogleHospital(null);
         setAreaLabel(result.data.data.area?.nameBn || "");
       })
       .catch(result => setError(result.response?.data?.error || "এলাকার hospital suggestion আনা যায়নি।"))
@@ -61,11 +64,14 @@ export default function AdminFacilityWorkerForm() {
     setError("");
     setSuccess("");
     try {
-      const result = await api.post("/admin/facility-workers", form);
-      setSuccess(`Facility worker account তৈরি হয়েছে · কর্মী ID: ${result.data.account.employeeId}`);
+      const result = await api.post("/admin/facility-workers", { ...form, facilityId: form.facilityId || undefined, googleHospital: selectedGoogleHospital || undefined });
+      setSuccess(selectedGoogleHospital
+        ? `Facility worker account তৈরি হয়েছে · কর্মী ID: ${result.data.account.employeeId}। নির্বাচিত Google facility-টি admin verification-এর জন্য draft হিসেবে যোগ হয়েছে।`
+        : `Facility worker account তৈরি হয়েছে · কর্মী ID: ${result.data.account.employeeId}`);
       setForm({ name: "", email: "", phone: "", password: "", divisionId: "", districtId: "", upazilaId: "", facilityId: "" });
       setFacilities([]);
       setGoogleHospitals([]);
+      setSelectedGoogleHospital(null);
     } catch (failure: any) {
       setError(failure.response?.data?.error || "Facility worker account তৈরি করা যায়নি।");
     } finally {
@@ -75,7 +81,7 @@ export default function AdminFacilityWorkerForm() {
 
   return <section className="review-panel admin-facility-worker-form">
     <h2 className="section-title"><Building2 size={18} /> Facility worker account তৈরি করুন</h2>
-    <p className="muted-copy">এলাকা নির্বাচন করলে Google Maps কাছের হাসপাতাল দেখাবে। account শুধু verified facility-তে যুক্ত হবে।</p>
+    <p className="muted-copy">এলাকা নির্বাচন করে verified facility অথবা Google Maps-এর hospital বেছে নিন। Google result বেছে নিলে সেটি unverified draft হিসেবে সংরক্ষিত হবে; admin যাচাইয়ের আগে trusted destination হবে না।</p>
     {error && <p className="inline-error">{error}</p>}
     {success && <p className="success-message">{success}</p>}
     <form className="task-form" onSubmit={create}>
@@ -83,10 +89,10 @@ export default function AdminFacilityWorkerForm() {
       <input className="plain-input" type="email" placeholder="ইমেইল" value={form.email} onChange={event => setForm({ ...form, email: event.target.value })} required />
       <input className="plain-input" type="tel" placeholder="মোবাইল নম্বর" value={form.phone} onChange={event => setForm({ ...form, phone: event.target.value })} required />
       <input className="plain-input" type="password" minLength={12} placeholder="কমপক্ষে ১২ অক্ষরের password" value={form.password} onChange={event => setForm({ ...form, password: event.target.value })} required />
-      <select className="plain-input" value={form.divisionId} disabled={loadingAreas} onChange={event => setForm({ ...form, divisionId: event.target.value, districtId: "", upazilaId: "", facilityId: "" })} required>
+      <select className="plain-input" value={form.divisionId} disabled={loadingAreas} onChange={event => { setSelectedGoogleHospital(null); setForm({ ...form, divisionId: event.target.value, districtId: "", upazilaId: "", facilityId: "" }); }} required>
         <option value="">{loadingAreas ? "বিভাগ আনা হচ্ছে…" : "বিভাগ নির্বাচন করুন"}</option>{areas.divisions.map(area => <option key={area.id} value={area.id}>{area.nameBn}</option>)}
       </select>
-      <select className="plain-input" value={form.districtId} disabled={!form.divisionId} onChange={event => setForm({ ...form, districtId: event.target.value, upazilaId: "", facilityId: "" })} required>
+      <select className="plain-input" value={form.districtId} disabled={!form.divisionId} onChange={event => { setSelectedGoogleHospital(null); setForm({ ...form, districtId: event.target.value, upazilaId: "", facilityId: "" }); }} required>
         <option value="">জেলা নির্বাচন করুন</option>{areas.districts.map(area => <option key={area.id} value={area.id}>{area.nameBn}</option>)}
       </select>
       <select className="plain-input" value={form.upazilaId} disabled={!form.districtId} onChange={event => setForm({ ...form, upazilaId: event.target.value, facilityId: "" })} required>
@@ -95,13 +101,14 @@ export default function AdminFacilityWorkerForm() {
       {areaLabel && <p className="success-message"><MapPin size={15} /> আনুমানিক এলাকা: {areaLabel}</p>}
       <div className="search-results">
         <strong>এই এলাকার verified facility {loadingHospitals ? "খোঁজা হচ্ছে…" : `(${facilities.length})`}</strong>
-        {facilities.map(facility => <button type="button" key={facility.id} className={`patient-result ${form.facilityId === facility.id ? "selected" : ""}`} onClick={() => setForm({ ...form, facilityId: facility.id })}>
+        {facilities.map(facility => <button type="button" key={facility.id} className={`patient-result ${form.facilityId === facility.id && !selectedGoogleHospital ? "selected" : ""}`} onClick={() => { setSelectedGoogleHospital(null); setForm({ ...form, facilityId: facility.id }); }}>
           <span><MapPin size={16} /></span><span><strong>{facility.nameBn}</strong><small>{facility.addressBn} · প্রায় {facility.distanceKm} km · Admin verified</small></span>
         </button>)}
         {!loadingHospitals && form.upazilaId && facilities.length === 0 && <small className="search-empty">এই এলাকার আশেপাশে directory-তে verified facility নেই।</small>}
       </div>
-      {googleHospitals.length > 0 && <div className="unverified-facilities"><h4>Google Maps hospital suggestions <span>যাচাই হয়নি</span></h4><p>এগুলো directory-তে verified নয়; account-এ যুক্ত করার আগে Admin → Facilities থেকে যাচাই করুন।</p>{googleHospitals.map(hospital => <div className="unverified-facility-row" key={hospital.placeId}><div><strong>{hospital.name}</strong><small>{hospital.address} · প্রায় {hospital.distanceKm} km</small></div>{hospital.googleMapsUri && <a href={hospital.googleMapsUri} target="_blank" rel="noreferrer">Maps-এ দেখুন</a>}</div>)}</div>}
-      <button className="primary-action" type="submit" disabled={busy || loadingHospitals || !form.facilityId}><UserPlus size={16} /> {busy ? "তৈরি হচ্ছে…" : "Facility worker তৈরি করুন"}</button>
+      {googleHospitals.length > 0 && <div className="unverified-facilities"><h4>Google Maps hospital suggestions <span>যাচাই হয়নি</span></h4><p>যেটি worker-এর facility, সেটি নির্বাচন করুন। বাছাই করা result facility directory-তে draft হিসেবে যোগ হবে; পরে Admin → Facilities থেকে যাচাই করুন।</p>{googleHospitals.map(hospital => <div className={`unverified-facility-row ${selectedGoogleHospital?.placeId === hospital.placeId ? "selected" : ""}`} key={hospital.placeId}><div><strong>{hospital.name}</strong><small>{hospital.address} · প্রায় {hospital.distanceKm} km</small></div><div className="unverified-facility-actions">{hospital.googleMapsUri && <a href={hospital.googleMapsUri} target="_blank" rel="noreferrer">Maps-এ দেখুন</a>}<button className="secondary-action" type="button" onClick={() => { setForm({ ...form, facilityId: "" }); setSelectedGoogleHospital(hospital); }}>{selectedGoogleHospital?.placeId === hospital.placeId ? "নির্বাচিত" : "এই facility নির্বাচন"}</button></div></div>)}</div>}
+      {selectedGoogleHospital && <div className="selected-facility-card"><div><span className="status-pill warning">Google result · admin review বাকি</span><strong>{selectedGoogleHospital.name}</strong><small>{selectedGoogleHospital.address}</small></div><button type="button" className="text-button" onClick={() => setSelectedGoogleHospital(null)}>বাছাই বাতিল</button></div>}
+      <button className="primary-action" type="submit" disabled={busy || loadingHospitals || (!form.facilityId && !selectedGoogleHospital)}><UserPlus size={16} /> {busy ? "তৈরি হচ্ছে…" : "Facility worker তৈরি করুন"}</button>
     </form>
   </section>;
 }

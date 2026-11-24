@@ -166,19 +166,58 @@ router.post("/facility-workers", async (request, response) => {
   const password = clean(request.body?.password);
   const name = clean(request.body?.name);
   const facilityId = clean(request.body?.facilityId);
+  const googleHospital = request.body?.googleHospital;
+  const googlePlaceId = clean(googleHospital?.placeId);
+  const googleName = clean(googleHospital?.name);
+  const googleAddress = clean(googleHospital?.address);
+  const googleLatitude = Number(googleHospital?.latitude);
+  const googleLongitude = Number(googleHospital?.longitude);
+  const hasGoogleHospital = Boolean(googlePlaceId && googleName && googleAddress && Number.isFinite(googleLatitude) && Number.isFinite(googleLongitude) && googleLatitude >= -90 && googleLatitude <= 90 && googleLongitude >= -180 && googleLongitude <= 180);
   const divisionId = clean(request.body?.divisionId);
   const districtId = clean(request.body?.districtId);
   const upazilaId = clean(request.body?.upazilaId);
-  if (!accountEmail || !accountPhone || !name || !facilityId || !divisionId || !districtId || !upazilaId || password.length < 12) {
-    response.status(400).json({ error: "নাম, ইমেইল, মোবাইল, এলাকা, verified facility এবং কমপক্ষে ১২ অক্ষরের password দিন।" });
+  if (!accountEmail || !accountPhone || !name || (!facilityId && !hasGoogleHospital) || !divisionId || !districtId || !upazilaId || password.length < 12) {
+    response.status(400).json({ error: "নাম, ইমেইল, মোবাইল, এলাকা, facility এবং কমপক্ষে ১২ অক্ষরের password দিন।" });
     return;
   }
   try {
     const created = await prisma.$transaction(async transaction => {
       const duplicate = await transaction.user.findFirst({ where: { OR: [{ email: accountEmail }, { phone: accountPhone }] }, select: { id: true } });
       if (duplicate) throw new Error("DUPLICATE_ACCOUNT");
-      const facility = await transaction.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
-      if (!facility) throw new Error("FACILITY_NOT_VERIFIED");
+      let selectedFacilityId = facilityId;
+      let facilityPendingVerification = false;
+      if (facilityId) {
+        const facility = await transaction.facility.findFirst({ where: { id: facilityId, status: "VERIFIED" }, select: { id: true } });
+        if (!facility) throw new Error("FACILITY_NOT_VERIFIED");
+      } else {
+        const existing = await transaction.facility.findUnique({ where: { googlePlaceId }, select: { id: true, status: true } });
+        if (existing) {
+          if (existing.status === "REJECTED" || existing.status === "DEACTIVATED") throw new Error("FACILITY_UNAVAILABLE");
+          selectedFacilityId = existing.id;
+          facilityPendingVerification = existing.status !== "VERIFIED";
+        } else {
+          const imported = await transaction.facility.create({
+            data: {
+              nameBn: googleName,
+              addressBn: googleAddress,
+              addressEn: googleAddress,
+              latitude: googleLatitude,
+              longitude: googleLongitude,
+              services: {},
+              dataOwner: "Google Places · admin verification pending",
+              source: "GOOGLE_PLACES",
+              googlePlaceId,
+              status: "DRAFT",
+            },
+            select: { id: true },
+          });
+          selectedFacilityId = imported.id;
+          facilityPendingVerification = true;
+          await transaction.auditLog.create({
+            data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "FACILITY_IMPORTED_FROM_GOOGLE", targetType: "Facility", targetId: imported.id, metadata: { googlePlaceId, name: googleName, status: "DRAFT" } },
+          });
+        }
+      }
       const location = await transaction.upazila.findFirst({ where: { id: upazilaId, districtId, district: { divisionId } }, select: { id: true } });
       if (!location) throw new Error("INVALID_LOCATION");
       const employeeId = await allocatePublicId(transaction, "EMPLOYEE");
@@ -188,19 +227,20 @@ router.post("/facility-workers", async (request, response) => {
           email: accountEmail,
           phone: accountPhone,
           passwordHash: await bcrypt.hash(password, 12),
-          facilityWorkerProfile: { create: { employeeId, name, facilityId, divisionId, districtId, upazilaId } },
+          facilityWorkerProfile: { create: { employeeId, name, facilityId: selectedFacilityId, divisionId, districtId, upazilaId } },
         },
         select: { id: true, email: true, role: true },
       });
       await transaction.auditLog.create({
-        data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "FACILITY_WORKER_CREATED", targetType: "User", targetId: user.id, metadata: { email: user.email, facilityId, employeeId } },
+        data: { actorType: "USER", actorUserId: response.locals.auth.userId, action: "FACILITY_WORKER_CREATED", targetType: "User", targetId: user.id, metadata: { email: user.email, facilityId: selectedFacilityId, employeeId, facilityPendingVerification } },
       });
-      return { ...user, employeeId };
+      return { ...user, employeeId, facilityId: selectedFacilityId, facilityPendingVerification };
     });
     response.status(201).json({ message: "Facility worker account তৈরি হয়েছে।", account: created });
   } catch (error) {
     if (error instanceof Error && error.message === "DUPLICATE_ACCOUNT") { response.status(409).json({ error: "এই ইমেইল বা মোবাইল নম্বর আগে থেকেই ব্যবহৃত হয়েছে।" }); return; }
     if (error instanceof Error && error.message === "FACILITY_NOT_VERIFIED") { response.status(400).json({ error: "শুধু verified facility-তে worker account তৈরি করা যাবে।" }); return; }
+    if (error instanceof Error && error.message === "FACILITY_UNAVAILABLE") { response.status(400).json({ error: "এই Google facility admin review-এ বাতিল বা নিষ্ক্রিয়; অন্য facility নির্বাচন করুন।" }); return; }
     if (error instanceof Error && error.message === "INVALID_LOCATION") { response.status(400).json({ error: "বিভাগ, জেলা ও উপজেলার নির্বাচন মিলছে না।" }); return; }
     console.error("Facility worker creation failed", error);
     response.status(500).json({ error: "Facility worker account তৈরি করা যায়নি।" });

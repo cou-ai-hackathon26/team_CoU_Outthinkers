@@ -9,7 +9,7 @@ router.use(requireAuth, requireRole("FACILITY_WORKER"));
 async function facilityForWorker(userId: string) {
   const profile = await prisma.facilityWorkerProfile.findUnique({
     where: { userId },
-    select: { facilityId: true, name: true, employeeId: true, facility: { select: { nameBn: true } } },
+    select: { facilityId: true, name: true, employeeId: true, facility: { select: { nameBn: true, status: true, source: true } } },
   });
   return profile;
 }
